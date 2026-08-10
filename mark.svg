@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" role="img" aria-label="فرجان">
+<!-- the fareej mosaic — 19 blocks transcribed cell-for-cell from
+     src/components/FareejLogo.tsx (same x/y/w/h, same inks, same opacities,
+     rx 2 on the 60-unit grid). Keep the two in sync if either moves. -->
+<g>
+  <rect x="3"  y="3"  width="13" height="13" rx="2" fill="#8A1538" opacity=".85"/>
+  <rect x="18" y="3"  width="9"  height="13" rx="2" fill="#C9962F" opacity=".40"/>
+  <rect x="29" y="3"  width="13" height="13" rx="2" fill="#E8B547" opacity=".95"/>
+  <rect x="44" y="3"  width="13" height="9"  rx="2" fill="#8A1538" opacity=".55"/>
+  <rect x="3"  y="18" width="9"  height="9"  rx="2" fill="#C9962F" opacity=".60"/>
+  <rect x="14" y="18" width="13" height="9"  rx="2" fill="#E8B547" opacity="1"/>
+  <rect x="29" y="18" width="9"  height="13" rx="2" fill="#8A1538" opacity=".45"/>
+  <rect x="40" y="14" width="9"  height="9"  rx="2" fill="#C9962F" opacity=".75"/>
+  <rect x="51" y="14" width="6"  height="13" rx="2" fill="#8A1538" opacity=".30"/>
+  <rect x="3"  y="29" width="13" height="13" rx="2" fill="#8A1538" opacity=".50"/>
+  <rect x="18" y="29" width="9"  height="9"  rx="2" fill="#E8B547" opacity=".90"/>
+  <rect x="40" y="25" width="13" height="13" rx="2" fill="#8A1538" opacity=".65"/>
+  <rect x="18" y="40" width="9"  height="13" rx="2" fill="#C9962F" opacity=".55"/>
+  <rect x="29" y="33" width="9"  height="13" rx="2" fill="#E8B547" opacity="1"/>
+  <rect x="40" y="40" width="9"  height="13" rx="2" fill="#8A1538" opacity=".35"/>
+  <rect x="51" y="29" width="6"  height="9"  rx="2" fill="#C9962F" opacity=".85"/>
+  <rect x="3"  y="44" width="13" height="13" rx="2" fill="#8A1538" opacity=".70"/>
+  <rect x="29" y="48" width="9"  height="9"  rx="2" fill="#8A1538" opacity=".50"/>
+  <rect x="51" y="40" width="6"  height="17" rx="2" fill="#C9962F" opacity=".55"/>
+</g>
+</svg>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>كود الرفقة — فرجان</title>
+<meta name="description" content="افتح كود الرفقة في تطبيق فرجان.">
+<meta name="theme-color" content="#FAF6F0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#171310" media="(prefers-color-scheme: dark)">
+<meta name="robots" content="noindex">
+<link rel="icon" href="../mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <svg class="mark" width="56" height="56" viewBox="0 0 60 60" role="img" aria-label="شعار فرجان">
+      <rect x="3"  y="3"  width="13" height="13" rx="2" fill="#8A1538" opacity=".85"/>
+      <rect x="18" y="3"  width="9"  height="13" rx="2" fill="#C9962F" opacity=".40"/>
+      <rect x="29" y="3"  width="13" height="13" rx="2" fill="#E8B547" opacity=".95"/>
+      <rect x="44" y="3"  width="13" height="9"  rx="2" fill="#8A1538" opacity=".55"/>
+      <rect x="3"  y="18" width="9"  height="9"  rx="2" fill="#C9962F" opacity=".60"/>
+      <rect x="14" y="18" width="13" height="9"  rx="2" fill="#E8B547" opacity="1"/>
+      <rect x="29" y="18" width="9"  height="13" rx="2" fill="#8A1538" opacity=".45"/>
+      <rect x="40" y="14" width="9"  height="9"  rx="2" fill="#C9962F" opacity=".75"/>
+      <rect x="29" y="48" width="9"  height="9"  rx="2" fill="#8A1538" opacity=".50"/>
+      <rect x="51" y="40" width="6"  height="17" rx="2" fill="#C9962F" opacity=".55"/>
+    </svg>
+    <p class="brand">فرجان</p>
+    <p class="brand-sub">FIRJAN</p>
+    <p class="tagline">كود رفقة — يفتح داخل التطبيق</p>
+  </header>
+
+  <h1>كود الرفقة</h1>
+  <!-- الكود يُطبع من عنوان الصفحة نفسها ولا يُرسل لأي مكان: لا طلب شبكة، لا
+       تحليلات، لا كوكيز. صفحة ساكنة على GitHub Pages، وهذا كل ما فيها. -->
+  <p class="updated">هذا الكود يضيفك رفيقاً لصاحبه داخل فرجان</p>
+  <p class="contact-big" id="code" dir="ltr">—</p>
+  <p class="contact-note" id="note">افتح الرابط من جوال فيه فرجان مثبّت، وبينفتح على «ربعي» والكود مكتوب.</p>
+
+  <hr class="rule">
+
+  <section class="sec">
+    <h2>ما عندك فرجان؟</h2>
+    <p>فرجان تطبيق مجتمع قطري مجهول تمامًا — بلا اسم ولا صورة ولا تسجيل دخول. نزّله، وبعدها افتح نفس الرابط مرة ثانية أو اكتب الكود يدويًا في: حسابي ← ربعي.</p>
+    <p><a href="../index.html">صفحة الدعم</a> · <a href="../privacy.html">الخصوصية</a> · <a href="../terms.html">الشروط</a></p>
+  </section>
+
+  <footer>
+    <p><a href="../index.html">الدعم</a> · <a href="../privacy.html">الخصوصية</a> · <a href="../terms.html">الشروط</a> · <a href="../community.html">المجتمع</a></p>
+    <p class="made">فرجان · صُنع في قطر</p>
+  </footer>
+
+</div>
+<script>
+  // الكود يُقرأ من ?add= ويُعرض كما هو بعد تنظيفه: حروف وأرقام فقط، ٤–١٢ خانة.
+  // التنظيف مب للشكل — نص من عنوان URL يُحقن في الصفحة هو ثغرة XSS كلاسيكية،
+  // ولذلك يمر بقائمة سماح ويُكتب بـ textContent لا innerHTML.
+  (function () {
+    var raw = new URLSearchParams(location.search).get('add') || '';
+    var code = (raw.match(/^[A-Za-z0-9]{4,12}$/) || [])[0];
+    var el = document.getElementById('code');
+    if (code) { el.textContent = code.toUpperCase(); }
+    else {
+      el.textContent = '—';
+      document.getElementById('note').textContent = 'ما وصلنا كود صالح في الرابط — اطلب من صاحبك يرسله من جديد.';
+    }
+  })();
+</script>
+</body>
+</html>

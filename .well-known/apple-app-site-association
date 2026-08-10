@@ -1,0 +1,13 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["YKZ87DCFCK.com.khalid.firjan"],
+        "components": [
+          { "/": "/friends*", "comment": "رابط الرفقة — كود الرفقة من ظهر البطاقة" },
+          { "/": "/post/*",   "comment": "منشور مشارَك" }
+        ]
+      }
+    ]
+  }
+}

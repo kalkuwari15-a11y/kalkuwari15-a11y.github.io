@@ -1,0 +1,226 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   فرجان — the public pages (support · privacy · terms).
+   Built in the app's own «كلاسيكي» language: cream ground, maroon brand,
+   gold accent, naskh for the headings.
+
+   THE CONTRAST LAW (register): #C9962F is ~2.7:1 on cream — it may FILL a
+   shape or draw a rule, but it must never be gold TEXT on a light ground.
+   Readable gold is the deep antique #8A6A1A (~5:1). Every gold word obeys it.
+   (The previous revision of this file used #C9962F for .brand-sub and the
+   band numbers; that was the violation, fixed here.)
+
+   Self-contained on purpose: no CDN, no webfont, no JS — it must render on
+   any static host, offline, and inside App Review's browser.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  --cream:      #FAF6F0;
+  --cream-deep: #F3ECE0;
+  --paper:      #FFFEFB;
+  --ink:        #1A0A12;
+  --body:       #3A2A24;
+  --muted:      #7A5B68;
+  --maroon:     #8A1538;
+  --gold:       #C9962F;   /* fills · rules · edges — never text on cream */
+  --gold-ink:   #8A6A1A;   /* the readable gold */
+  --rule:       rgba(26, 10, 18, 0.10);
+  --shadow:     rgba(58, 42, 16, 0.14);
+  --radius:     18px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cream:      #171310;
+    --cream-deep: #120F0C;
+    --paper:      #201A16;
+    --ink:        #F7F0E4;
+    --body:       #E2D6C6;
+    --muted:      #A2917F;
+    --maroon:     #E8759A;   /* the brand lifts on a dark ground */
+    --gold-ink:   #E8B547;   /* …and bright gold becomes the readable one */
+    --rule:       rgba(255, 255, 255, 0.12);
+    --shadow:     rgba(0, 0, 0, 0.5);
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--cream);
+  background-image:
+    radial-gradient(120% 55% at 50% 0%, rgba(201, 150, 47, 0.10), transparent 70%),
+    linear-gradient(180deg, var(--cream), var(--cream-deep));
+  background-attachment: fixed;
+  color: var(--body);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Arabic", "Segoe UI",
+               Tahoma, "Noto Sans Arabic", "Geeza Pro", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.85;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 20px 72px; }
+
+/* ── الترويسة ─────────────────────────────────────────────────────────── */
+
+header.masthead { text-align: center; padding: 40px 0 4px; }
+
+.mark { display: block; width: 56px; height: 56px; margin: 0 auto 14px; }
+
+.brand {
+  margin: 0;
+  font-size: clamp(32px, 8.5vw, 42px);
+  font-weight: 900;
+  line-height: 1.2;
+  color: var(--maroon);
+}
+
+.brand-sub {
+  margin: 2px 0 0;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 6px;          /* Latin only — letter-spacing tears Arabic joins */
+  color: var(--gold-ink);
+}
+
+.tagline { margin: 12px auto 0; max-width: 32ch; font-size: 16px; color: var(--muted); }
+
+/* ── التبويبات ───────────────────────────────────────────────────────── */
+
+nav.tabs {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  justify-content: center; margin: 26px 0 34px; padding: 0;
+}
+
+nav.tabs a {
+  display: inline-flex; align-items: center;
+  padding: 0 20px; min-height: 44px;      /* the app's 44pt target law */
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--body);
+  text-decoration: none;
+  font-size: 15px; font-weight: 700;
+  transition: border-color .16s ease, transform .16s ease;
+}
+
+nav.tabs a:hover { border-color: var(--gold); }
+nav.tabs a:active { transform: scale(.97); }
+nav.tabs a[aria-current="page"] {
+  background: var(--maroon); border-color: var(--maroon); color: #FFF6EE;
+}
+
+/* ── العناوين ────────────────────────────────────────────────────────── */
+
+h1, h2, h3 {
+  font-family: "Noto Naskh Arabic", "SF Arabic", "Geeza Pro", serif;
+  color: var(--ink); line-height: 1.55; font-weight: 700;
+}
+
+h1 { font-size: clamp(25px, 6vw, 31px); margin: 0 0 6px; text-align: center; }
+h2 { font-size: 20px; margin: 0 0 8px; }
+h3 { font-size: 17px; margin: 0 0 4px; }
+
+.updated { margin: 0 0 30px; text-align: center; font-size: 14px; color: var(--muted); }
+
+hr.rule {
+  height: 1px; border: 0; margin: 34px 0; opacity: .55;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+/* ── الأقسام ─────────────────────────────────────────────────────────── */
+
+section.sec {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-bottom: 2.5px solid var(--gold);   /* the app's plate edge */
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  margin: 0 0 14px;
+  box-shadow: 0 10px 22px var(--shadow);
+}
+
+section.sec h2 {
+  margin: 0 0 8px; color: var(--maroon);
+  display: flex; align-items: baseline; gap: 10px;
+}
+
+/* the numbered بند — antique ink, never bright gold */
+section.sec h2 .n {
+  flex: none; font-size: 12.5px; font-weight: 700;
+  color: var(--gold-ink);
+  border: 1px solid var(--rule); border-radius: 8px;
+  padding: 1px 8px;
+  font-family: -apple-system, "SF Arabic", sans-serif;
+}
+
+section.sec p { margin: 0; white-space: pre-line; }
+section.sec p + p { margin-top: 12px; }
+section.sec ul { margin: 10px 0 0; padding-inline-start: 22px; }
+section.sec li { margin: 6px 0; }
+
+a { color: var(--maroon); }
+@media (prefers-color-scheme: dark) { a { color: var(--gold-ink); } }
+
+/* ── نداء التواصل ────────────────────────────────────────────────────── */
+
+.contact-big {
+  display: block; margin: 0 0 10px; padding: 20px 16px;
+  border-radius: var(--radius);
+  border: 1px solid var(--gold);
+  background: var(--paper);
+  color: var(--gold-ink);
+  text-align: center; text-decoration: none;
+  font-size: clamp(16px, 4.6vw, 21px); font-weight: 700;
+  word-break: break-word;
+  box-shadow: 0 10px 22px var(--shadow);
+  transition: transform .16s ease;
+}
+
+.contact-big:hover { transform: translateY(-2px); }
+.contact-big:active { transform: scale(.98); }
+
+.contact-note { text-align: center; color: var(--muted); font-size: 15px; margin: 0 0 30px; }
+
+/* ── شبكة الألعاب ────────────────────────────────────────────────────── */
+
+.games {
+  display: grid; gap: 10px; margin: 0 0 14px;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.game {
+  background: var(--paper); border: 1px solid var(--rule);
+  border-radius: 14px; padding: 14px 12px; text-align: center;
+}
+
+.game .dot { display: block; width: 10px; height: 10px; border-radius: 5px; margin: 0 auto 8px; }
+.game b { display: block; color: var(--ink); font-size: 16px; }
+.game span { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
+
+/* ── الذيل ───────────────────────────────────────────────────────────── */
+
+footer {
+  margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--rule);
+  text-align: center; color: var(--muted); font-size: 14px;
+}
+
+footer a { margin: 0 8px; }
+.made { margin-top: 6px; font-size: 13px; }
+
+/* ── الوصول ──────────────────────────────────────────────────────────── */
+
+a:focus-visible { outline: 2px solid var(--gold-ink); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
+
+@media (max-width: 420px) {
+  body { font-size: 16px; }
+  section.sec { padding: 18px 16px; }
+  .wrap { padding: 0 14px 56px; }
+}
