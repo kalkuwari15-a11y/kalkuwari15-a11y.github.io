@@ -3,8 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>الدعم — فرجان</title>
-<meta name="description" content="صفحة دعم تطبيق فرجان — تواصل معنا، حذف بياناتك، الإبلاغ عن محتوى مسيء.">
+<title>فرجان — فريجك القريب</title>
+<meta name="description" content="فرجان — مجتمع قطري مجهول: بلا اسم ولا صورة ولا تسجيل دخول. تنشر وتصوّت مع أهل فريجك، وتلعب ألعاب جماعية لحظية مع ربعك. قريبًا في App Store.">
+<meta property="og:title" content="فرجان — فريجك القريب">
+<meta property="og:description" content="مجتمع قطري مجهول — بلا اسم ولا صورة ولا تسجيل دخول.">
+<meta property="og:url" content="https://firjan.app/">
 <meta name="theme-color" content="#FAF6F0" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#171310" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="mark.svg" type="image/svg+xml">
@@ -15,11 +18,10 @@
 
   <header class="masthead">
     <!-- the app's own fareej mosaic; inlined so the page never depends on a
-         second request (App Review often opens these on a throttled link) -->
-    <!-- width/height are ON the element, not only in CSS: if the stylesheet is
-         slow, blocked or cached-stale, an unsized inline SVG expands to the full
-         container and shoves the whole page below the fold (caught in review). -->
-    <svg class="mark" width="56" height="56" viewBox="0 0 60 60" role="img" aria-label="شعار فرجان">
+         second request. width/height ON the element: if the stylesheet is slow
+         or blocked, an unsized inline SVG expands to the full container and
+         shoves the whole page below the fold. -->
+    <svg class="mark mark-lg" width="72" height="72" viewBox="0 0 60 60" role="img" aria-label="شعار فرجان">
       <rect x="3"  y="3"  width="13" height="13" rx="2" fill="#8A1538" opacity=".85"/>
       <rect x="18" y="3"  width="9"  height="13" rx="2" fill="#C9962F" opacity=".40"/>
       <rect x="29" y="3"  width="13" height="13" rx="2" fill="#E8B547" opacity=".95"/>
@@ -46,61 +48,98 @@
   </header>
 
   <nav class="tabs" aria-label="أقسام الموقع">
-    <a href="index.html" aria-current="page">الدعم</a>
+    <a href="index.html" aria-current="page">الرئيسة</a>
+    <a href="support.html">الدعم</a>
     <a href="privacy.html">الخصوصية</a>
     <a href="terms.html">الشروط</a>
     <a href="community.html">المجتمع</a>
   </nav>
 
-  <h1>الدعم والمساعدة</h1>
-  <p class="updated">راسلنا بأي وقت — نرد بأسرع ما نقدر</p>
+  <h1>فريجك القريب</h1>
+  <p class="updated">تنشر وتصوّت وتلعب مع أهل فريجك — ومحد يعرف منهو أنت</p>
 
-  <a class="contact-big" href="mailto:team@firjan.app">team@firjan.app</a>
-  <p class="contact-note">هذا بريد الدعم الرسمي لفرجان</p>
+  <!-- the app is not live yet; this plate flips to a real App Store link the
+       day it ships. Keep the path: swap this block only, nothing else moves. -->
+  <div class="store-plate">
+    <p class="store-line">قريبًا في App Store</p>
+    <p class="store-sub">مجاني · للآيفون · بدون أي تسجيل</p>
+  </div>
 
   <hr class="rule">
 
-  <section class="sec">
-    <h2>وش هو فرجان؟</h2>
-    <p>فرجان تطبيق مجتمع قطري مجهول تمامًا — بدون اسم ولا صورة ولا تسجيل دخول. تقدر تنشر وتصوّت وتتفاعل مع أهل فريجك، وتلعب ألعاب جماعية لحظية مع ربعك.</p>
-  </section>
+  <div class="pillars">
+    <section class="sec">
+      <h2>بلا حساب أصلاً</h2>
+      <p>أول ما تفتح فرجان، جهازك ياخذ هوية عشوائية تلقائيًا. ما فيه إيميل ولا رقم ولا كلمة مرور — ولا اسم ولا صورة.</p>
+    </section>
 
-  <section class="sec">
-    <h2>ما أقدر أسجّل دخول — وين الحساب؟</h2>
-    <p>ما فيه حساب ولا تسجيل دخول أصلاً. فرجان مجهول بالكامل: جهازك ياخذ هوية عشوائية تلقائيًا أول ما تفتح التطبيق. يعني ما تحتاج إيميل ولا رقم ولا كلمة مرور.</p>
-  </section>
+    <section class="sec">
+      <h2>الفريج الأقرب لك</h2>
+      <p>المنشورات تجيك بقربها منك: في الفريج، حول الفريج، برع الفريج. وموقعك الدقيق ما يبين لأحد — التمويه يصير على الخادم نفسه.</p>
+    </section>
 
-  <section class="sec">
-    <h2>كيف أحذف بياناتي؟</h2>
-    <p>من داخل التطبيق: حسابي ← «احذف حسابي». يحذف منشوراتك وردودك وتصويتاتك ورسايلك وصورك.</p>
-    <p>الحذف يبدأ بمهلة استرجاع ٣٠ يوم: حسابك ينطفي فورًا ويختفي من التطبيق، وتقدر ترجّعه خلال المهلة بكود الاسترجاع اللي يعطيك إياه التطبيق وقت الحذف. بعد الـ٣٠ يوم يصير الحذف نهائيًا وما يمكن التراجع عنه.</p>
-    <p>يُستثنى من الحذف المحتوى المبلّغ عنه وسجلات البلاغات والحظر — نحتفظ فيها ١٢ شهرًا لأغراض السلامة، وهذا مذكور في <a href="privacy.html">سياسة الخصوصية</a>.</p>
-  </section>
+    <section class="sec">
+      <h2>مجلس وألعاب</h2>
+      <p>ست ألعاب جماعية لحظية تلمّك بربعك — من إكس أو السريعة إلى بلوت والبرازيلية. والمجلس يجمع الطاولات المفتوحة.</p>
+    </section>
 
-  <section class="sec">
-    <h2>شفت محتوى مسيء — وش أسوي؟</h2>
-    <p>زر الإبلاغ موجود على كل منشور وتعليق ورسالة، وعلى كلام الطاولة داخل الألعاب. وتقدر تحظر أي عضو مسيء فورًا فينخفي عنك كل محتواه.</p>
-    <p>المحتوى اللي يجمع بلاغات من ٣ أشخاص مختلفين ينخفي تلقائيًا لين المراجعة. ومع تكرار المخالفات ينحظر الجهاز: أسبوع، ثم شهر، ثم نهائيًا.</p>
-  </section>
+    <section class="sec">
+      <h2>بياناتك بيدك</h2>
+      <p>تحذف حسابك من داخل التطبيق متى ما تبي — بمهلة استرجاع ٣٠ يوم. والإبلاغ والحظر بضغطة، على أي منشور أو رسالة.</p>
+    </section>
+  </div>
 
-  <section class="sec">
-    <h2>عندي مشكلة في الذهب (G) أو بلس</h2>
-    <p>الذهب في فرجان يُكتسب من داخل التطبيق باللعب والتفاعل — ما فيه شراء داخل التطبيق حاليًا. إذا انضافت المشتريات لاحقًا فتكون كلها عبر متجر آبل، وهم اللي يتحكمون بالفوترة والاسترداد حسب سياساتهم.</p>
-    <p>لو ضاع منك ذهب أو صار خطأ في رصيدك، راسلنا وبنراجعه.</p>
-  </section>
+  <h2 class="home-h">الألعاب</h2>
 
-  <section class="sec">
-    <h2>الإبلاغ عن تعدٍّ على حقوق</h2>
-    <p>لو تشوف محتوى داخل فرجان يتعدّى على حق ملكية أو علامة تجارية أو حق نشر يخصّك، راسلنا على <a href="mailto:team@firjan.app">team@firjan.app</a> واذكر الحق والرابط وما يثبت إنه لك. نراجع بلاغك ونتخذ الإجراء المناسب.</p>
-  </section>
+  <!-- names · subtitles · signature inks transcribed from the app's own roster
+       (src/app/(tabs)/games.tsx GAMES) — the site never invents a game -->
+  <div class="games balanced">
+    <div class="game">
+      <span class="dot" style="background:#3E5FA8"></span>
+      <b>إكس أو</b>
+      <span>ثلاثة في صف — سريعة</span>
+      <span>لاعبان</span>
+    </div>
+    <div class="game">
+      <span class="dot" style="background:#2F7D5C"></span>
+      <b>لودو</b>
+      <span>سباق الطاسة والحجّات</span>
+      <span>٢-٤ لاعبين</span>
+    </div>
+    <div class="game">
+      <span class="dot" style="background:#8A1538"></span>
+      <b>بلوت</b>
+      <span>الورق الخليجي — فريقين</span>
+      <span>٤ لاعبين</span>
+    </div>
+    <div class="game">
+      <span class="dot" style="background:#34567A"></span>
+      <b>حرب السفن</b>
+      <span>دوّر على سفن خصمك واغرقها</span>
+      <span>لاعبان</span>
+    </div>
+    <div class="game">
+      <span class="dot" style="background:#B7791F"></span>
+      <b>إكس أو الكبير</b>
+      <span>تسع ألواح — تفكير أعمق</span>
+      <span>لاعبان</span>
+    </div>
+    <div class="game">
+      <span class="dot" style="background:#5B3A8E"></span>
+      <b>برازيلية</b>
+      <span>كوتشينة تركيب ٢×٢ — فريقين</span>
+      <span>٤ لاعبين</span>
+    </div>
+  </div>
 
-  <section class="sec">
-    <h2>الخصوصية والشروط</h2>
-    <p>اطّلع على <a href="privacy.html">سياسة الخصوصية</a> و<a href="terms.html">شروط الاستخدام</a> الكاملة. نفس النصوص متوفرة داخل التطبيق في: حسابي ← قانوني.</p>
-  </section>
+  <hr class="rule">
+
+  <h2 class="home-h">نسمعك</h2>
+  <a class="contact-big" href="mailto:team@firjan.app">team@firjan.app</a>
+  <p class="contact-note">بريد الدعم الرسمي — والأسئلة المتكررة على <a href="support.html">صفحة الدعم</a></p>
 
   <footer>
-    <p><a href="index.html">الدعم</a> · <a href="privacy.html">الخصوصية</a> · <a href="terms.html">الشروط</a> · <a href="community.html">المجتمع</a></p>
+    <p><a href="index.html">الرئيسة</a> · <a href="support.html">الدعم</a> · <a href="privacy.html">الخصوصية</a> · <a href="terms.html">الشروط</a> · <a href="community.html">المجتمع</a></p>
     <p class="made">فرجان · صُنع في قطر</p>
   </footer>
 

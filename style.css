@@ -201,6 +201,39 @@ a { color: var(--maroon); }
 .game b { display: block; color: var(--ink); font-size: 16px; }
 .game span { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
 
+/* ── الرئيسة ─────────────────────────────────────────────────────────── */
+
+.mark-lg { width: 72px; height: 72px; }
+
+/* the «قريبًا» plate — paper with the app's gold bottom edge, NOT a button:
+   it links nowhere until the app ships, so it must not dress like a link */
+.store-plate {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-bottom: 2.5px solid var(--gold);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 22px var(--shadow);
+  padding: 20px 16px;
+  text-align: center;
+  margin: 0 0 26px;
+}
+
+.store-line { margin: 0; color: var(--maroon); font-weight: 900; font-size: clamp(18px, 5vw, 22px); }
+.store-sub  { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
+
+.home-h { font-size: 22px; margin: 30px 0 14px; text-align: center; }
+
+.pillars {
+  display: grid; gap: 14px; margin: 0 0 14px;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.pillars section.sec { margin: 0; }
+
+/* six cards read as 3×2, never a ragged 4+2; phones get 2×3 */
+.games.balanced { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 560px) { .games.balanced { grid-template-columns: repeat(2, 1fr); } }
+
 /* ── الذيل ───────────────────────────────────────────────────────────── */
 
 footer {
