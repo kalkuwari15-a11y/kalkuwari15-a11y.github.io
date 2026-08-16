@@ -21,6 +21,7 @@
   --body:       #3A2A24;
   --muted:      #7A5B68;
   --maroon:     #8A1538;
+  --on-maroon:  #FFF6EE;   /* the only ink ever painted ON --maroon */
   --gold:       #C9962F;   /* fills · rules · edges — never text on cream */
   --gold-ink:   #8A6A1A;   /* the readable gold */
   --rule:       rgba(26, 10, 18, 0.10);
@@ -37,6 +38,9 @@
     --body:       #E2D6C6;
     --muted:      #A2917F;
     --maroon:     #E8759A;   /* the brand lifts on a dark ground */
+    --on-maroon:  #1A0A12;   /* …so the ink on it has to darken with it. Cream
+                                on the lifted brand is 2.6:1 — the active tab
+                                would be the least readable text on the page. */
     --gold-ink:   #E8B547;   /* …and bright gold becomes the readable one */
     --rule:       rgba(255, 255, 255, 0.12);
     --shadow:     rgba(0, 0, 0, 0.5);
@@ -110,7 +114,7 @@ nav.tabs a {
 nav.tabs a:hover { border-color: var(--gold); }
 nav.tabs a:active { transform: scale(.97); }
 nav.tabs a[aria-current="page"] {
-  background: var(--maroon); border-color: var(--maroon); color: #FFF6EE;
+  background: var(--maroon); border-color: var(--maroon); color: var(--on-maroon);
 }
 
 /* ── العناوين ────────────────────────────────────────────────────────── */
@@ -180,8 +184,12 @@ a { color: var(--maroon); }
   transition: transform .16s ease;
 }
 
-.contact-big:hover { transform: translateY(-2px); }
-.contact-big:active { transform: scale(.98); }
+/* only the mailto plates move. friends/index.html reuses this class on an inert
+   <p> to show the invite code, and a plate that lifts and presses under the
+   thumb while doing nothing is a false affordance — same reasoning as the
+   «قريبًا» plate below, which is deliberately not dressed as a link. */
+a.contact-big:hover { transform: translateY(-2px); }
+a.contact-big:active { transform: scale(.98); }
 
 .contact-note { text-align: center; color: var(--muted); font-size: 15px; margin: 0 0 30px; }
 
