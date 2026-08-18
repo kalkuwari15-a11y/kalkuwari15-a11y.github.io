@@ -328,6 +328,18 @@ main section { scroll-margin-top: calc(88px + env(safe-area-inset-top, 0px)); } 
   pointer-events: none;
 }
 
+/* the secondary action: a text link, never a second raised species */
+.quiet {
+  display: inline-flex; align-items: center; min-height: 44px;
+  padding: 0 6px; font-size: 15.5px; font-weight: 700;
+  color: var(--gold-text); text-decoration: none;
+  background-image: linear-gradient(90deg, var(--gold), var(--gold-hi));
+  background-repeat: no-repeat; background-size: 100% 2px;
+  background-position: center bottom 10px;
+}
+.quiet:hover { color: var(--maroon); }
+.beta-note { margin: 10px 0 0; font-size: 13.5px; color: var(--ink-dim); }
+
 .hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
 .hero-chips span {
   display: inline-flex; align-items: center; gap: 6px;
@@ -1479,8 +1491,11 @@ html { scrollbar-color: rgba(201,150,47,.5) transparent; scrollbar-width: thin; 
       <!-- stitched tag (not a control) + the jewel anchor (the raised species) -->
       <p style="margin:0; display:flex; align-items:center; flex-wrap:wrap; gap:10px">
         <span class="store-tag"><b>قريبًا في <span lang="en">App Store</span></b><span>مجاني · للآيفون · بدون أي تسجيل</span></span>
-        <a class="jewel" href="#games">شوف الألعاب</a>
+        <a class="jewel" href="https://testflight.apple.com/join/yKFeJxW3" rel="noopener">جرّب النسخة التجريبية</a>
+        <a class="quiet" href="#games">شوف الألعاب</a>
       </p>
+
+      <p class="beta-note">التجربة عبر <span lang="en">TestFlight</span> · للآيفون</p>
 
       <div class="hero-chips">
         <span><b>ست</b> ألعاب جماعية لحظية</span>
