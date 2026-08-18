@@ -2,147 +2,2157 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>فرجان — فريجك القريب</title>
 <meta name="description" content="فرجان — مجتمع قطري مجهول: بلا اسم ولا صورة ولا تسجيل دخول. تنشر وتصوّت مع أهل فريجك، وتلعب ألعاب جماعية لحظية مع ربعك. قريبًا في App Store.">
 <meta property="og:title" content="فرجان — فريجك القريب">
 <meta property="og:description" content="مجتمع قطري مجهول — بلا اسم ولا صورة ولا تسجيل دخول.">
 <meta property="og:url" content="https://firjan.app/">
-<meta name="theme-color" content="#FAF6F0" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#171310" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#FAF6F0">
 <link rel="icon" href="mark.svg" type="image/svg+xml">
-<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "فرجان",
+  "alternateName": "Firjan",
+  "url": "https://firjan.app/",
+  "operatingSystem": "iOS",
+  "applicationCategory": "SocialNetworkingApplication",
+  "inLanguage": "ar",
+  "description": "فرجان — مجتمع قطري مجهول: بلا اسم ولا صورة ولا تسجيل دخول. تنشر وتصوّت مع أهل فريجك، وتلعب ألعاب جماعية لحظية مع ربعك. قريبًا في App Store.",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "QAR" }
+}
+</script>
+<style>
+/* ═══════════════════════════════════════════════════════════════════════════
+   فرجان v6 — «سدو سائل» + the theme TRY-ON: the vial tray re-skins the hero
+   phone with the app's REAL palettes (radio inputs, zero JS; every hex from
+   src/lib/theme.tsx — BG, APPEARANCE_ACCENT(_BRIGHT), POST_TINTS), plus the
+   drawn Corniche selvage and editorial section numbering.
+   Base: v5 «سدو سائل» Liquid Sadu.
+   The sadu weave dissolved into liquid: one continuous maroon-gold ribbon on a
+   single fixed loom layer behind frosted glass panels — every panel frosts a
+   different slice of the SAME weave. Light = the daylight majlis (flagship);
+   dark = the evening weave. Grafts: the pour headline + jewel buttons + gold
+   ring (molten concept), the night-that-stays privacy band + capsule topbar +
+   speech-bubble ticker (doha concept).
+   LAWS: no CDN, no webfonts, NO JS; both schemes; -webkit- prefixes first;
+   no color-mix (precomputed rgba only); blur budget ≤6 surfaces/viewport;
+   gold text only via --gold-text (#8A6A1A light / #E8B547 dark); Arabic never
+   letter-spaced; 44px targets; reduced-motion gets authored static states.
+   Copy is FROZEN from the validated v3/v4. Phone faces transcribed from the
+   app's own code (classic day / pearl night).
+   ═══════════════════════════════════════════════════════════════════════════ */
+:root {
+  --bg:        #FAF6F0;
+  --ink:       #1A0A12;
+  --ink-soft:  rgba(26, 10, 18, .75);
+  --ink-dim:   rgba(26, 10, 18, .64);   /* .55 fell to ~4.0:1 over the washed loom */
+  --maroon:    #8A1538;
+  --gold:      #C9962F;
+  --gold-hi:   #E8B547;
+  --gold-text: #7E6018;   /* ≈5.2:1 on cream — #8A6A1A dipped under 4.5 over translucent chips */
+  --hairline:  rgba(138, 21, 56, .10);
+  --glass-a:   rgba(255, 252, 247, .66);
+  --glass-b:   rgba(250, 244, 235, .52);
+  --spec-top:  rgba(255, 255, 255, .95);
+  --plate:     #FFFDF8;
+  --r-lg: 28px;
+  --on-maroon: #FFF6EE;   /* the skip link referenced this before it existed */
+  --ease-out: cubic-bezier(.22, .61, .21, 1);
+  --spring:   cubic-bezier(.34, 1.56, .64, 1);
+  --phone-bezel: #241A20;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: hidden; overflow-x: clip; }  /* clip: no scroll container, so iOS position:sticky stays safe */
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink-soft);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Arabic", "Segoe UI",
+               Tahoma, "Noto Sans Arabic", "Geeza Pro", "Helvetica Neue", Arial, sans-serif;
+  font-size: 17px;
+  line-height: 1.85;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+/* (the warp threads now live inside .loom — one full-screen fixed layer, not two) */
+
+h1, h2, h3 {
+  font-family: "Noto Naskh Arabic", "Geeza Pro", "Sakkal Majalla", "Traditional Arabic", serif;
+  color: var(--ink); line-height: 1.4; font-weight: 700;
+}
+a { color: var(--maroon); }
+a:focus-visible { outline: 2px solid var(--gold-text); outline-offset: 3px; border-radius: 6px; }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 22px; }
+main section { scroll-margin-top: calc(88px + env(safe-area-inset-top, 0px)); }  /* anchored jumps clear the floating capsule */
+
+/* ── النول — the loom: one fixed layer, the whole atmosphere ──────────── */
+.loom {
+  position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden;
+  background:
+    repeating-linear-gradient(90deg, rgba(138,21,56,.025) 0 1px, transparent 1px 8px),
+    radial-gradient(52% 38% at 14% 6%,  rgba(138,21,56,.09), transparent 70%),
+    radial-gradient(44% 30% at 86% 14%, rgba(201,150,47,.13), transparent 70%),
+    radial-gradient(60% 42% at 78% 64%, rgba(138,21,56,.07), transparent 72%),
+    radial-gradient(46% 34% at 10% 82%, rgba(232,181,71,.10), transparent 70%),
+    #FAF6F0;
+}
+/* the liquid sadu — two ribbons, softness from gradient falloff, no blur */
+.ribbon { position: absolute; border-radius: 50%; }
+.ribbon-a {
+  width: 160vmax; height: 26vmax; inset-inline-start: -30vmax; top: 16vh;
+  transform: rotate(-7deg);
+  background:
+    repeating-linear-gradient(90deg, transparent 0 10px, rgba(255,255,255,.05) 10px 11px),
+    linear-gradient(90deg, transparent, rgba(138,21,56,.11) 22%, rgba(201,150,47,.13) 55%, rgba(232,181,71,.08) 78%, transparent);
+  /* static: the 2%/38s drift was subliminal, but forced every blur surface to re-filter forever */
+}
+.ribbon-b {
+  width: 150vmax; height: 20vmax; inset-inline-start: -20vmax; top: 62vh;
+  transform: rotate(5deg);
+  background: linear-gradient(90deg, transparent, rgba(232,181,71,.10) 30%, rgba(138,21,56,.08) 65%, transparent);
+}
+
+/* ── الزجاج — the glass recipe ───────────────────────────────────────── */
+.glass {
+  position: relative;
+  background: linear-gradient(180deg, var(--glass-a), var(--glass-b));
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+          backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.70),
+    inset 0 -1px 0 rgba(138,21,56,.05),
+    0 12px 40px -14px rgba(138,21,56,.18),
+    0 2px 10px rgba(26,10,18,.05);
+}
+.glass::before {   /* specular top edge */
+  content: ""; position: absolute; top: 0; inset-inline: 12%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--spec-top), transparent);
+  pointer-events: none;
+}
+/* porcelain fallback — the design holds without blur */
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .glass { background: rgba(253,249,243,.94); }
+}
+/* hover sheen — a light pass over any panel, no overflow games needed */
+.glass::after, .pane::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit;
+  background: linear-gradient(105deg, transparent 42%, rgba(255,255,255,.30) 50%, transparent 58%);
+  background-size: 320% 100%; background-position: 165% 0; background-repeat: no-repeat;
+  transition: background-position .7s ease;
+  pointer-events: none;
+}
+.glass:hover::after, .pane:hover::after { background-position: -65% 0; }
+
+/* quiet card — glass look WITHOUT backdrop-filter (blur budget) */
+.pane {
+  position: relative;
+  background: linear-gradient(180deg, rgba(255,252,247,.82), rgba(250,244,235,.72));
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.70), 0 10px 30px -14px rgba(138,21,56,.16);
+}
+
+/* specular gold ring — feature surfaces only (phones, the moltengold vial) */
+.ring::after {
+  content: ""; position: absolute; inset: -2px; border-radius: inherit; padding: 2px;
+  background: linear-gradient(135deg, rgba(232,181,71,.9), rgba(201,150,47,.25) 40%, rgba(232,181,71,.05) 60%, rgba(232,181,71,.7));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+  pointer-events: none;
+}
+@supports not (mask-composite: exclude) {
+  @supports not (-webkit-mask-composite: xor) {
+    .ring::after { display: none; }
+    .ring { border: 1px solid rgba(201,150,47,.6); }
+  }
+}
+
+/* ── الحركة ──────────────────────────────────────────────────────────── */
+@keyframes rise    { from { opacity: 0; transform: translateY(16px); } }
+@keyframes floaty  { from { transform: translateY(2px); } to { transform: translateY(-8px); } }
+@keyframes drift   { from { transform: translateX(0); } to { transform: translateX(50%); } }
+/* 0→+50%: the right-anchored RTL row starts fully covering the viewport and
+   drifts rightward; -50%→0 left the strip EMPTY for a third of the cycle on
+   narrow screens (row off-canvas until translateX > -viewport) */
+@keyframes glint   { from { transform: translateX(430%); } to { transform: translateX(-160%); } }   /* woven with the reading direction */
+@keyframes twinkle { 0%,100% { opacity: .15; } 50% { opacity: .9; } }
+@keyframes wiggle  { 0%, 82%, 100% { transform: rotate(0); } 85% { transform: rotate(13deg); } 89% { transform: rotate(-11deg); } 93% { transform: rotate(7deg); } 97% { transform: rotate(-4deg); } }
+@keyframes pulse   { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.5); opacity: .55; } }
+@keyframes growW   { from { transform: scaleX(0); } }   /* scaleX composites; width forced layout every frame */
+@keyframes rev     { from { opacity: 0; transform: translateY(26px); } }
+/* the boards play themselves — one loop each, staggered per game */
+@keyframes piece   { 0%, 8% { opacity: 0; transform: scale(.3); } 14%, 78% { opacity: 1; transform: scale(1); } 88%, 100% { opacity: 0; } }
+@keyframes windraw { 0%, 42% { stroke-dashoffset: 40; opacity: 0; } 46% { opacity: 1; } 60%, 78% { stroke-dashoffset: 0; opacity: 1; } 88%, 100% { stroke-dashoffset: 0; opacity: 0; } }
+@keyframes hop     { 0%, 20% { transform: translate(0, 0); } 32%, 45% { transform: translate(-7px, -3px); } 57%, 70% { transform: translate(-13px, 3px); } 82%, 100% { transform: translate(0, 0); } }
+@keyframes sink    { 0%, 40% { opacity: 1; transform: translateY(0) rotate(0); } 55%, 74% { opacity: 1; transform: translateY(2px) rotate(6deg); } 86%, 100% { opacity: 0; transform: translateY(9px) rotate(14deg); } }
+@keyframes splash  { 0%, 38% { opacity: 0; transform: scale(.4); } 44%, 60% { opacity: 1; transform: scale(1); } 70%, 100% { opacity: 0; transform: scale(1.5); } }
+@keyframes dealin  { 0%, 6% { opacity: 0; transform: translateY(10px) rotate(0); } 16%, 84% { opacity: 1; transform: translateY(0); } 94%, 100% { opacity: 0; } }
+@keyframes flipd   { 0%, 30% { transform: rotate(0); } 45%, 70% { transform: rotate(180deg); } 85%, 100% { transform: rotate(360deg); } }
+@keyframes jshine  { 0%, 68% { transform: translateX(420%); } 100% { transform: translateX(-160%); } }   /* sweeps with the RTL reading direction */
+@keyframes glow    { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+
+/* ── الشريط العلوي — floating capsule ────────────────────────────────── */
+.skip {
+  position: absolute; top: -60px; inset-inline-start: 16px; z-index: 100;
+  padding: 12px 18px; border-radius: 12px;
+  background: var(--maroon); color: var(--on-maroon);
+  font-weight: 700; text-decoration: none;
+  transition: top .2s ease;
+}
+.skip:focus-visible { top: 12px; outline: 2px solid var(--gold-hi); }
+.topbar {
+  position: sticky; top: calc(12px + env(safe-area-inset-top, 0px)); z-index: 50;
+  max-width: 1080px; margin: 12px auto 0; padding: 0 8px;
+}
+.topbar-in {
+  display: flex; align-items: center; gap: 10px;
+  padding: 6px 10px 6px 18px;
+  border-radius: 999px;
+  background: rgba(250,246,240,.62);
+  -webkit-backdrop-filter: blur(15px) saturate(150%);
+          backdrop-filter: blur(15px) saturate(150%);
+  border: 1px solid var(--hairline);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.65), 0 10px 30px -14px rgba(138,21,56,.22);
+}
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .topbar-in { background: rgba(250,246,240,.95); }
+}
+.topbar .mark { width: 28px; height: 28px; display: block; }
+.topbar .name {
+  font-family: "Noto Naskh Arabic", "Geeza Pro", serif;
+  font-weight: 700; font-size: 20px; color: var(--maroon);
+  text-decoration: none; display: flex; align-items: center; gap: 9px; min-height: 44px;
+}
+.topbar nav { margin-inline-start: auto; display: flex; gap: 2px; flex-wrap: wrap; justify-content: flex-end; }
+.topbar nav a {
+  display: inline-flex; align-items: center;
+  min-height: 44px; padding: 0 14px; border-radius: 999px;
+  text-decoration: none; font-size: 15px; font-weight: 700; color: var(--ink-soft);
+  background-image: linear-gradient(90deg, var(--gold), var(--gold-hi));
+  background-repeat: no-repeat; background-size: 0% 2px;
+  background-position: center bottom 7px;
+  transition: background-size .3s var(--ease-out), color .2s ease;
+}
+.topbar nav a:hover, .topbar nav a:focus-visible { background-size: 60% 2px; }
+.topbar nav a:hover { background-color: rgba(138,21,56,.06); color: var(--maroon); }  /* longhand — the shorthand was erasing the gold underline */
+
+/* ── البطل ───────────────────────────────────────────────────────────── */
+.hero {
+  display: grid; grid-template-columns: 1.1fr .9fr;
+  gap: clamp(28px, 4.5vw, 52px); align-items: center;
+  padding: clamp(48px, 8vw, 96px) 0 clamp(28px, 4vw, 56px);
+}
+.hero-copy > * { animation: rise .7s var(--ease-out) backwards; }
+.hero-copy > :nth-child(1) { animation-delay: .05s; }
+.hero-copy > :nth-child(2) { animation-delay: .15s; }
+.hero-copy > :nth-child(3) { animation-delay: .25s; }
+.hero-copy > :nth-child(4) { animation-delay: .35s; }
+.hero-copy > :nth-child(5) { animation-delay: .45s; }
+
+.kicker {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin: 0 0 20px; padding: 8px 16px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,252,247,.75), rgba(250,244,235,.6));
+  border: 1px solid var(--hairline);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 6px 18px -8px rgba(138,21,56,.25);
+  font-size: 13.5px; font-weight: 700; color: var(--gold-text);
+}
+
+.hero h1 {
+  margin: 0 0 16px;
+  font-size: clamp(2.6rem, 6vw, 4.4rem);
+  line-height: 1.32;
+}
+/* THE POUR — liquid metal flows through the key phrase; fails into solid color */
+.hero h1 .accent { color: var(--maroon); }
+@supports (-webkit-background-clip: text) {
+  .hero h1 .accent {
+    background: linear-gradient(120deg, #8A6A1A, #B08A2E 30%, #8A1538 55%, #B08A2E 80%, #6E5414);
+    background-size: 300% 100%;
+    background-position: 42% 50%;   /* static pour — animating background-position repainted the whole glyph run every frame */
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
+
+.lede { margin: 0 0 26px; max-width: 44ch; font-size: clamp(17px, 1.9vw, 19.5px); color: var(--ink-soft); }
+
+/* «قريبًا» — a stitched fabric tag, unmistakably NOT a control */
+.store-tag {
+  display: inline-flex; flex-direction: column; gap: 2px;
+  margin: 0; padding: 12px 20px;
+  border: 1px dashed rgba(138,21,56,.38);
+  border-radius: 12px;
+  background: rgba(255,255,255,.30);
+  color: var(--gold-text);
+  cursor: default;
+}
+.store-tag b { font-size: 18px; font-weight: 900; color: var(--maroon); }
+.store-tag span { font-size: 13.5px; color: var(--ink-dim); }
+
+/* the jewel — the page's ONLY raised species; appears exactly twice */
+.jewel {
+  position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 48px; padding: 0 26px; margin-inline-start: 12px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #F2C766, #C9962F);
+  color: #1A0A12; font-weight: 900; font-size: 16px; text-decoration: none;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.65),
+    inset 0 -2px 3px rgba(94,50,10,.35),
+    0 10px 24px -8px rgba(201,150,47,.55);
+  transition: transform .22s var(--ease-out);
+}
+.jewel:hover { transform: translateY(-2px); }
+.jewel:active { transform: scale(.98); }
+.jewel::before {   /* the periodic glint */
+  content: ""; position: absolute; top: 0; bottom: 0; inset-inline-start: 0; width: 38%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.5), transparent);
+  transform: translateX(-160%);
+  animation: jshine 6s ease-in-out 2s infinite;
+  pointer-events: none;
+}
+
+.hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+.hero-chips span {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 999px;
+  background: rgba(255,252,247,.6); border: 1px solid var(--hairline);
+  font-size: 13.5px; font-weight: 700; color: var(--ink-soft);
+}
+.hero-chips b { color: var(--gold-text); font-weight: 700; }
+
+/* ── بركة الجوالين — the phone pool + THE FACE-TURN ──────────────────── */
+.pool { position: relative; display: flex; justify-content: center; align-items: center; min-height: 560px; }
+.pool::before {   /* the honey pool the phones float over — morphing liquid */
+  content: ""; position: absolute; width: 88%; height: 78%;
+  border-radius: 42% 58% 55% 45% / 48% 42% 58% 52%;
+  background:
+    radial-gradient(closest-side at 35% 30%, rgba(232,181,71,.35), rgba(201,150,47,.12) 55%, transparent),
+    radial-gradient(closest-side at 70% 75%, rgba(138,21,56,.30), transparent 70%);
+  animation: poolspin 18s ease-in-out infinite alternate;   /* rotate-only: border-radius morphing was a permanent paint loop */
+}
+@keyframes poolspin { to { transform: rotate(5deg) scale(1.03); } }
+.pose { position: relative; transition: transform .65s var(--ease-out), opacity .5s ease; }
+/* LIGHT: the day face leads */
+.pose.day   { transform: rotate(-5deg); z-index: 2; animation: rise .8s var(--ease-out) .25s backwards; }
+.pose.night { transform: translateX(-38%) rotate(7deg) scale(.92); opacity: .88; z-index: 1; animation: rise .8s var(--ease-out) .4s backwards; }
+/* DARK: the night face comes forward — the site turns its face with the OS */
+.phone {
+  width: min(258px, 60vw);
+  border-radius: 40px;
+  background: var(--phone-bezel);
+  padding: 10px;
+  position: relative;
+  filter: drop-shadow(0 24px 32px rgba(26,10,18,.22));
+  animation: floaty 7s ease-in-out infinite alternate;
+}
+.pose.night .phone { animation-delay: -3.5s; }
+.pool .cap-label {
+  position: absolute; bottom: 26px; inset-inline: 0; text-align: center; margin: 0;
+  font-size: 12.5px; color: var(--ink-dim); font-weight: 700;
+}
+
+/* ── مفتاح الوجهين — CSS-only day/night hands-on toggle ──────────────── */
+.face-sw {   /* the real (focusable) control, visually hidden */
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+.face-ui {
+  grid-column: 2; justify-self: center; margin-top: -8px; z-index: 3;
+  position: relative; display: inline-flex; align-items: center; justify-content: space-between;
+  width: 96px; min-height: 44px; padding: 0 14px;
+  border-radius: 999px; cursor: pointer;
+  background: linear-gradient(180deg, var(--glass-a), var(--glass-b));
+  border: 1px solid var(--hairline);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 8px 20px -10px rgba(138,21,56,.3);
+  font-size: 15px; color: var(--gold-text);
+  -webkit-user-select: none; user-select: none;
+}
+.face-ui .knob {
+  position: absolute; top: 5px; inset-inline-start: 5px;
+  width: 34px; height: 34px; border-radius: 999px;
+  background: linear-gradient(180deg, #F2C766, #C9962F);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 3px 8px rgba(94,50,10,.4);
+  transition: transform .45s var(--spring);
+}
+#face:checked ~ .face-ui .knob { transform: translateX(-52px); }   /* RTL: start = right, knob slides left */
+#face:focus-visible ~ .face-ui { outline: 2px solid var(--gold-text); outline-offset: 3px; }
+/* checked = the OTHER face leads (works against either scheme default) */
+#face:checked ~ .pool .pose.day   { transform: translateX(38%) rotate(7deg) scale(.92); opacity: .8; z-index: 1; }
+#face:checked ~ .pool .pose.night { transform: translateX(0) rotate(-5deg) scale(1); opacity: 1; z-index: 2; }
+
+/* ── شاشتا التطبيق (منقولتان من كود التطبيق حرفياً — لا تغيير) ────────── */
+.screen {
+  position: relative;
+  border-radius: 31px; overflow: hidden;
+  font-size: 10px; line-height: 1.6;
+  border: 1px solid var(--sc-hair);
+  background: var(--sc-bg);
+  color: var(--sc-ink);
+}
+.face-classic {
+  --sc-ink: #1A0A12; --sc-dim: rgba(26,10,18,.66); --sc-faint: rgba(26,10,18,.62);
+  --sc-hair: rgba(26,10,18,.14); --sc-glass: rgba(255,255,255,.55);
+  --sc-acc: #C9962F; --sc-chrome: #8A6A1A; --sc-eyebrow: #8A6A1A;
+  --sc-vote: rgba(26,10,18,.5); --sc-voted: #C9962F; --sc-rail: rgba(122,92,36,.09);
+  --sc-cardbrd: rgba(26,10,18,.06); --sc-poll: rgba(138,21,56,.16);
+  --sc-bar: rgba(255,255,255,.72); --sc-optbrd: rgba(26,10,18,.2); --sc-bezel: #241A20;
+  --sc-bg: linear-gradient(160deg, #FAF6F0 0%, #FAF6F0 45%, #F3ECE0 100%);
+}
+.face-pearl {
+  --sc-ink: #FFFFFF; --sc-dim: rgba(255,255,255,.78); --sc-faint: rgba(255,255,255,.5);
+  --sc-hair: rgba(255,255,255,.22); --sc-glass: rgba(255,255,255,.07);
+  --sc-acc: #BCA6E6; --sc-chrome: #E8B547; --sc-eyebrow: #CBB6F2;
+  --sc-vote: rgba(255,255,255,.55); --sc-voted: #E8B547; --sc-rail: rgba(255,255,255,.055);
+  --sc-cardbrd: rgba(255,255,255,.30); --sc-poll: rgba(255,255,255,.16);
+  --sc-bar: rgba(48,43,72,.92); --sc-optbrd: rgba(255,255,255,.25); --sc-bezel: #241A20;
+  --sc-bg: linear-gradient(180deg, #2A2640 0%, #37324C 35%, #453F5C 70%, #564E6C 100%);
+}
+.face-pearl .star { position: absolute; width: 3px; height: 3px; border-radius: 2px; background: #fff; opacity: .3; animation: twinkle 3.4s ease-in-out infinite; }
+.face-pearl .star:nth-child(2) { animation-delay: 1.1s; animation-duration: 4.2s; }
+.face-pearl .star:nth-child(3) { animation-delay: 2.2s; animation-duration: 2.8s; }
+.notch { display: flex; justify-content: center; padding: 6px 0 3px; }
+.notch i { width: 72px; height: 18px; border-radius: 10px; background: var(--sc-bezel); }
+.cap {
+  direction: ltr; display: flex; align-items: center; justify-content: space-between;
+  margin: 4px 8px 3px; padding: 5px 8px; min-height: 37px; border-radius: 14px;
+  background: var(--sc-glass); border: 1px solid var(--sc-hair); position: relative;
+}
+.cap-brand { display: flex; align-items: center; gap: 4px; }
+.cap-brand .mark { width: 21px; height: 21px; }
+.cap-stack b { display: block; font-size: 9px; font-weight: 900; color: var(--sc-ink); line-height: 1.3; }
+.cap-stack i { display: block; font-style: normal; font-size: 4px; letter-spacing: 1.8px; color: var(--sc-faint); line-height: 1.4; }
+.cap-mid { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none; color: var(--sc-chrome); direction: rtl; }
+.cap-mid .pr { font-size: 6.5px; font-weight: 700; line-height: 1.5; }
+.cap-mid .scope { font-size: 5.5px; font-weight: 700; opacity: .9; line-height: 1.4; }
+.cap-icons { display: flex; align-items: center; gap: 4px; }
+.cap-icons svg { width: 12px; height: 12px; display: block; stroke: var(--sc-ink); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.ic { position: relative; display: flex; }
+.ic.bell svg { transform-origin: 50% 15%; animation: wiggle 6s ease-in-out 2s infinite; }
+.ic u {
+  position: absolute; top: -4px; right: -4px; text-decoration: none;
+  min-width: 10px; height: 10px; border-radius: 5px; padding: 0 2px;
+  background: var(--sc-acc); border: 1px solid #FAF6F0;
+  color: #1A0A12; font-size: 6px; font-weight: 700; line-height: 9px; text-align: center;
+}
+.sortrow { display: flex; align-items: flex-start; justify-content: space-between; margin: 5px 9px 4px; gap: 4px; }
+.fchip { flex: none; width: 20px; height: 20px; border-radius: 7px; border: 1px solid var(--sc-hair); display: flex; align-items: center; justify-content: center; }
+.fchip svg { width: 10px; height: 10px; stroke: var(--sc-chrome); fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.stabs { display: flex; gap: 7px; padding-top: 3px; }
+.stabs span { font-size: 7px; font-weight: 700; color: var(--sc-faint); text-align: center; line-height: 1.4; }
+.stabs .on { color: var(--sc-ink); }
+.stabs .on i { display: block; width: 12px; height: 2px; border-radius: 1px; background: var(--sc-acc); margin: 2px auto 0; }
+.stabs em { font-style: normal; color: var(--sc-acc); font-size: 6px; vertical-align: super; }
+.feed { padding: 2px 9px 7px; display: grid; gap: 8px; direction: rtl; }
+.card {
+  display: flex; border-radius: 16px; overflow: hidden;
+  border: 1px solid var(--sc-cardbrd); box-shadow: 0 7px 14px rgba(26,10,18,.18);
+  position: relative; animation: rise .55s var(--ease-out) backwards;
+}
+.card:nth-child(1) { animation-delay: .55s; }
+.card:nth-child(2) { animation-delay: .70s; }
+.card:nth-child(3) { animation-delay: .85s; }
+.face-classic .t1 { background: linear-gradient(180deg, rgba(234,210,168,.55), rgba(234,210,168,.30)), #FFFEFB; }
+.face-classic .t2 { background: linear-gradient(180deg, rgba(199,212,223,.55), rgba(199,212,223,.30)), #FFFEFB; }
+.face-classic .t3 { background: linear-gradient(180deg, rgba(238,197,188,.55), rgba(238,197,188,.30)), #FFFEFB; }
+.face-pearl .t1 { background: linear-gradient(180deg, rgba(106,95,146,.62), rgba(76,68,105,.78)), #2A2640; }
+.face-pearl .t2 { background: linear-gradient(180deg, rgba(74,90,138,.62),  rgba(53,65,99,.78)),  #2A2640; }
+.face-pearl .t3 { background: linear-gradient(180deg, rgba(122,90,116,.62), rgba(88,65,84,.78)),  #2A2640; }
+.cbody { flex: 1; padding: 8px 10px 8px 8px; min-width: 0; }
+.eyebrow { display: flex; align-items: center; gap: 4px; margin-bottom: 3px; }
+.eyebrow b { font-size: 7.5px; font-weight: 700; color: var(--sc-eyebrow); }
+.eyebrow .dia { width: 4px; height: 4px; background: var(--sc-eyebrow); transform: rotate(45deg); border-radius: 1px; }
+.eyebrow .dot { width: 4px; height: 4px; border-radius: 3px; border: .5px solid rgba(26,10,18,.25); }
+.card p { margin: 0; font-size: 10.5px; line-height: 1.75; color: var(--sc-ink); text-align: right; }
+.cfoot { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; }
+.cmt { display: inline-flex; align-items: center; gap: 3px; color: var(--sc-dim); font-size: 8px; font-weight: 600; }
+.cmt svg { width: 9px; height: 9px; stroke: var(--sc-dim); fill: none; stroke-width: 1.6; }
+.ago { color: var(--sc-dim); font-size: 7px; display: inline-flex; align-items: center; gap: 3px; }
+.ago .fresh { width: 4px; height: 4px; border-radius: 2px; background: var(--sc-acc); animation: pulse 1.8s ease-in-out infinite; }
+.boostmeta { display: inline-flex; align-items: baseline; gap: 4px; color: var(--sc-voted); }
+.boostmeta b { font-size: 9px; font-weight: 700; }
+.boostmeta span { font-size: 6.5px; color: var(--sc-dim); }
+.rail {
+  flex: none; width: 28px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 3px;
+  background: var(--sc-rail); border-inline-start: 1px solid var(--sc-hair);
+}
+.rail svg { width: 10px; height: 7px; stroke: var(--sc-vote); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.rail .voted svg { stroke: var(--sc-voted); }
+.face-classic .rail .voted { background: rgba(234,210,168,.45); border-radius: 5px; padding: 2px 3px; }
+.face-pearl   .rail .voted { background: rgba(106,95,146,.5);  border-radius: 5px; padding: 2px 3px; }
+.rail .cnt { font-size: 8px; font-weight: 600; color: var(--sc-ink); letter-spacing: .2px; }
+.rail .cnt.gold { color: var(--sc-voted); }
+.popt {
+  position: relative; overflow: hidden; min-height: 23px; border-radius: 7px;
+  border: 1px solid var(--sc-optbrd); margin-top: 4px;
+  display: flex; align-items: center; justify-content: space-between; padding: 3px 7px;
+}
+.popt i { position: absolute; top: 0; bottom: 0; right: 0; width: var(--w); background: var(--sc-poll); transform-origin: right center; animation: growW .9s var(--ease-out) 1.1s backwards; }
+.popt span { position: relative; font-size: 7.5px; font-weight: 700; color: var(--sc-ink); }
+.popt em { position: relative; font-style: normal; font-size: 7px; font-weight: 600; color: var(--sc-eyebrow); }
+.ptotal { font-size: 6.5px; color: var(--sc-dim); margin-top: 3px; text-align: right; }
+.sill { position: absolute; bottom: 0; left: 0; right: 0; height: 2.5px; display: flex; flex-direction: row-reverse; background: rgba(201,150,47,.16); }
+.sill i { width: 60%; background: var(--sc-acc); }
+.tabbar {
+  direction: ltr; display: flex; align-items: flex-start;
+  padding: 4px 4px 8px; background: var(--sc-bar);
+  border-top: 1px solid rgba(201,150,47,.16); position: relative;
+}
+.tabbar::before {
+  content: ""; position: absolute; top: -1px; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent 6%, rgba(201,150,47,.5) 30%, rgba(201,150,47,.9) 50%, rgba(201,150,47,.5) 70%, transparent 94%);
+}
+.face-pearl .tabbar::before { background: linear-gradient(90deg, transparent 6%, rgba(188,166,230,.5) 30%, rgba(188,166,230,.9) 50%, rgba(188,166,230,.5) 70%, transparent 94%); }
+.tb { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; position: relative; }
+label.tb { cursor: pointer; }   /* the phone's own tab bar navigates the demo */
+.tb svg { width: 14px; height: 14px; stroke: var(--sc-faint); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.tb b { font-size: 6px; font-weight: 700; color: var(--sc-faint); }
+.tb.on svg { stroke: var(--sc-acc); fill: var(--sc-acc); fill-opacity: .18; }
+.tb.on b { color: var(--sc-acc); }
+.tb.on::before {
+  content: ""; position: absolute; top: -3px; width: 30px; height: 23px;
+  background: radial-gradient(50% 50% at 50% 50%, rgba(201,150,47,.22), rgba(201,150,47,.11) 50%, transparent 75%);
+}
+.face-pearl .tb.on::before { background: radial-gradient(50% 50% at 50% 50%, rgba(188,166,230,.3), rgba(188,166,230,.14) 50%, transparent 75%); }
+.loz {
+  width: 27px; height: 24px; border-radius: 8px;
+  background: linear-gradient(135deg, rgba(255,255,255,.55), rgba(255,255,255,.06) 42%, rgba(0,0,0,.10) 62%, rgba(0,0,0,.26)), var(--sc-acc);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 3px 7px rgba(201,150,47,.42);
+  border-top: 1px solid rgba(255,255,255,.7);
+}
+.loz svg { width: 13px; height: 13px; stroke: #1A0A12; fill: none; stroke-width: 1.7; }
+.tb.lz b { color: var(--sc-acc); }
+
+/* ── جرّب المظهر — the vial tray re-skins the hero phone (radios, no JS) ─
+      Every value below is the app's own: BG gradients, accents, post tints. */
+.th-sw {
+  position: absolute; width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+}
+label.vial { cursor: pointer; }
+.try-hint { margin: 14px 0 0; text-align: center; font-size: 13.5px; color: var(--gold-text); font-weight: 700; }
+/* selected vial wears the gold ring */
+#t-classic:checked ~ main .v-classic, #t-doha:checked ~ main .v-doha,
+#t-galaxy:checked ~ main .v-galaxy,   #t-diwani:checked ~ main .v-diwani,
+#t-molten:checked ~ main .v-molten {
+  box-shadow: inset 0 0 0 2px rgba(201,150,47,.9), 0 10px 24px -10px rgba(138,21,56,.35);
+  transform: scale(1.03);
+}
+#t-classic:focus-visible ~ main .v-classic, #t-doha:focus-visible ~ main .v-doha,
+#t-galaxy:focus-visible ~ main .v-galaxy,   #t-diwani:focus-visible ~ main .v-diwani,
+#t-molten:focus-visible ~ main .v-molten { outline: 2px solid var(--gold-text); outline-offset: 3px; }
+/* the radios sit near the top of the tab order — cue focus on the phone that is
+   actually in view, not only on the vial 2000px below */
+#t-classic:focus-visible ~ main .pose.day .phone, #t-doha:focus-visible ~ main .pose.day .phone,
+#t-galaxy:focus-visible ~ main .pose.day .phone,  #t-diwani:focus-visible ~ main .pose.day .phone,
+#t-molten:focus-visible ~ main .pose.day .phone { outline: 2px solid var(--gold-text); outline-offset: 4px; }
+
+/* ليل الدوحة — dark city theme (BG.doha, accent #5B9BD9, bright #7FB3FF) */
+#t-doha:checked ~ main .pose.day .screen {
+  --sc-ink: #FFFFFF; --sc-dim: rgba(255,255,255,.78); --sc-faint: rgba(255,255,255,.5);
+  --sc-hair: rgba(255,255,255,.22); --sc-glass: rgba(255,255,255,.07);
+  --sc-acc: #5B9BD9; --sc-chrome: #E8B547; --sc-eyebrow: #7FB3FF;
+  --sc-vote: rgba(255,255,255,.55); --sc-voted: #E8B547; --sc-rail: rgba(255,255,255,.055);
+  --sc-cardbrd: rgba(255,255,255,.30); --sc-poll: rgba(255,255,255,.16);
+  --sc-bar: rgba(16,34,74,.92); --sc-optbrd: rgba(255,255,255,.25);
+  --sc-bg: linear-gradient(160deg, #0B1836, #10224A, #16305E, #0E1D40);
+}
+#t-doha:checked ~ main .pose.day .t1 { background: linear-gradient(180deg, rgba(42,90,158,.62), rgba(30,64,112,.78)), #0E1D40; }
+#t-doha:checked ~ main .pose.day .t2 { background: linear-gradient(180deg, rgba(31,122,138,.62), rgba(22,87,98,.78)),  #0E1D40; }
+#t-doha:checked ~ main .pose.day .t3 { background: linear-gradient(180deg, rgba(122,58,110,.62), rgba(87,41,78,.78)),  #0E1D40; }
+#t-doha:checked ~ main .pose.day .rail .voted { background: rgba(42,90,158,.5); }
+
+/* مجرّة — the first night (BG.galaxy, accent #C9962F, bright #E8B547) */
+#t-galaxy:checked ~ main .pose.day .screen {
+  --sc-ink: #FFFFFF; --sc-dim: rgba(255,255,255,.78); --sc-faint: rgba(255,255,255,.5);
+  --sc-hair: rgba(255,255,255,.22); --sc-glass: rgba(255,255,255,.07);
+  --sc-acc: #C9962F; --sc-chrome: #E8B547; --sc-eyebrow: #E8B547;
+  --sc-vote: rgba(255,255,255,.55); --sc-voted: #E8B547; --sc-rail: rgba(255,255,255,.055);
+  --sc-cardbrd: rgba(255,255,255,.30); --sc-poll: rgba(255,255,255,.16);
+  --sc-bar: rgba(42,21,80,.92); --sc-optbrd: rgba(255,255,255,.25);
+  --sc-bg: linear-gradient(160deg, #1B0E33, #2A1550, #4A1140, #6E163F);
+}
+#t-galaxy:checked ~ main .pose.day .t1 { background: linear-gradient(180deg, rgba(122,58,160,.62), rgba(87,41,114,.78)), #1B0E33; }
+#t-galaxy:checked ~ main .pose.day .t2 { background: linear-gradient(180deg, rgba(58,74,160,.62),  rgba(41,53,114,.78)), #1B0E33; }
+#t-galaxy:checked ~ main .pose.day .t3 { background: linear-gradient(180deg, rgba(138,36,86,.62),  rgba(98,26,61,.78)),  #1B0E33; }
+#t-galaxy:checked ~ main .pose.day .rail .voted { background: rgba(122,58,160,.5); }
+
+/* الدفتر — parchment (BG.diwani, accent #8A6A1A) */
+#t-diwani:checked ~ main .pose.day .screen {
+  --sc-acc: #8A6A1A; --sc-chrome: #8A6A1A; --sc-eyebrow: #8A6A1A;
+  --sc-bar: rgba(255,255,255,.6);
+  --sc-bg: linear-gradient(160deg, #F4ECD8, #F1E7CF, #E9DCC0, #E1D0B0);
+}
+#t-diwani:checked ~ main .pose.day .t1 { background: linear-gradient(180deg, rgba(234,217,174,.55), rgba(234,217,174,.30)), #FFFEFB; }
+#t-diwani:checked ~ main .pose.day .t2 { background: linear-gradient(180deg, rgba(203,214,223,.55), rgba(203,214,223,.30)), #FFFEFB; }
+#t-diwani:checked ~ main .pose.day .t3 { background: linear-gradient(180deg, rgba(232,200,206,.55), rgba(232,200,206,.30)), #FFFEFB; }
+#t-diwani:checked ~ main .pose.day .loz svg { stroke: #FFF6EE; }   /* dark accent needs light glyph */
+#t-diwani:checked ~ main .pose.day .rail .voted { background: rgba(234,217,174,.5); }
+
+/* الذهب المذاب — absolute black, molten gold (BG.moltengold, ink #FFD65A) */
+#t-molten:checked ~ main .pose.day .screen {
+  --sc-ink: #FFFFFF; --sc-dim: rgba(255,255,255,.78); --sc-faint: rgba(255,255,255,.5);
+  --sc-hair: rgba(255,214,90,.22); --sc-glass: rgba(255,255,255,.06);
+  --sc-acc: #FFD65A; --sc-chrome: #FFD65A; --sc-eyebrow: #FFD65A;
+  --sc-vote: rgba(255,255,255,.55); --sc-voted: #FFD65A; --sc-rail: rgba(255,214,90,.06);
+  --sc-cardbrd: rgba(255,214,90,.28); --sc-poll: rgba(255,214,90,.14);
+  --sc-bar: rgba(10,8,5,.94); --sc-optbrd: rgba(255,214,90,.25);
+  --sc-bg: radial-gradient(60% 50% at 50% 38%, rgba(232,181,71,.35), transparent 70%), linear-gradient(160deg, #0C0906, #0A0805, #080604, #040302);
+}
+#t-molten:checked ~ main .pose.day .t1 { background: linear-gradient(180deg, rgba(255,197,94,.30), rgba(179,138,66,.40)), #0C0906; }
+#t-molten:checked ~ main .pose.day .t2 { background: linear-gradient(180deg, rgba(232,212,168,.26), rgba(163,148,118,.36)), #0C0906; }
+#t-molten:checked ~ main .pose.day .t3 { background: linear-gradient(180deg, rgba(255,214,90,.28),  rgba(179,150,63,.38)),  #0C0906; }
+#t-molten:checked ~ main .pose.day .rail .voted { background: rgba(255,214,90,.28); }
+
+/* ── شريط السوالف — speech bubbles drifting like a مجلس ──────────────── */
+.ticker {
+  margin: clamp(20px, 4vw, 40px) 0 0;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+.ticker-row { display: flex; width: max-content; padding: 8px 0; animation: drift 46s linear infinite; }  /* spacing via chip margin so -50% is an exact period */
+.ticker:hover .ticker-row { animation-play-state: paused; }
+.tchip {
+  flex: none; display: inline-flex; align-items: center; gap: 7px;
+  margin-inline-end: 12px;
+  transition: transform .25s var(--ease-out);
+  padding: 9px 18px;
+  border-radius: 18px 18px 4px 18px;   /* speech bubble, tail on the RTL edge */
+  font-size: 13.5px; font-weight: 700; color: var(--ink-soft); white-space: nowrap;
+  background: rgba(138,21,56,.07); border: 1px solid rgba(138,21,56,.14);
+}
+.tchip:nth-child(even) { background: rgba(201,150,47,.10); border-color: rgba(201,150,47,.22); border-radius: 18px 18px 18px 4px; }
+.tchip:hover { transform: translateY(-3px); }
+
+/* ── فواصل السدو المنسوجة ────────────────────────────────────────────── */
+.sadu {
+  position: relative; height: 16px; margin: clamp(18px, 4vw, 36px) 0; overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(201,150,47,.55) 0 2px, transparent 2px calc(100% - 2px), rgba(201,150,47,.55) calc(100% - 2px)),
+    conic-gradient(from 135deg at 50% 100%, rgba(138,21,56,.8) 0 90deg, transparent 0) 0 2px / 12px 7px repeat-x,
+    conic-gradient(from -45deg at 50% 0%,  rgba(138,21,56,.8) 0 90deg, transparent 0) 6px 9px / 12px 7px repeat-x;
+}
+.sadu::after {   /* the weft glint — the weave being woven, almost subliminal */
+  content: ""; position: absolute; inset: 0 auto 0 0; width: 30%;
+  background: linear-gradient(90deg, transparent, rgba(232,181,71,.5), transparent);
+  animation: glint 60s linear infinite;
+}
+.sadu.q::after { display: none; }   /* only the first selvage weaves; the band's frame stays still */
+
+/* ── العناوين ────────────────────────────────────────────────────────── */
+.sec-head { text-align: center; margin: clamp(34px, 5vw, 56px) 0 8px; }
+.sec-head h2 { margin: 0; font-size: clamp(26px, 3.6vw, 34px); }
+.sec-head h2[data-n]::before {   /* editorial folio number */
+  content: attr(data-n);
+  display: block; margin: 0 auto 6px;
+  font-family: -apple-system, "Segoe UI", sans-serif;
+  font-size: 13px; font-weight: 700; color: var(--gold-text);
+  opacity: .85;
+}
+.sec-head h2[data-n]::after {
+  content: ""; display: block; width: 44px; height: 2px; border-radius: 1px;
+  margin: 10px auto 0; background: linear-gradient(90deg, var(--gold-hi), var(--gold));
+}
+.sec-head p  { margin: 8px auto 28px; color: var(--ink-dim); font-size: 15px; max-width: 52ch; }
+
+/* ── ثلاث خطوات — glass cards on a woven thread ──────────────────────── */
+.steps {
+  position: relative;
+  display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+.steps::before {
+  content: ""; position: absolute; top: 44px; inset-inline: 8%; height: 2px;
+  background: repeating-linear-gradient(90deg, rgba(201,150,47,.55) 0 14px, transparent 14px 24px);
+}
+.step { padding: 26px 24px 22px; transition: transform .28s var(--ease-out); }
+.step:hover { transform: translateY(-4px); }
+.stepnum {
+  display: flex; align-items: center; justify-content: center;
+  width: 56px; height: 56px; margin-bottom: 14px;
+  border-radius: 42% 58% 55% 45% / 48% 42% 58% 52%;
+  background: linear-gradient(140deg, #A11C44, #8A1538 55%, #5E0E26);
+  color: #FAF6F0; font-family: "Noto Naskh Arabic", "Geeza Pro", serif; font-size: 1.5rem; font-weight: 700;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 8px 20px -8px rgba(138,21,56,.5);
+}
+.step:nth-child(2) .stepnum { border-radius: 56% 44% 48% 52% / 44% 56% 52% 48%; }
+.step:nth-child(3) .stepnum { border-radius: 52% 48% 56% 44% / 48% 52% 44% 56%; }
+.step h3 { margin: 0 0 6px; font-size: 19px; color: var(--maroon); }
+.step p  { margin: 0; font-size: 15px; }
+
+/* ── الركائز — glass with a woven warp edge ──────────────────────────── */
+.pillars { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.pillar { padding: 28px 24px 24px; overflow: hidden; transition: transform .28s var(--ease-out); }
+.pillar:hover { transform: translateY(-4px); }
+.pillar i.warp {
+  position: absolute; inset-block: 0; inset-inline-start: 0; width: 6px;
+  background: repeating-linear-gradient(180deg, #8A1538 0 10px, #C9962F 10px 14px, #8A1538 14px 24px, #FAF6F0 24px 26px);
+}
+.pillar .drop {
+  width: 48px; height: 48px; margin-bottom: 14px;
+  border-radius: 42% 58% 55% 45% / 48% 42% 58% 52%;
+  display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(closest-side at 35% 30%, #E8B547, #C9962F);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.5), 0 8px 18px -8px rgba(201,150,47,.6);
+}
+.pillar .drop svg { width: 24px; height: 24px; color: #5E0E26; }
+.pillar .drop svg .g { stroke: #5E0E26; opacity: .75; }
+.pillar h3 { margin: 0 0 6px; font-size: 19px; color: var(--maroon); }
+.pillar p  { margin: 0; font-size: 15px; }
+
+/* ── المظاهر — vials in a glass tray, labels on fixed dark plates ────── */
+.tray { padding: 24px; border-radius: 32px; }
+.rail-scroll {
+  display: flex; gap: 16px; overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory; scrollbar-width: none;
+  padding: 4px;
+}
+.rail-scroll::-webkit-scrollbar { display: none; }
+.vial {
+  position: relative; flex: 0 0 148px; height: 200px;
+  border-radius: 24px; scroll-snap-align: center;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.35), 0 10px 24px -12px rgba(26,10,18,.25);
+  transition: transform .26s var(--ease-out);
+}
+label.vial:hover { transform: scale(1.06); }   /* transform only — flex-basis growth reflowed the whole rail */
+div.vial { opacity: .8; filter: saturate(.85); cursor: default; }   /* display-only vials read as the quiet set */
+.vial .lbl {
+  display: block;
+  position: absolute; inset-inline: 8px; bottom: 8px;
+  border-radius: 16px; padding: 8px 10px;
+  background: rgba(20, 8, 16, .75);   /* ALWAYS dark — .55 was too thin over the cream vials */
+  border: 1px solid rgba(255,255,255,.12);
+}
+.vial .lbl b { display: block; font-size: .85rem; font-weight: 700; color: #FAF6F0; }
+.vial .lbl span { display: block; font-size: .72rem; color: rgba(246,237,227,.85); line-height: 1.5; }
+.vial.hallmark::before {
+  content: "◆"; position: absolute; top: 8px; inset-inline: 0;   /* inside the vial — at -22px the rail clipped it invisible */
+  text-align: center; font-size: 10px; color: #E8B547; opacity: .85;
+}
+.sw-classic    { background: linear-gradient(160deg, #FAF6F0 0%, #FAF6F0 45%, #F3ECE0 100%); }
+.sw-pearl      { background: linear-gradient(160deg, #2A2640, #37324C, #453F5C, #564E6C); }
+.sw-diwani     { background: linear-gradient(160deg, #F4ECD8, #F1E7CF, #E9DCC0, #E1D0B0); }
+.sw-moltengold { background: radial-gradient(60% 70% at 50% 45%, rgba(232,181,71,.5), transparent 70%), linear-gradient(160deg, #0C0906, #0A0805, #080604, #040302); }
+.sw-doha       { background: linear-gradient(160deg, #0B1836, #10224A, #16305E, #0E1D40); }
+.sw-galaxy     { background: linear-gradient(160deg, #1B0E33, #2A1550, #4A1140, #6E163F); }
+.sw-rosegold   { background: linear-gradient(160deg, #FFF7F5, #F4BEB8, #D97C76, #8E3B38); }
+.sw-neona      { background: radial-gradient(50% 60% at 30% 40%, rgba(255,43,214,.35), transparent 70%), radial-gradient(50% 60% at 75% 65%, rgba(34,230,255,.25), transparent 70%), linear-gradient(160deg, #050109, #0A0518, #0B0A24, #12061F); }
+
+/* ── الألعاب — liquid portholes ──────────────────────────────────────── */
+.games { display: grid; gap: 16px; grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 900px) { .games { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .games { grid-template-columns: 1fr; } }
+.game { padding: 20px 18px 18px; text-align: center; transition: transform .28s var(--ease-out); }
+.game:hover { transform: translateY(-4px); }
+.porthole {
+  width: 96px; height: 82px; margin: 0 auto 12px;
+  border-radius: 42% 58% 55% 45% / 48% 42% 58% 52%;
+  background: var(--plate);
+  box-shadow: inset 0 0 0 1px rgba(138,21,56,.08), inset 0 2px 12px rgba(138,21,56,.06);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .32s var(--spring);
+}
+.game:nth-child(3n+2) .porthole { border-radius: 56% 44% 48% 52% / 44% 56% 52% 48%; }
+.game:nth-child(3n)   .porthole { border-radius: 52% 48% 56% 44% / 48% 52% 44% 56%; }
+.game:hover .porthole { transform: rotate(-2deg) scale(1.06); }
+.porthole svg { width: 46px; height: 46px; stroke: var(--tint); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.porthole svg .f { fill: var(--tint); stroke: none; }
+/* the boards play when you reach for them */
+.porthole svg .f, .porthole svg circle, .porthole svg .p1, .porthole svg .p2,
+.porthole svg .p3, .porthole svg .hit, .porthole svg .sonar, .porthole svg rect {
+  transform-box: fill-box; transform-origin: center;
+}
+/* the six boards run their own little matches, staggered so no two sync */
+.g-xo .porthole svg .p1  { animation: piece 9s ease-in-out infinite; }
+.g-xo .porthole svg .p2  { animation: piece 9s ease-in-out .9s infinite; }
+.g-xo .porthole svg .p3  { animation: piece 9s ease-in-out 1.8s infinite; }
+.g-xo .porthole svg .p4  { animation: piece 9s ease-in-out 2.7s infinite; }
+.g-xo .porthole svg .win { stroke-dasharray: 40; animation: windraw 9s ease-in-out infinite; }
+.g-ludo .porthole svg .f:first-of-type { animation: hop 8s ease-in-out 1s infinite; }
+.g-baloot .porthole svg rect:nth-of-type(1) { animation: dealin 10s ease-in-out infinite; }
+.g-baloot .porthole svg rect:nth-of-type(2) { animation: dealin 10s ease-in-out .5s infinite; }
+.g-baloot .porthole svg rect:nth-of-type(3) { animation: dealin 10s ease-in-out 1s infinite; }
+.g-baloot .porthole svg .f { animation: piece 10s ease-in-out 1.6s infinite; }
+.g-ships .porthole svg .hit    { animation: splash 8.5s ease-in-out .4s infinite; }
+.g-ships .porthole svg .f      { animation: sink 8.5s ease-in-out .4s infinite; }
+.g-ships .porthole svg .sonar  { animation: splash 8.5s ease-in-out 2s infinite; }
+.g-xo9 .porthole svg .p1 { animation: piece 11s ease-in-out .6s infinite; }
+.g-xo9 .porthole svg .p2 { animation: piece 11s ease-in-out 1.5s infinite; }
+.g-xo9 .porthole svg .p3 { animation: piece 11s ease-in-out 2.4s infinite; }
+.g-braz .porthole svg .f { animation: flipd 9.5s ease-in-out 1.2s infinite; }
+.g-xo     { --tint: #3E5FA8; }
+.g-ludo   { --tint: #2F7D5C; }
+.g-baloot { --tint: #8A1538; }
+.g-ships  { --tint: #34567A; }
+.g-xo9    { --tint: #B7791F; }
+.g-braz   { --tint: #5B3A8E; }
+.game b { display: block; font-family: "Noto Naskh Arabic", "Geeza Pro", serif; color: var(--ink); font-size: 18px; }
+.game .sub { display: block; color: var(--ink-dim); font-size: 13.5px; margin-top: 3px; line-height: 1.6; }
+.game .n {
+  display: inline-block; margin-top: 10px; padding: 3px 12px;
+  border-radius: 999px; border: 1px solid var(--hairline);
+  font-size: 11.5px; font-weight: 700; color: var(--gold-text);
+  background: rgba(255,253,248,.6);
+}
+
+/* ── حزام الخصوصية — الليل الذي يبقى (night in BOTH schemes) ─────────── */
+.night-band {
+  position: relative;
+  margin: 0 calc(50% - 50vw);   /* flush against the sadu selvages — the weave stitches straight onto the night */
+  padding: clamp(40px, 6vw, 64px) 22px;
+  background:
+    radial-gradient(70% 90% at 80% 0%, rgba(232,181,71,.10), transparent 60%),
+    linear-gradient(180deg, rgba(94,14,38,.55), rgba(74,10,30,.65)),
+    linear-gradient(180deg, #140A18, #1A0A12);
+  color: #F6E8D8;
+}
+.night-band .inner { max-width: 46rem; margin: 0 auto; text-align: center; }
+.crescent {
+  position: relative;
+  display: block; width: 46px; height: 46px; margin: 0 auto 18px;
+  border-radius: 50%;
+  box-shadow: inset 9px -5px 0 0 #E8B547, 0 0 24px rgba(232,181,71,.35);
+}
+.crescent::before {   /* the halo breathes (opacity only — never animate shadows) */
+  content: ""; position: absolute; inset: -14px; border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(232,181,71,.35), transparent 70%);
+  animation: glow 5s ease-in-out infinite;
+}
+.night-band h2 { margin: 0 0 8px; color: #F6E8D8; font-size: clamp(24px, 3.4vw, 32px); }
+.night-band > .inner > p { margin: 0 auto 28px; opacity: .85; font-size: 15.5px; }
+.creed { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); text-align: start; }
+.creed div {
+  background: rgba(255, 246, 238, .07);
+  border: 1px solid rgba(232, 181, 71, .18);
+  border-radius: 16px; padding: 18px;
+}
+.creed b { display: block; color: #E8B547; font-size: 16.5px; margin-bottom: 4px; }
+.creed span { font-size: 15px; opacity: .92; line-height: 1.75; display: block; }
+
+/* ── التواصل ─────────────────────────────────────────────────────────── */
+.contact { max-width: 560px; margin: 0 auto; padding: 40px 32px; text-align: center; }
+.contact h2 { margin: 0 0 18px; font-size: clamp(24px, 3.2vw, 30px); }
+.contact .note { margin: 16px 0 0; color: var(--ink-dim); font-size: 13.5px; }
+
+/* ── الكورنيش — the drawn selvage above the footer ───────────────────── */
+.corniche { margin-top: clamp(36px, 6vw, 60px); overflow: hidden; line-height: 0; display: flex; justify-content: center; }
+.corniche svg { display: block; width: 100%; height: auto; min-width: 720px; flex: none; }  /* flex centering — the margin/translate trick inverts under RTL */
+
+/* ── الذيل — the selvage ─────────────────────────────────────────────── */
+footer {
+  margin-top: 0;   /* the corniche's ground line stands directly on the footer band */
+  background: rgba(26,10,18,.03);
+  border-top: 1px solid var(--hairline);
+  text-align: center; color: var(--ink-dim); font-size: 13.5px;
+  padding: 26px 0 calc(40px + env(safe-area-inset-bottom, 0px));
+  position: relative;
+}
+footer::after { content: ""; position: absolute; bottom: 0; inset-inline: 0; height: 2px; background: linear-gradient(90deg, transparent, rgba(201,150,47,.6), transparent); }
+footer a { margin: 0 8px; display: inline-block; padding-block: 10px; }
+.made { margin-top: 8px; font-size: 13px; }
+
+/* ── التكيّف ─────────────────────────────────────────────────────────── */
+@media (max-width: 940px) {
+  .hero { grid-template-columns: 1fr; text-align: center; }
+  .hero-copy { text-align: center; }
+  .lede { margin-inline: auto; }
+  .hero-chips { justify-content: center; }
+  .pool { min-height: 0; padding: 12px 0 34px; }
+  .pose.day   { transform: rotate(-4deg) translateX(22%); }
+  .pose.night { transform: translateX(-22%) rotate(6deg) scale(.92); }
+  .phone { width: min(220px, 42vw); }
+}
+@media (max-width: 560px) {
+  .pose.night { display: none; }
+  .pose.day { transform: none; opacity: 1; }
+  .phone { width: min(258px, 76vw); }
+  .face-ui { grid-column: 1; margin-top: -2px; }
+  /* the toggle swaps WHICH face is shown on small screens */
+  #face:checked ~ .pool .pose.day   { display: none; }
+  #face:checked ~ .pool .pose.night { display: block; transform: none; opacity: 1; }
+}
+@media (max-width: 480px) {
+  body { font-size: 16px; }
+  .topbar nav a { padding: 0 10px; font-size: 14px; }
+  .jewel { margin-inline-start: 0; margin-top: 10px; }
+}
+
+/* ── اللمس — no sticky hovers on touch; presses answer instead ───────── */
+@media (hover: none) {
+  .glass:hover::after, .pane:hover::after { background-position: 165% 0; }
+  label.vial:hover { transform: none; }   /* matches the base rule's specificity so touch never sticks */
+  .tchip:hover { transform: none; }
+  .step:hover, .pillar:hover, .game:hover { transform: none; }
+  .game:hover .porthole { transform: none; }
+  .step:active, .pillar:active { transform: translateY(-2px); }
+  .vial:active { transform: scale(1.04); }
+  .game:active .porthole { transform: rotate(-2deg) scale(1.06); }
+  .game:active .porthole svg .f, .game:active .porthole svg circle { transform: scale(1.22); }
+}
+
+/* ── كشف عند التمرير — scroll reveals, only where the engine supports it;
+      the base state is fully visible, so nothing is ever lost ──────────── */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .sec-head, .step, .pillar, .vial, .game, .creed > div, .contact {
+      animation: rev .8s var(--ease-out) both;
+      animation-timeline: view();
+      animation-range: entry 5% entry 45%;
+    }
+  }
+}
+
+/* ═══ V8 — THE PHONE BECOMES A MINI-APP: feed ⇄ games pager ═══════════
+   The games world page is transcribed from the app's code: the tab is a
+   vertical PAGER of full-screen game worlds (GamePage.tsx); page 1 is
+   إكس أو on «ورق مسطّر» — cream ruled paper, ink type, maroon CTA. */
+.seg {
+  grid-column: 2; justify-self: center; margin-top: -2px; z-index: 3;
+  display: inline-flex; align-items: stretch;
+  min-height: 44px; border-radius: 999px; overflow: hidden;
+  background: linear-gradient(180deg, var(--glass-a), var(--glass-b));
+  border: 1px solid var(--hairline);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.6), 0 8px 20px -10px rgba(138,21,56,.3);
+}
+.seg label {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0 20px; cursor: pointer;
+  font-size: 14px; font-weight: 700; color: var(--ink-soft);
+  transition: background .25s ease, color .25s ease;
+}
+/* default: الفيد active */
+.seg .seg-f { background: linear-gradient(180deg, #F2C766, #C9962F); color: #1A0A12; }
+#scr-games:checked ~ main .seg .seg-f { background: none; color: var(--ink-soft); }
+#scr-games:checked ~ main .seg .seg-g { background: linear-gradient(180deg, #F2C766, #C9962F); color: #1A0A12; }
+#scr-feed:focus-visible ~ main .seg, #scr-games:focus-visible ~ main .seg,
+#scr-compose:focus-visible ~ main .seg, #scr-nearby:focus-visible ~ main .seg { outline: 2px solid var(--gold-text); outline-offset: 3px; }
+/* the swap */
+.scr-games-v { display: none; }
+#scr-games:checked ~ main .pose.day .scr-feed-v  { display: none; }
+#scr-games:checked ~ main .pose.day .scr-games-v { display: block; }
+
+/* ── شاشة النشر — bottom sheet over the feed (compose/index.tsx) ──────── */
+.scr-compose-v { display: none; }
+#scr-compose:checked ~ main .pose.day .scr-feed-v  { display: none; }
+#scr-compose:checked ~ main .pose.day .scr-games-v { display: none; }
+#scr-compose:checked ~ main .pose.day .scr-compose-v { display: block; }
+#scr-compose:checked ~ main .seg .seg-f { background: none; color: var(--ink-soft); }
+#scr-compose:checked ~ main .seg .seg-c { background: linear-gradient(180deg, #F2C766, #C9962F); color: #1A0A12; }
+.cmp { position: relative; min-height: 440px; overflow: hidden;   /* keep the phone's silhouette — the sheet rises over the SAME feed */
+  background: linear-gradient(160deg, #FAF6F0 0%, #FAF6F0 45%, #F3ECE0 100%); }
+.cmp-ghost { position: absolute; inset-inline: 10px; height: 64px; border-radius: 12px;
+  background: linear-gradient(180deg, rgba(234,210,168,.55), rgba(234,210,168,.30)), #FFFEFB;
+  border: 1px solid rgba(26,10,18,.06); }
+.cmp-ghost.g1 { top: 10px; }
+.cmp-ghost.g2 { top: 84px; background: linear-gradient(180deg, rgba(199,212,223,.55), rgba(199,212,223,.30)), #FFFEFB; }
+.cmp-scrim { position: absolute; inset: 0; background: rgba(20,12,6,.28); }   /* the warm dim over the still-visible feed */
+.cmp-sheet {
+  position: absolute; inset: auto 0 0 0;
+  background: linear-gradient(180deg, rgba(225,202,218,.34), transparent 55%), #FFFEFB;   /* the heather blush — the sheet IS the plate */
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -8px 20px rgba(58,42,16,.22);
+  padding: 6px 12px 8px;
+  text-align: start;
+}
+.cmp-sheet .grab { display: block; width: 27px; height: 3px; border-radius: 99px; background: rgba(26,10,18,.14); margin: 0 auto 7px; }
+.ck { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.ck .ckr { display: inline-flex; align-items: center; gap: 4px; font-size: 7.5px; font-weight: 700; color: rgba(26,10,18,.55); }
+.ck .ckr i { width: 4px; height: 4px; background: rgba(26,10,18,.55); transform: rotate(45deg); border-radius: 1px; }
+.ck .ckl { font-size: 7.5px; font-weight: 700; color: rgba(26,10,18,.55); }
+.cmp-sheet .ph { margin: 0 0 26px; font-size: 12px; line-height: 1.7; color: rgba(26,10,18,.34); text-align: right; }
+.nudge {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 9px; border-radius: 999px; margin-bottom: 5px;
+  background: rgba(201,150,47,.16);
+  font-size: 6.8px; font-weight: 700; color: #8A6A1A;
+}
+.nudge svg { width: 8px; height: 8px; stroke: #8A6A1A; fill: none; stroke-width: 1.8; }
+.lockc {
+  display: flex; align-items: center; gap: 4px; width: fit-content;
+  margin-inline-start: auto; margin-bottom: 7px;
+  padding: 3px 9px; border-radius: 999px;
+  border: 1px solid rgba(26,10,18,.14); background: rgba(255,255,255,.55);
+  font-size: 6.8px; color: rgba(26,10,18,.78);
+}
+.lockc svg { width: 8px; height: 8px; stroke: #C9962F; fill: none; stroke-width: 1.8; }
+.cdock {
+  display: flex; align-items: center; gap: 2px;
+  border-top: 1px solid rgba(26,10,18,.14); padding-top: 6px;
+}
+.cdock .dk { position: relative; width: 22px; height: 22px; border-radius: 999px; display: flex; align-items: center; justify-content: center; }
+.cdock .dk svg { width: 12px; height: 12px; stroke: #C9962F; fill: none; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.cdock .dk.lk svg { stroke: rgba(26,10,18,.62); }
+.cdock .dk.lk::after {
+  content: ""; position: absolute; top: 0; left: 0;
+  width: 7px; height: 7px; border-radius: 4px; background: #C9962F;
+  box-shadow: inset 0 0 0 5px #C9962F;
+}
+.cdock .cnt { margin-inline-start: auto; font-size: 8.5px; font-weight: 600; color: rgba(26,10,18,.78); letter-spacing: .2px; }
+.cdock .snd {
+  flex: none; width: 26px; height: 26px; border-radius: 999px; margin-inline-start: 4px;
+  background: #C9962F; box-shadow: 0 3px 8px rgba(201,150,47,.45);
+  display: flex; align-items: center; justify-content: center;
+}
+.cdock .snd svg { width: 12px; height: 12px; fill: #1A0A12; transform: scaleX(-1); }   /* the send glyph points RTL, like the app */
+
+/* ── شاشة حولك — «الشمسة»: بوصلة الأماكن، منقولة من nearby.tsx ────────── */
+.scr-nearby-v { display: none; }
+#scr-nearby:checked ~ main .pose.day .scr-feed-v    { display: none; }
+#scr-nearby:checked ~ main .pose.day .scr-compose-v { display: none; }
+#scr-nearby:checked ~ main .pose.day .scr-games-v   { display: none; }
+#scr-nearby:checked ~ main .pose.day .scr-nearby-v  { display: block; }
+#scr-nearby:checked ~ main .seg .seg-f { background: none; color: var(--ink-soft); }
+#scr-nearby:checked ~ main .seg .seg-n { background: linear-gradient(180deg, #F2C766, #C9962F); color: #1A0A12; }
+.nb { background: linear-gradient(160deg, #FAF6F0 0%, #FAF6F0 45%, #F3ECE0 100%); padding: 6px 10px 0; color: #1A0A12; }
+.nb-corners { display: flex; justify-content: space-between; align-items: flex-start; }
+.nb-title b { display: block; font-size: 11px; font-weight: 700; color: #1A0A12; line-height: 1.4; }
+.nb-title i {
+  display: inline-block; font-style: normal; margin-top: 2px;
+  padding: 1px 5px; border-radius: 3px;
+  background: rgba(201,150,47,.18); border: 1px solid rgba(201,150,47,.55);
+  font-size: 5.6px; font-weight: 700; color: #8A6A1A;
+}
+.nb-count { text-align: left; }
+.nb-count b { font-size: 9.5px; font-weight: 600; color: #1A0A12; }
+.nb-count span { font-size: 6px; color: rgba(26,10,18,.62); margin-inline-start: 2px; }
+.nb-count svg { display: block; width: 13px; height: 13px; margin: 2px 0 0 auto; opacity: .8; }
+.nb-disc { position: relative; display: flex; justify-content: center; padding: 2px 0 0; }
+.nb-disc svg { width: 216px; height: 138px; }
+.nb-fuzz { position: absolute; bottom: 0; left: 6px; font-size: 5.6px; color: rgba(26,10,18,.62); }
+.nb-gauge {
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid rgba(26,10,18,.14); border-bottom: 1px solid rgba(26,10,18,.14);
+  padding: 4px 2px; margin: 4px 0 5px;
+}
+.nb-gauge .r { font-size: 7px; color: rgba(26,10,18,.78); }
+.nb-gauge .r b { font-size: 8.5px; font-weight: 600; color: #1A0A12; }
+.nb-gauge .f { font-size: 7px; font-weight: 700; color: #C9962F; }
+.nb-band { display: flex; align-items: center; gap: 5px; margin: 2px 0 5px; }
+.nb-band b { font-family: "Noto Naskh Arabic", "Geeza Pro", serif; font-size: 8.5px; font-weight: 700; color: #8A6A1A; }
+.nb-band i { flex: 1; height: 1px; background: rgba(201,150,47,.45); }
+.nb-band span { font-size: 5.8px; color: rgba(26,10,18,.62); }
+.nb-hero {
+  position: relative; overflow: hidden;
+  background: linear-gradient(270deg, rgba(63,167,150,.13), transparent 60%), #FFFEFB;
+  border: 1.5px solid rgba(63,167,150,.6); border-radius: 12px;
+  padding: 7px 8px; text-align: start;
+}
+.nb-hero .hd { display: flex; align-items: center; gap: 4px; }
+.nb-hero .pip { width: 5px; height: 5px; border-radius: 3px; background: #3FA796; box-shadow: 0 0 5px rgba(63,167,150,.8); }
+.nb-hero .nm { font-size: 9px; font-weight: 700; color: #1A0A12; }
+.nb-hero .dist { margin-inline-start: auto; text-align: center; line-height: 1.1; }
+.nb-hero .dist b { display: block; font-size: 14px; font-weight: 600; color: #1A0A12; letter-spacing: .2px; }
+.nb-hero .dist span { font-size: 5.5px; color: rgba(26,10,18,.55); }
+.nb-hero .live { margin: 2px 0 0; font-size: 6.5px; font-weight: 700; color: #2A7D6E; }
+.nb-hero .q { margin: 4px 0 0; padding-inline-start: 6px; border-inline-start: 1.5px solid rgba(63,167,150,.5); }
+.nb-hero .q b { display: block; font-size: 7px; font-weight: 400; color: #241016; line-height: 1.6; }
+.nb-hero .q span { font-size: 5.5px; color: rgba(26,10,18,.62); }
+.nb-sit {
+  display: block; margin-top: 5px; padding: 4px 0; border-radius: 999px;
+  background: #8A6A1A; color: #FFFEFB;
+  font-size: 6.5px; font-weight: 700; text-align: center;
+}
+.nb-tiles { display: flex; gap: 6px; margin-top: 6px; padding-bottom: 8px; }
+.nb-tile {
+  flex: 1; background: #FFFEFB; border: 1px solid rgba(201,150,47,.55); border-radius: 10px;
+  padding: 6px 7px; text-align: start;
+}
+.nb-tile .hd { display: flex; align-items: center; gap: 3px; }
+.nb-tile .tess { width: 4px; height: 4px; border-radius: 1.2px; }
+.nb-tile .nm { font-size: 7px; font-weight: 700; color: #1A0A12; }
+.nb-tile .kind { display: block; font-size: 6px; color: rgba(26,10,18,.62); margin-top: 1px; }
+.nb-tile .ft { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+.nb-tile .sit { padding: 2px 7px; border-radius: 999px; background: #8A6A1A; color: #FFFEFB; font-size: 5.8px; font-weight: 700; }
+.nb-tile .d { display: inline-flex; align-items: baseline; gap: 2px; }
+.nb-tile .d b { font-size: 8.5px; font-weight: 600; color: #1A0A12; }
+.nb-tile .d span { font-size: 5.5px; color: rgba(26,10,18,.55); }
+.nb-tile .d svg { width: 7px; height: 7px; fill: rgba(201,150,47,.9); }
+
+/* ── عالم إكس أو — «ورق مسطّر» (GamePage.tsx world:xo) ────────────────── */
+.gw {
+  position: relative; overflow: hidden;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 11px, rgba(36,16,24,.05) 11px 12px),
+    linear-gradient(180deg, #FBF6EA 0%, #F4ECDA 50%, #E7DABE 100%);
+  padding: 8px 12px 0; text-align: center;
+  color: #241018;
+}
+.gw .dots {
+  position: absolute; inset-inline-end: auto; left: 4px; top: 50%;
+  transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 3px; align-items: center;
+}
+.gw .dots b { width: 4px; height: 4px; border-radius: 2px; background: rgba(36,16,24,.26); }
+.gw .dots b:first-child { height: 13px; background: #241018; }
+.gw-status { display: flex; align-items: center; justify-content: space-between; margin: 2px 4px 0 10px; }
+.gw-live {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 8px; border-radius: 999px;
+  border: 1px solid rgba(138,21,56,.6); background: rgba(36,16,24,.06);
+  font-size: 6.5px; font-weight: 700; color: #241018;
+}
+.gw-live i { width: 4px; height: 4px; border-radius: 2px; background: #8A1538; animation: pulse 1.8s ease-in-out infinite; }
+.gw-gold {
+  display: inline-flex; align-items: baseline; gap: 3px;
+  padding: 3px 8px; border-radius: 999px;
+  border: 1px solid rgba(36,16,24,.18); background: rgba(36,16,24,.06);
+  font-size: 6.5px; font-weight: 600; color: #241018;
+}
+.gw-gold b { font-weight: 900; font-size: 7.5px; color: #8A6A1A; }
+.gw-hero { display: flex; justify-content: center; padding: 10px 0 6px; position: relative; }
+.gw-hero::before {
+  content: ""; position: absolute; width: 120px; height: 120px; top: 50%; left: 50%;
+  transform: translate(-50%, -50%); border-radius: 999px;
+  background: radial-gradient(closest-side, rgba(255,255,255,.7), transparent 70%);
+}
+.gw-hero svg { position: relative; width: 84px; height: 84px; stroke-linecap: round; stroke-linejoin: round; }
+.gw-pill {
+  display: inline-block; padding: 2px 9px; border-radius: 999px;
+  border: 1px solid rgba(36,16,24,.18); background: rgba(36,16,24,.06);
+  font-size: 6.5px; font-weight: 700; color: rgba(36,16,24,.74);
+}
+.gw-name { display: block; font-size: 18px; font-weight: 700; color: #241018; margin-top: 3px;
+  font-family: "Noto Naskh Arabic", "Geeza Pro", serif; line-height: 1.4; }
+.gw-tag { display: block; font-size: 8px; color: rgba(36,16,24,.74); line-height: 1.6; }
+.gw-stats {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  border-top: 1px solid rgba(36,16,24,.18); border-bottom: 1px solid rgba(36,16,24,.18);
+  padding: 5px 0; margin: 8px 2px 0 10px;
+}
+.gw-stats span { display: flex; flex-direction: column; font-size: 6px; color: rgba(36,16,24,.6); }
+.gw-stats span b { font-size: 10px; font-weight: 600; color: #241018; letter-spacing: .2px; }
+.gw-stats i { width: 1px; height: 16px; background: rgba(36,16,24,.18); }
+.gw-cta { position: relative; display: flex; justify-content: center; padding: 10px 0 8px; }
+.gw-play {
+  width: 40px; height: 40px; border-radius: 999px; background: #8A1538;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 6px 14px rgba(138,21,56,.45);
+}
+.gw-play svg { width: 15px; height: 15px; fill: #FFF6EE; margin-inline-start: 2px; }
+.gw-opt {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  width: 30px; height: 30px; border-radius: 999px;
+  border: 1px solid rgba(36,16,24,.18); background: rgba(36,16,24,.06);
+  display: flex; align-items: center; justify-content: center;
+}
+.gw-opt svg { width: 13px; height: 13px; stroke: #241018; fill: none; stroke-width: 1.6; }
+.gw-peek {
+  margin: 6px -12px 0; height: 22px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(180deg, transparent, #2E1F57);   /* next world: ludo «ليل» */
+  font-size: 7px; font-weight: 700; color: #fff;
+}
+
+/* ── الترحال بين العوالم — the dot rail becomes real page controls ─────
+   Worlds and المجلس from GamePage.tsx / games.tsx; the rail's labels flip
+   radio inputs that sit before <main>. */
+.dots label, .dots b { display: block; width: 4px; height: 4px; border-radius: 2px; background: rgba(36,16,24,.26); cursor: pointer; padding: 0; position: relative; }
+.dots label::before { content: ""; position: absolute; inset: -11px -13px; }   /* the 4px dot keeps its look; the tap target grows to ~26x30px */
+.dots .a { height: 13px !important; background: #241018; cursor: default; }
+.gw.dk .dots label, .gw.dk .dots b { background: rgba(255,255,255,.32); }
+.gw.dk .dots .a { background: #fff; }
+.gw-m .dots label, .gw-m .dots b { background: rgba(26,10,18,.14); }
+.gw-m .dots .a { background: #C9962F; }
+/* shared dark-world palette (title #fff, sub .82, hair .22, chip .10) */
+.gw.dk { color: #fff; }
+.gw.dk .gw-name { color: #fff; }
+.gw.dk .gw-tag { color: rgba(255,255,255,.82); }
+.gw.dk .gw-pill { border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.10); color: rgba(255,255,255,.82); }
+.gw.dk .gw-gold { border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.10); color: #fff; }
+.gw.dk .gw-gold b { color: #E8B547; }
+.gw.dk .gw-stats { border-color: rgba(255,255,255,.22); }
+.gw.dk .gw-stats span { color: rgba(255,255,255,.6); }
+.gw.dk .gw-stats span b { color: #fff; }
+.gw.dk .gw-stats i { background: rgba(255,255,255,.22); }
+.gw.dk .gw-opt { border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.10); }
+.gw.dk .gw-opt svg { stroke: #fff; }
+.gw.dk .gw-hero::before { background: radial-gradient(closest-side, rgba(255,255,255,.14), transparent 70%); }
+/* لودو «ليل» */
+.gw-l { background: radial-gradient(2px 2px at 20% 22%, rgba(255,255,255,.5), transparent 60%), radial-gradient(2px 2px at 74% 12%, rgba(255,255,255,.4), transparent 60%), radial-gradient(1.6px 1.6px at 48% 34%, rgba(255,255,255,.35), transparent 60%), linear-gradient(180deg, #3B2870 0%, #2E1F57 50%, #0D0918 100%); }
+.gw-l .gw-live { border-color: rgba(90,230,190,.6); background: rgba(255,255,255,.10); color: #fff; }
+.gw-l .gw-live i { background: #5AE6BE; }
+.gw-l .gw-play { background: #5AE6BE; box-shadow: 0 6px 14px rgba(90,230,190,.4); }
+.gw-l .gw-play svg { fill: #062E1E; }
+.gw-l .gw-peek { background: linear-gradient(180deg, transparent, #6E0F2C); }   /* next: بلوت */
+/* بلوت «عنابي» — honest locked state */
+.gw-b { position: relative; background: linear-gradient(180deg, #A81A45 0%, #6E0F2C 50%, #3A0817 100%); }
+.gw-b::after { content: "♠"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 130px; color: rgba(255,255,255,.055); pointer-events: none; }
+.gw-b .gw-live { border-color: rgba(255,255,255,.22); background: rgba(255,255,255,.10); color: rgba(255,255,255,.82); }
+.gw-b .gw-live i { display: none; }
+.gw-b .gw-play { background: #E8B547; box-shadow: 0 6px 14px rgba(232,181,71,.4); }
+.gw-b .gw-play svg { fill: none; stroke: #3A0817; stroke-width: 2; }
+.gw-b .gw-peek { background: linear-gradient(180deg, transparent, #274156); }   /* next: حرب السفن */
+/* المجلس — classic ground, medallion, دلة اليوم, live rows */
+.gw-m {
+  background:
+    radial-gradient(60% 30% at 50% 8%, rgba(201,150,47,.08), transparent 70%),
+    linear-gradient(180deg, #FAF6F0 0%, #FAF6F0 40%, #F3ECE0 100%);
+  text-align: center; color: #1A0A12;
+}
+.gw-m .backpeek {
+  margin: -8px -12px 0; height: 20px;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(180deg, #6A4529, transparent);
+  font-size: 7px; font-weight: 700; color: #fff;
+}
+.gw-m .mrow { display: flex; justify-content: space-between; align-items: center; margin: 6px 2px 0 10px; }
+.gw-m .mrow .mc {
+  width: 22px; height: 22px; border-radius: 999px;
+  border: 1px solid rgba(26,10,18,.14); background: rgba(255,255,255,.55);
+  display: flex; align-items: center; justify-content: center;
+}
+.gw-m .mrow .mc svg { width: 11px; height: 11px; stroke: #1A0A12; fill: none; stroke-width: 1.7; stroke-linecap: round; }
+.gw-m .mrow .mc.tr svg { stroke: #C9962F; }
+.gw-m .mrow .pair { display: flex; gap: 4px; }
+.gw-m .medal {
+  width: 46px; height: 46px; margin: 8px auto 0; border-radius: 999px;
+  border: 2px solid #C9962F; background: rgba(201,150,47,.14);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 12px rgba(201,150,47,.45);
+}
+.gw-m .medal i {
+  width: 36px; height: 36px; border-radius: 999px;
+  border: 1px solid rgba(232,181,71,.45); background: rgba(255,255,255,.3);
+  display: flex; align-items: center; justify-content: center;
+}
+.gw-m .medal svg { width: 22px; height: 22px; }
+.gw-m .mt { display: block; font-size: 12px; font-weight: 700; color: #1A0A12; margin-top: 5px;
+  font-family: "Noto Naskh Arabic", "Geeza Pro", serif; line-height: 1.5; }
+.gw-m .ms { display: block; font-size: 6.5px; color: rgba(26,10,18,.78); line-height: 1.6; }
+.gw-m .beta {
+  display: inline-flex; align-items: center; gap: 3px;
+  margin-top: 5px; padding: 2.5px 8px; border-radius: 999px;
+  border: 1px solid rgba(201,150,47,.5); background: rgba(201,150,47,.14);
+  font-size: 5.8px; font-weight: 700; color: #8A6A1A;
+}
+.gw-m .dalla {
+  display: flex; align-items: center; gap: 6px;
+  margin: 7px 4px 0 12px; padding: 6px 8px; border-radius: 10px;
+  background: rgba(255,255,255,.55); border: 1px solid rgba(26,10,18,.14);
+  text-align: start;
+}
+.gw-m .dalla .ic {
+  flex: none; width: 18px; height: 18px; border-radius: 999px;
+  background: rgba(201,150,47,.22); border: 1px solid rgba(201,150,47,.4);
+  display: flex; align-items: center; justify-content: center;
+}
+.gw-m .dalla .ic svg { width: 9px; height: 9px; stroke: #C9962F; fill: none; stroke-width: 1.7; }
+.gw-m .dalla b { display: block; font-size: 7px; color: #1A0A12; line-height: 1.5; }
+.gw-m .pips { display: flex; gap: 3px; margin-top: 2px; }
+.gw-m .pips i { width: 7px; height: 7px; border-radius: 4px; border: 1px solid rgba(26,10,18,.22); }
+.gw-m .pips i.on { background: #C9962F; border-color: #C9962F; }
+.gw-m .dalla em { margin-inline-start: auto; font-style: normal; font-size: 8px; font-weight: 600; color: #8A6A1A; }
+.gw-m .room {
+  display: flex; align-items: center; gap: 6px;
+  margin: 5px 4px 0 12px; padding: 6px 8px; border-radius: 10px;
+  background: rgba(255,255,255,.55); border: 1px solid rgba(26,10,18,.14);
+  text-align: start;
+}
+.gw-m .room .go { margin-inline-start: auto; flex: none; }
+.gw-m .room .go svg { width: 11px; height: 11px; stroke: #C9962F; fill: none; stroke-width: 1.8; }
+.gw-m .room b { display: inline-flex; align-items: center; gap: 4px; font-size: 7.5px; color: #1A0A12; }
+.gw-m .room b i { width: 4px; height: 4px; border-radius: 2px; background: #E8B547; animation: pulse 2.2s ease-in-out infinite; }
+.gw-m .room .seats { display: flex; align-items: center; gap: 3px; margin-top: 2px; }
+.gw-m .room .seats i { width: 6px; height: 6px; border-radius: 3px; background: rgba(26,10,18,.18); }
+.gw-m .room .seats i.on { background: #E8B547; }
+.gw-m .room .seats span { font-size: 6.5px; color: rgba(26,10,18,.78); }
+/* switching */
+.gw-l, .gw-b, .gw-m { display: none; }
+#w-ludo:checked   ~ main .pose.day .gw-x { display: none; }
+#w-ludo:checked   ~ main .pose.day .gw-l { display: block; }
+#w-baloot:checked ~ main .pose.day .gw-x { display: none; }
+#w-baloot:checked ~ main .pose.day .gw-b { display: block; }
+#w-majlis:checked ~ main .pose.day .gw-x { display: none; }
+#w-majlis:checked ~ main .pose.day .gw-m { display: block; }
+#w-xo:focus-visible ~ main .pose.day .phone, #w-ludo:focus-visible ~ main .pose.day .phone,
+#w-baloot:focus-visible ~ main .pose.day .phone, #w-majlis:focus-visible ~ main .pose.day .phone { outline: 2px solid var(--gold-text); outline-offset: 4px; }
+/* picking a theme brings the day phone forward even if the face toggle sent it back —
+   the try-on's feedback must never land on the hidden phone */
+#t-doha:checked ~ main .pool .pose.day, #t-galaxy:checked ~ main .pool .pose.day,
+#t-diwani:checked ~ main .pool .pose.day, #t-molten:checked ~ main .pool .pose.day {
+  display: block; transform: rotate(-5deg); opacity: 1; z-index: 2;
+}
+#t-doha:checked ~ main .pool .pose.night, #t-galaxy:checked ~ main .pool .pose.night,
+#t-diwani:checked ~ main .pool .pose.night, #t-molten:checked ~ main .pool .pose.night {
+  transform: translateX(-38%) rotate(7deg) scale(.92); opacity: .88; z-index: 1;
+}
+/* choosing a screen also brings the day phone forward at every width —
+   z/opacity only, so per-breakpoint transforms stay untouched */
+#scr-compose:checked ~ main .pool .pose.day, #scr-games:checked ~ main .pool .pose.day,
+#scr-nearby:checked ~ main .pool .pose.day { opacity: 1; z-index: 2; }
+#scr-compose:checked ~ main .pool .pose.night, #scr-games:checked ~ main .pool .pose.night,
+#scr-nearby:checked ~ main .pool .pose.night { opacity: .88; z-index: 1; }
+@media (max-width: 560px) {
+  #t-doha:checked ~ main .pool .pose.day, #t-galaxy:checked ~ main .pool .pose.day,
+  #t-diwani:checked ~ main .pool .pose.day, #t-molten:checked ~ main .pool .pose.day { transform: none; display: block; }
+  #t-doha:checked ~ main .pool .pose.night, #t-galaxy:checked ~ main .pool .pose.night,
+  #t-diwani:checked ~ main .pool .pose.night, #t-molten:checked ~ main .pool .pose.night { display: none; }
+  #scr-games:checked ~ main .face-ui, #scr-compose:checked ~ main .face-ui, #scr-nearby:checked ~ main .face-ui { display: none; }   /* those screens live on the day phone only */
+  /* .pool included for specificity — without it the #face ≤560 rules out-rank
+     these and the night feed shows while the seg claims another screen */
+  #scr-games:checked ~ main .pool .pose.day, #scr-compose:checked ~ main .pool .pose.day, #scr-nearby:checked ~ main .pool .pose.day { display: block; transform: none; opacity: 1; }
+  #scr-games:checked ~ main .pool .pose.night, #scr-compose:checked ~ main .pool .pose.night, #scr-nearby:checked ~ main .pool .pose.night { display: none; }
+  .seg label { padding: 0 13px; font-size: 13px; }
+}
+@media (max-width: 940px) {
+  #face:checked ~ .pool .pose.day   { transform: translateX(22%) rotate(6deg) scale(.92); }
+  #face:checked ~ .pool .pose.night { transform: translateX(0) rotate(-4deg) scale(1); }
+}
+
+/* ═══ V8 — CRAFT LAYER ═══ */
+::selection { background: rgba(201,150,47,.35); color: #1A0A12; }
+html { scrollbar-color: rgba(201,150,47,.5) transparent; scrollbar-width: thin; }
+/* the loom breathes with the scroll — depth where the engine supports it */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .loom { animation: loomShift linear both; animation-timeline: scroll(); }
+  }
+}
+@keyframes loomShift { to { transform: translateY(-5%) scale(1.06); } }
+@media print {
+  .loom, .ticker, .face-ui, .face-sw, .th-sw, .corniche, .jewel, .sadu { display: none !important; }
+  .glass, .pane { background: #fff !important; box-shadow: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+  body { background: #fff; }
+  .night-band { background: #5E0E26 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+
+/* ═══ V7 — THE IPHONE OVERHAUL (appended last so it wins the cascade) ═══ */
+@supports (padding: max(0px)) {
+  .wrap { padding-inline: max(22px, env(safe-area-inset-left, 0px)); }
+}
+@media (max-width: 940px) {
+  /* MUST live after the .seg base rule: an item left in col 2 creates an
+     implicit second grid column and drags the pool beside the hero copy */
+  .seg, .face-ui { grid-column: 1; }
+}
+@media (max-width: 600px) {
+  /* the topbar back to ONE row — it wrapped into a 104px blob */
+  .topbar { top: calc(8px + env(safe-area-inset-top, 0px)); margin-top: 8px; }
+  .topbar-in { padding: 3px 5px 3px 12px; gap: 4px; }
+  .topbar .mark { width: 23px; height: 23px; }
+  .topbar .name { font-size: 16.5px; gap: 6px; }
+  .topbar nav { gap: 0; }
+  .topbar nav a { padding: 0 8px; font-size: 13px; }
+}
+@media (max-width: 700px) {
+  .steps::before { display: none; }   /* the woven thread crosses a single column */
+}
+@media (max-width: 560px) {
+  .hero { padding-top: 30px; }
+  .hero h1 { font-size: 33px; }
+  .lede { font-size: 16.5px; margin-bottom: 20px; }
+  .kicker { font-size: 12.5px; padding: 7px 13px; margin-bottom: 14px; }
+  .hero-copy p[style*="flex"] { justify-content: center; }
+  .store-tag { padding: 10px 16px; }
+  .hero-chips { margin-top: 16px; }
+  .hero-chips span { font-size: 12.5px; padding: 6px 11px; }
+
+  /* the toggle no longer collides with the caption under the phone */
+  .pool { padding: 8px 0 62px; }
+  .pool .cap-label { bottom: 34px; font-size: 11.5px; }
+  .face-ui { margin-top: 8px; }
+
+  .tchip { font-size: 12.5px; padding: 8px 14px; }
+
+  .sec-head { margin: 26px 0 6px; }
+  .sec-head p { font-size: 14px; margin-bottom: 18px; }
+  .try-hint { font-size: 12.5px; }
+
+  .step { padding: 20px 18px 16px; }
+  .stepnum { width: 48px; height: 48px; font-size: 1.3rem; margin-bottom: 10px; }
+  .pillar { padding: 20px 18px 18px; }
+  .pillar .drop { width: 44px; height: 44px; margin-bottom: 10px; }
+
+  .tray { padding: 14px; border-radius: 24px; }
+  .vial { flex: 0 0 132px; height: 184px; }
+
+  /* games: two compact columns instead of six huge slabs */
+  .games { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .game { padding: 14px 10px 12px; }
+  .porthole { width: 72px; height: 62px; margin-bottom: 8px; }
+  .porthole svg { width: 36px; height: 36px; }
+  .game b { font-size: 15px; }
+  .game .sub { font-size: 11.5px; }
+  .game .n { font-size: 10.5px; padding: 2px 9px; margin-top: 7px; }
+
+  .night-band { padding: 34px 18px; }
+  .crescent { width: 40px; height: 40px; margin-bottom: 14px; }
+  .creed div { padding: 14px 16px; }
+  .contact { padding: 28px 20px; }
+  .corniche svg { min-width: 620px; }
+}
+
+/* ── حركة أقل — the static page must be complete, not broken ─────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-delay: 0s !important;   /* else 'backwards' fills hold content invisible through their delays */
+    animation-iteration-count: 1 !important;
+    transition-duration: .15s !important;
+  }
+  html { scroll-behavior: auto; }
+  .ticker-row { animation: none; width: auto; flex-wrap: wrap; justify-content: center; }
+  .ticker-row .tchip:nth-child(n+7) { display: none; }   /* hide the loop duplicates in the static cloud */
+  .ticker { -webkit-mask-image: none; mask-image: none; }
+  .sadu::after { display: none; }
+}
+</style>
 </head>
 <body>
+
+<div class="loom" aria-hidden="true">
+  <i class="ribbon ribbon-a"></i>
+  <i class="ribbon ribbon-b"></i>
+</div>
+
+<a class="skip" href="#content">تخطَّ إلى المحتوى</a>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <a class="name" href="index.html" aria-current="page">
+      <svg class="mark" viewBox="0 0 60 60" aria-hidden="true">
+        <rect x="3" y="3" width="13" height="13" rx="2" fill="#8A1538" opacity=".85"/><rect x="18" y="3" width="9" height="13" rx="2" fill="#C9962F" opacity=".40"/><rect x="29" y="3" width="13" height="13" rx="2" fill="#E8B547" opacity=".95"/><rect x="44" y="3" width="13" height="9" rx="2" fill="#8A1538" opacity=".55"/><rect x="3" y="18" width="9" height="9" rx="2" fill="#C9962F" opacity=".60"/><rect x="14" y="18" width="13" height="9" rx="2" fill="#E8B547"/><rect x="29" y="18" width="9" height="13" rx="2" fill="#8A1538" opacity=".45"/><rect x="40" y="14" width="9" height="9" rx="2" fill="#C9962F" opacity=".75"/><rect x="51" y="14" width="6" height="13" rx="2" fill="#8A1538" opacity=".30"/><rect x="3" y="29" width="13" height="13" rx="2" fill="#8A1538" opacity=".50"/><rect x="18" y="29" width="9" height="9" rx="2" fill="#E8B547" opacity=".90"/><rect x="40" y="25" width="13" height="13" rx="2" fill="#8A1538" opacity=".65"/><rect x="18" y="40" width="9" height="13" rx="2" fill="#C9962F" opacity=".55"/><rect x="29" y="33" width="9" height="13" rx="2" fill="#E8B547"/><rect x="40" y="40" width="9" height="13" rx="2" fill="#8A1538" opacity=".35"/><rect x="51" y="29" width="6" height="9" rx="2" fill="#C9962F" opacity=".85"/><rect x="3" y="44" width="13" height="13" rx="2" fill="#8A1538" opacity=".70"/><rect x="29" y="48" width="9" height="9" rx="2" fill="#8A1538" opacity=".50"/><rect x="51" y="40" width="6" height="17" rx="2" fill="#C9962F" opacity=".55"/>
+      </svg>
+      فرجان
+    </a>
+    <nav aria-label="أقسام الموقع">
+      <a href="support.html">الدعم</a>
+      <a href="privacy.html">الخصوصية</a>
+      <a href="terms.html">الشروط</a>
+      <a href="community.html">المجتمع</a>
+    </nav>
+  </div>
+</header>
+
+<!-- theme try-on radios — body-level siblings of <main> so the ~ selectors
+     reach both the vial labels and the hero phone; zero JS -->
+<input type="radio" name="try" id="t-classic" class="th-sw" checked aria-label="مظهر كلاسيكي على جوال العرض">
+<input type="radio" name="try" id="t-doha"    class="th-sw" aria-label="مظهر ليل الدوحة على جوال العرض">
+<input type="radio" name="try" id="t-galaxy"  class="th-sw" aria-label="مظهر مجرّة على جوال العرض">
+<input type="radio" name="try" id="t-diwani"  class="th-sw" aria-label="مظهر الدفتر على جوال العرض">
+<input type="radio" name="try" id="t-molten"  class="th-sw" aria-label="مظهر الذهب المذاب على جوال العرض">
+<!-- screen switcher for the demo phone: the feed or the games pager -->
+<input type="radio" name="scr" id="scr-feed"  class="th-sw" checked aria-label="شاشة الفيد على جوال العرض">
+<input type="radio" name="scr" id="scr-compose" class="th-sw" aria-label="شاشة النشر على جوال العرض">
+<input type="radio" name="scr" id="scr-games" class="th-sw" aria-label="شاشة الألعاب على جوال العرض">
+<input type="radio" name="scr" id="scr-nearby" class="th-sw" aria-label="شاشة حولك على جوال العرض">
+<!-- world pager inside the games screen — the dot rail flips these -->
+<input type="radio" name="world" id="w-xo"     class="th-sw" checked aria-label="عالم إكس أو">
+<input type="radio" name="world" id="w-ludo"   class="th-sw" aria-label="عالم لودو">
+<input type="radio" name="world" id="w-baloot" class="th-sw" aria-label="عالم بلوت">
+<input type="radio" name="world" id="w-majlis" class="th-sw" aria-label="صفحة المجلس">
+
+<main id="content">
 <div class="wrap">
 
-  <header class="masthead">
-    <!-- the app's own fareej mosaic; inlined so the page never depends on a
-         second request. width/height ON the element: if the stylesheet is slow
-         or blocked, an unsized inline SVG expands to the full container and
-         shoves the whole page below the fold. -->
-    <svg class="mark mark-lg" width="72" height="72" viewBox="0 0 60 60" role="img" aria-label="شعار فرجان">
-      <rect x="3"  y="3"  width="13" height="13" rx="2" fill="#8A1538" opacity=".85"/>
-      <rect x="18" y="3"  width="9"  height="13" rx="2" fill="#C9962F" opacity=".40"/>
-      <rect x="29" y="3"  width="13" height="13" rx="2" fill="#E8B547" opacity=".95"/>
-      <rect x="44" y="3"  width="13" height="9"  rx="2" fill="#8A1538" opacity=".55"/>
-      <rect x="3"  y="18" width="9"  height="9"  rx="2" fill="#C9962F" opacity=".60"/>
-      <rect x="14" y="18" width="13" height="9"  rx="2" fill="#E8B547" opacity="1"/>
-      <rect x="29" y="18" width="9"  height="13" rx="2" fill="#8A1538" opacity=".45"/>
-      <rect x="40" y="14" width="9"  height="9"  rx="2" fill="#C9962F" opacity=".75"/>
-      <rect x="51" y="14" width="6"  height="13" rx="2" fill="#8A1538" opacity=".30"/>
-      <rect x="3"  y="29" width="13" height="13" rx="2" fill="#8A1538" opacity=".50"/>
-      <rect x="18" y="29" width="9"  height="9"  rx="2" fill="#E8B547" opacity=".90"/>
-      <rect x="40" y="25" width="13" height="13" rx="2" fill="#8A1538" opacity=".65"/>
-      <rect x="18" y="40" width="9"  height="13" rx="2" fill="#C9962F" opacity=".55"/>
-      <rect x="29" y="33" width="9"  height="13" rx="2" fill="#E8B547" opacity="1"/>
-      <rect x="40" y="40" width="9"  height="13" rx="2" fill="#8A1538" opacity=".35"/>
-      <rect x="51" y="29" width="6"  height="9"  rx="2" fill="#C9962F" opacity=".85"/>
-      <rect x="3"  y="44" width="13" height="13" rx="2" fill="#8A1538" opacity=".70"/>
-      <rect x="29" y="48" width="9"  height="9"  rx="2" fill="#8A1538" opacity=".50"/>
-      <rect x="51" y="40" width="6"  height="17" rx="2" fill="#C9962F" opacity=".55"/>
-    </svg>
-    <p class="brand">فرجان</p>
-    <p class="brand-sub"><span lang="en">FIRJAN</span></p>
-    <p class="tagline">مجتمع قطري مجهول — بلا اسم ولا صورة ولا تسجيل دخول</p>
-  </header>
+  <!-- ═══ البطل ═══ -->
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="kicker">
+        <svg width="20" height="13" viewBox="0 0 30 20" aria-hidden="true" style="border-radius:2px">
+          <rect width="30" height="20" fill="#8A1538"/>
+          <path d="M0 0h9l4.5 1.1L9 2.2l4.5 1.1L9 4.4l4.5 1.1L9 5.6l4.5 1.1L9 7.8l4.5 1.1L9 8.9l4.5 1.1L9 11.1l4.5 1.1L9 12.2l4.5 1.1L9 14.4l4.5 1.1L9 15.6l4.5 1.1L9 17.8l4.5 1.1L9 20H0z" fill="#FFF6EE"/>
+        </svg>
+        مجتمع قطري مجهول <span lang="en" style="letter-spacing:3px">FIRJAN</span></p>
+      <h1>فريجك القريب —<br><span class="accent">ومحد يعرف منهو أنت</span></h1>
+      <p class="lede">تنشر وتصوّت وتلعب مع أهل فريجك. بلا اسم ولا صورة ولا تسجيل دخول — جهازك ياخذ هوية عشوائية وخلاص.</p>
 
-  <nav class="tabs" aria-label="أقسام الموقع">
-    <a href="index.html" aria-current="page">الرئيسة</a>
-    <a href="support.html">الدعم</a>
-    <a href="privacy.html">الخصوصية</a>
-    <a href="terms.html">الشروط</a>
-    <a href="community.html">المجتمع</a>
-  </nav>
+      <!-- stitched tag (not a control) + the jewel anchor (the raised species) -->
+      <p style="margin:0; display:flex; align-items:center; flex-wrap:wrap; gap:10px">
+        <span class="store-tag"><b>قريبًا في <span lang="en">App Store</span></b><span>مجاني · للآيفون · بدون أي تسجيل</span></span>
+        <a class="jewel" href="#games">شوف الألعاب</a>
+      </p>
 
-  <h1>فريجك القريب</h1>
-  <p class="updated">تنشر وتصوّت وتلعب مع أهل فريجك — ومحد يعرف منهو أنت</p>
-
-  <!-- the app is not live yet; this plate flips to a real App Store link the
-       day it ships. Keep the path: swap this block only, nothing else moves. -->
-  <div class="store-plate">
-    <p class="store-line">قريبًا في <span lang="en">App Store</span></p>
-    <p class="store-sub">مجاني · للآيفون · بدون أي تسجيل</p>
-  </div>
-
-  <hr class="rule">
-
-  <div class="pillars">
-    <section class="sec">
-      <h2>بلا حساب أصلاً</h2>
-      <p>أول ما تفتح فرجان، جهازك ياخذ هوية عشوائية تلقائيًا. ما فيه إيميل ولا رقم ولا كلمة مرور — ولا اسم ولا صورة.</p>
-    </section>
-
-    <section class="sec">
-      <h2>الفريج الأقرب لك</h2>
-      <p>المنشورات تجيك بقربها منك: في الفريج، حول الفريج، برع الفريج. وموقعك الدقيق ما يبين لأحد — التمويه يصير على الخادم نفسه.</p>
-    </section>
-
-    <section class="sec">
-      <h2>مجلس وألعاب</h2>
-      <p>ست ألعاب جماعية لحظية تلمّك بربعك — من إكس أو السريعة إلى بلوت والبرازيلية. والمجلس يجمع الطاولات المفتوحة.</p>
-    </section>
-
-    <section class="sec">
-      <h2>بياناتك بيدك</h2>
-      <p>تحذف حسابك من داخل التطبيق متى ما تبي — بمهلة استرجاع ٣٠ يوم. والإبلاغ والحظر بضغطة، على أي منشور أو رسالة.</p>
-    </section>
-  </div>
-
-  <h2 class="home-h">الألعاب</h2>
-
-  <!-- names · subtitles · signature inks transcribed from the app's own roster
-       (src/app/(tabs)/games.tsx GAMES) — the site never invents a game -->
-  <div class="games balanced">
-    <div class="game">
-      <span class="dot" style="background:#3E5FA8"></span>
-      <b>إكس أو</b>
-      <span>ثلاثة في صف — سريعة</span>
-      <span>لاعبان</span>
+      <div class="hero-chips">
+        <span><b>ست</b> ألعاب جماعية لحظية</span>
+        <span>المنشورات <b>بقربها منك</b></span>
+      </div>
     </div>
-    <div class="game">
-      <span class="dot" style="background:#2F7D5C"></span>
-      <b>لودو</b>
-      <span>سباق الطاسة والحجّات</span>
-      <span>٢-٤ لاعبين</span>
-    </div>
-    <div class="game">
-      <span class="dot" style="background:#8A1538"></span>
-      <b>بلوت</b>
-      <span>الورق الخليجي — فريقين</span>
-      <span>٤ لاعبين</span>
-    </div>
-    <div class="game">
-      <span class="dot" style="background:#34567A"></span>
-      <b>حرب السفن</b>
-      <span>دوّر على سفن خصمك واغرقها</span>
-      <span>لاعبان</span>
-    </div>
-    <div class="game">
-      <span class="dot" style="background:#B7791F"></span>
-      <b>إكس أو الكبير</b>
-      <span>تسع ألواح — تفكير أعمق</span>
-      <span>لاعبان</span>
-    </div>
-    <div class="game">
-      <span class="dot" style="background:#5B3A8E"></span>
-      <b>برازيلية</b>
-      <span>كوتشينة تركيب ٢×٢ — فريقين</span>
-      <span>٤ لاعبين</span>
-    </div>
-  </div>
 
-  <hr class="rule">
+    <!-- THE FACE-TURN: light leads with the classic day face, dark turns the
+         pearl night face forward — and the switch below lets you flip them
+         by hand. Faces transcribed from the app's code. -->
+    <input type="checkbox" id="face" class="face-sw" aria-label="بدّل وجه التطبيق بين النهار والليل">
+    <div class="pool" aria-hidden="true">
+      <div class="pose night">
+        <div class="phone ring">
+          <div class="screen face-pearl">
+            <i class="star" style="top:14%; right:18%"></i>
+            <i class="star" style="top:9%; right:55%"></i>
+            <i class="star" style="top:20%; right:78%"></i>
+            <div class="notch"><i></i></div>
+            <div class="cap">
+              <div class="cap-brand">
+                <svg class="mark" viewBox="0 0 60 60"><rect x="3" y="3" width="13" height="13" rx="2" fill="#8A1538" opacity=".85"/><rect x="18" y="3" width="9" height="13" rx="2" fill="#C9962F" opacity=".40"/><rect x="29" y="3" width="13" height="13" rx="2" fill="#E8B547" opacity=".95"/><rect x="3" y="18" width="9" height="9" rx="2" fill="#C9962F" opacity=".60"/><rect x="14" y="18" width="13" height="9" rx="2" fill="#E8B547"/><rect x="29" y="18" width="9" height="13" rx="2" fill="#8A1538" opacity=".45"/><rect x="3" y="29" width="13" height="13" rx="2" fill="#8A1538" opacity=".50"/><rect x="18" y="29" width="9" height="9" rx="2" fill="#E8B547" opacity=".90"/><rect x="29" y="33" width="9" height="13" rx="2" fill="#E8B547"/></svg>
+                <span class="cap-stack"><b>فرجان</b><i lang="en">F i r j a n</i></span>
+              </div>
+              <div class="cap-mid">
+                <span class="pr">☾ العشاء · <b lang="en">19:12</b></span>
+                <span class="scope">عالمي ⌄</span>
+              </div>
+              <div class="cap-icons">
+                <span class="ic"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H9l-4 3.5V6.5z"/></svg></span>
+                <span class="ic bell"><svg viewBox="0 0 24 24"><path d="M12 4a5 5 0 0 1 5 5v3.5l1.5 2.7H5.5L7 12.5V9a5 5 0 0 1 5-5z"/><path d="M10 18.5a2 2 0 0 0 4 0"/></svg><u>3</u></span>
+              </div>
+            </div>
+            <div class="sortrow">
+              <span class="fchip"><svg viewBox="0 0 24 24"><path d="M4 6h16M8 12h8M11 18h2"/></svg></span>
+              <span class="stabs">
+                <span class="on">الأحدث<i></i></span>
+                <span>الأقرب<em>★</em></span>
+                <span>الأعلى</span>
+                <span>الأكثر تعليقاً</span>
+              </span>
+              <span class="fchip"><svg viewBox="0 0 24 24"><path d="M15 4a8 8 0 1 0 5 14 9 9 0 0 1-5-14z"/></svg></span>
+            </div>
+            <div class="feed">
+              <article class="card t1">
+                <div class="cbody">
+                  <div class="eyebrow"><i class="dia"></i><b>في الفريج</b></div>
+                  <p>أحد جرّب مقهى الفريج الجديد؟ القهوة العربية عندهم شي ثاني</p>
+                  <div class="cfoot">
+                    <span class="cmt"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7a2.5 2.5 0 0 1-2.5 2.5H9.5L5 19.5V6.5z"/></svg> <b lang="en">7</b></span>
+                    <span class="ago">قبل <b lang="en">5</b> د <i class="fresh"></i></span>
+                  </div>
+                </div>
+                <div class="rail">
+                  <span class="ch voted"><svg viewBox="0 0 12 8"><path d="M2 6.2 6 2l4 4.2"/></svg></span>
+                  <b class="cnt gold" lang="en">24</b>
+                  <span class="ch"><svg viewBox="0 0 12 8"><path d="M2 1.8 6 6l4-4.2"/></svg></span>
+                </div>
+              </article>
+              <article class="card t2">
+                <div class="cbody">
+                  <div class="eyebrow"><i class="dot" style="background:#9AC6E8"></i><b>حول الفريج</b></div>
+                  <p>وين أحلى فطور يوم الجمعة؟</p>
+                  <div class="popt"><i style="--w:62%"></i><span>مطعم البلاد</span><em lang="en">62%</em></div>
+                  <div class="popt"><i style="--w:38%"></i><span>كرك الفريج</span><em lang="en">38%</em></div>
+                  <div class="ptotal">١٣ صوت</div>
+                </div>
+                <div class="rail">
+                  <span class="ch"><svg viewBox="0 0 12 8"><path d="M2 6.2 6 2l4 4.2"/></svg></span>
+                  <b class="cnt" lang="en">9</b>
+                  <span class="ch"><svg viewBox="0 0 12 8"><path d="M2 1.8 6 6l4-4.2"/></svg></span>
+                </div>
+              </article>
+            </div>
+            <div class="tabbar">
+              <span class="tb on"><svg viewBox="0 0 24 24"><path d="M8.5 10.5h7V20h-7z"/><path d="M8.5 10.5l7 5.5M15.5 10.5l-7 5.5M10 10.5V7.5h4v3M4 20h16"/></svg><b>الفيد</b></span>
+              <span class="tb"><svg viewBox="0 0 24 24"><rect x="6.2" y="5.5" width="8" height="12" rx="1.5" transform="rotate(-12 10.2 11.5)"/><rect x="10" y="6.5" width="8" height="12" rx="1.5" transform="rotate(9 14 12.5)"/><circle cx="14.3" cy="12.6" r="1.5"/></svg><b>ألعاب</b></span>
+              <span class="tb lz"><i class="loz"><svg viewBox="0 0 24 24"><path d="M6 18l2.4-6.8L18 4.5l1.7 1.7L13 15.8 6 18z"/><path d="M9.5 11.5l3.2 3.2"/></svg></i><b>نشر</b></span>
+              <span class="tb"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.6"/><path d="M12 6.8 13.8 12 12 17.2 10.2 12z"/></svg><b>حولك</b></span>
+              <span class="tb"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.3"/><rect x="8.7" y="8.7" width="6.6" height="6.6" rx="1.5"/><rect x="8.7" y="8.7" width="6.6" height="6.6" rx="1.5" transform="rotate(45 12 12)"/></svg><b>حسابي</b></span>
+            </div>
+          </div>
+        </div>
+      </div>
 
-  <h2 class="home-h">نسمعك</h2>
-  <a class="contact-big" href="mailto:team@firjan.app">team@firjan.app</a>
-  <p class="contact-note">بريد الدعم الرسمي — والأسئلة المتكررة على <a href="support.html">صفحة الدعم</a></p>
+      <div class="pose day">
+        <div class="phone ring">
+          <div class="screen face-classic">
+            <div class="notch"><i></i></div>
+            <div class="scr-feed-v">
+            <div class="cap">
+              <div class="cap-brand">
+                <svg class="mark" viewBox="0 0 60 60"><rect x="3" y="3" width="13" height="13" rx="2" fill="#8A1538" opacity=".85"/><rect x="18" y="3" width="9" height="13" rx="2" fill="#C9962F" opacity=".40"/><rect x="29" y="3" width="13" height="13" rx="2" fill="#E8B547" opacity=".95"/><rect x="3" y="18" width="9" height="9" rx="2" fill="#C9962F" opacity=".60"/><rect x="14" y="18" width="13" height="9" rx="2" fill="#E8B547"/><rect x="29" y="18" width="9" height="13" rx="2" fill="#8A1538" opacity=".45"/><rect x="3" y="29" width="13" height="13" rx="2" fill="#8A1538" opacity=".50"/><rect x="18" y="29" width="9" height="9" rx="2" fill="#E8B547" opacity=".90"/><rect x="29" y="33" width="9" height="13" rx="2" fill="#E8B547"/></svg>
+                <span class="cap-stack"><b>فرجان</b><i lang="en">F i r j a n</i></span>
+              </div>
+              <div class="cap-mid">
+                <span class="pr">☾ العصر · <b lang="en">16:44</b></span>
+                <span class="scope">عالمي ⌄</span>
+              </div>
+              <div class="cap-icons">
+                <span class="ic"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v8a2.5 2.5 0 0 1-2.5 2.5H9l-4 3.5V6.5z"/></svg></span>
+                <span class="ic bell"><svg viewBox="0 0 24 24"><path d="M12 4a5 5 0 0 1 5 5v3.5l1.5 2.7H5.5L7 12.5V9a5 5 0 0 1 5-5z"/><path d="M10 18.5a2 2 0 0 0 4 0"/></svg><u>3</u></span>
+              </div>
+            </div>
+            <div class="sortrow">
+              <span class="fchip"><svg viewBox="0 0 24 24"><path d="M4 6h16M8 12h8M11 18h2"/></svg></span>
+              <span class="stabs">
+                <span class="on">الأحدث<i></i></span>
+                <span>الأقرب<em>★</em></span>
+                <span>الأعلى</span>
+                <span>الأكثر تعليقاً</span>
+              </span>
+              <span class="fchip"><svg viewBox="0 0 24 24"><path d="M15 4a8 8 0 1 0 5 14 9 9 0 0 1-5-14z"/></svg></span>
+            </div>
+            <div class="feed">
+              <article class="card t1">
+                <div class="cbody">
+                  <div class="eyebrow"><i class="dia"></i><b>في الفريج</b></div>
+                  <p>أحد جرّب مقهى الفريج الجديد؟ القهوة العربية عندهم شي ثاني</p>
+                  <div class="cfoot">
+                    <span class="cmt"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7a2.5 2.5 0 0 1-2.5 2.5H9.5L5 19.5V6.5z"/></svg> <b lang="en">7</b></span>
+                    <span class="ago">قبل <b lang="en">5</b> د <i class="fresh"></i></span>
+                  </div>
+                </div>
+                <div class="rail">
+                  <span class="ch voted"><svg viewBox="0 0 12 8"><path d="M2 6.2 6 2l4 4.2"/></svg></span>
+                  <b class="cnt gold" lang="en">24</b>
+                  <span class="ch"><svg viewBox="0 0 12 8"><path d="M2 1.8 6 6l4-4.2"/></svg></span>
+                </div>
+              </article>
+              <article class="card t2">
+                <div class="cbody">
+                  <div class="eyebrow"><i class="dot" style="background:#9AC6E8"></i><b>حول الفريج</b></div>
+                  <p>وين أحلى فطور يوم الجمعة؟</p>
+                  <div class="popt"><i style="--w:62%"></i><span>مطعم البلاد</span><em lang="en">62%</em></div>
+                  <div class="popt"><i style="--w:38%"></i><span>كرك الفريج</span><em lang="en">38%</em></div>
+                  <div class="ptotal">١٣ صوت</div>
+                </div>
+                <div class="rail">
+                  <span class="ch"><svg viewBox="0 0 12 8"><path d="M2 6.2 6 2l4 4.2"/></svg></span>
+                  <b class="cnt" lang="en">9</b>
+                  <span class="ch"><svg viewBox="0 0 12 8"><path d="M2 1.8 6 6l4-4.2"/></svg></span>
+                </div>
+              </article>
+              <article class="card t3">
+                <div class="cbody">
+                  <div class="eyebrow"><i class="dia"></i><b>برع الفريج</b></div>
+                  <p>طاولة لودو مفتوحة في المجلس — ناقصهم اثنين</p>
+                  <div class="cfoot">
+                    <span class="cmt"><svg viewBox="0 0 24 24"><path d="M4 6.5A2.5 2.5 0 0 1 6.5 4h11A2.5 2.5 0 0 1 20 6.5v7a2.5 2.5 0 0 1-2.5 2.5H9.5L5 19.5V6.5z"/></svg> <b lang="en">3</b></span>
+                    <span class="boostmeta"><b lang="en">×2</b><span>باقي ٤٥ د</span></span>
+                  </div>
+                </div>
+                <div class="rail">
+                  <span class="ch"><svg viewBox="0 0 12 8"><path d="M2 6.2 6 2l4 4.2"/></svg></span>
+                  <b class="cnt" lang="en">41</b>
+                  <span class="ch"><svg viewBox="0 0 12 8"><path d="M2 1.8 6 6l4-4.2"/></svg></span>
+                </div>
+                <div class="sill"><i></i></div>
+              </article>
+            </div>
+            <div class="tabbar">
+              <span class="tb on"><svg viewBox="0 0 24 24"><path d="M8.5 10.5h7V20h-7z"/><path d="M8.5 10.5l7 5.5M15.5 10.5l-7 5.5M10 10.5V7.5h4v3M4 20h16"/></svg><b>الفيد</b></span>
+              <label class="tb" for="scr-games"><svg viewBox="0 0 24 24"><rect x="6.2" y="5.5" width="8" height="12" rx="1.5" transform="rotate(-12 10.2 11.5)"/><rect x="10" y="6.5" width="8" height="12" rx="1.5" transform="rotate(9 14 12.5)"/><circle cx="14.3" cy="12.6" r="1.5"/></svg><b>ألعاب</b></label>
+              <label class="tb lz" for="scr-compose"><i class="loz"><svg viewBox="0 0 24 24"><path d="M6 18l2.4-6.8L18 4.5l1.7 1.7L13 15.8 6 18z"/><path d="M9.5 11.5l3.2 3.2"/></svg></i><b>نشر</b></label>
+              <label class="tb" for="scr-nearby"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.6"/><path d="M12 6.8 13.8 12 12 17.2 10.2 12z"/></svg><b>حولك</b></label>
+              <span class="tb"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.3"/><rect x="8.7" y="8.7" width="6.6" height="6.6" rx="1.5"/><rect x="8.7" y="8.7" width="6.6" height="6.6" rx="1.5" transform="rotate(45 12 12)"/></svg><b>حسابي</b></span>
+            </div>
+            </div><!-- /scr-feed-v -->
 
-  <footer>
-    <p><a href="index.html">الرئيسة</a> · <a href="support.html">الدعم</a> · <a href="privacy.html">الخصوصية</a> · <a href="terms.html">الشروط</a> · <a href="community.html">المجتمع</a></p>
-    <p class="made">فرجان · صُنع في قطر</p>
-  </footer>
+            <!-- شاشة النشر — الورقة ترتفع فوق الفيد، منقولة من compose/index.tsx -->
+            <div class="scr-compose-v">
+              <div class="cmp">
+                <div class="cmp-ghost g1"></div>
+                <div class="cmp-ghost g2"></div>
+                <div class="cmp-scrim"></div>
+                <div class="cmp-sheet">
+                  <i class="grab"></i>
+                  <div class="ck"><span class="ckr"><i></i>في الفريج</span><span class="ckl">الحين</span></div>
+                  <p class="ph">وش في بالك؟</p>
+                  <span class="nudge"><svg viewBox="0 0 24 24"><path d="M12 21s-6.5-5.4-6.5-10a6.5 6.5 0 0 1 13 0c0 4.6-6.5 10-6.5 10z"/><circle cx="12" cy="10.6" r="2.4"/></svg>فعّل الموقع — منشورك يوصل فريجك</span>
+                  <span class="lockc"><svg viewBox="0 0 24 24"><path d="M4 7h4l8 10h4M4 17h4l2.2-2.7M13.8 9.8 16 7h4M17 4.5 20 7l-3 2.5M17 14.5 20 17l-3 2.5"/></svg>لونك عشوائي — اختياره بلس<svg viewBox="0 0 24 24"><rect x="6" y="10.5" width="12" height="9" rx="2"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg></span>
+                  <div class="cdock">
+                    <span class="dk"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="9" cy="10" r="1.2"/><circle cx="14" cy="8.5" r="1.2"/><circle cx="15.5" cy="13" r="1.2"/><path d="M12 20.5c-1.5-1.5-.5-3 1-3h2a3 3 0 0 0 0-6"/></svg></span>
+                    <span class="dk"><svg viewBox="0 0 24 24"><path d="M12 21s-6.5-5.4-6.5-10a6.5 6.5 0 0 1 13 0c0 4.6-6.5 10-6.5 10z"/><circle cx="12" cy="10.6" r="2.4"/></svg></span>
+                    <span class="dk lk"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="14" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M4 16.5 9.5 12l4 3.5 3-2.5 3.5 3"/></svg></span>
+                    <span class="dk lk"><svg viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.6"/></svg></span>
+                    <span class="dk"><svg viewBox="0 0 24 24"><path d="M5 20V10M12 20V4M19 20v-8"/></svg></span>
+                    <span class="dk"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span>
+                    <span class="cnt" lang="en">600</span>
+                    <span class="snd"><svg viewBox="0 0 24 24"><path d="M3 11.5 21 3l-8.5 18-2.3-7.2z"/></svg></span>
+                  </div>
+                </div>
+              </div>
+            </div><!-- /scr-compose-v -->
+
+            <!-- شاشة الألعاب — عالم إكس أو «ورق مسطّر»، منقول من GamePage.tsx -->
+            <div class="scr-games-v">
+              <div class="gw gw-x">
+                <i class="dots"><b class="a"></b><label for="w-ludo"></label><label for="w-baloot"></label><b></b><b></b><b></b><label for="w-majlis"></label></i>
+                <div class="gw-status">
+                  <span class="gw-live"><i></i>طاولة ناقصة لاعب</span>
+                  <span class="gw-gold"><b lang="en">G</b><span lang="en">0</span></span>
+                </div>
+                <div class="gw-hero">
+                  <svg viewBox="0 0 40 40" fill="none" stroke="#241018" stroke-width="1.6">
+                    <path d="M14 4v32M26 4v32M4 14h32M4 26h32"/>
+                    <path d="M6.5 6.5l5 5M11.5 6.5l-5 5" stroke="#8A1538" stroke-width="2"/>
+                    <circle cx="20" cy="8.5" r="3" stroke="#241018"/>
+                    <path d="M28.5 28.5l5 5M33.5 28.5l-5 5" stroke="#8A1538" stroke-width="2"/>
+                    <path d="M17.5 17.5l5 5M22.5 17.5l-5 5" stroke="#8A1538" stroke-width="2"/>
+                  </svg>
+                </div>
+                <span class="gw-pill">لاعبان</span>
+                <b class="gw-name">إكس أو</b>
+                <span class="gw-tag">ثلاثة في صف — سريعة</span>
+                <div class="gw-stats">
+                  <span><b lang="en">12</b>فوز</span><i></i>
+                  <span><b lang="en">40</b>لعبات</span><i></i>
+                  <span><b lang="en">5</b>أطول سلسلة</span>
+                </div>
+                <div class="gw-cta">
+                  <span class="gw-play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15L20 12z"/></svg></span>
+                  <span class="gw-opt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1"/></svg></span>
+                </div>
+                <div class="gw-peek">↑ لودو</div>
+              </div>
+
+              <!-- لودو «ليل» — GamePage world:ludo -->
+              <div class="gw gw-l dk">
+                <i class="dots"><label for="w-xo"></label><b class="a"></b><label for="w-baloot"></label><b></b><b></b><b></b><label for="w-majlis"></label></i>
+                <div class="gw-status">
+                  <span class="gw-live"><i></i>طاولة ناقصة لاعبين</span>
+                  <span class="gw-gold"><b lang="en">G</b><span lang="en">0</span></span>
+                </div>
+                <div class="gw-hero">
+                  <svg viewBox="0 0 40 40" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.4">
+                    <rect x="5" y="5" width="30" height="30" rx="5"/>
+                    <circle cx="11" cy="11" r="3" fill="#FF5A8C" stroke="none"/>
+                    <circle cx="29" cy="11" r="3" fill="#FFC85A" stroke="none"/>
+                    <circle cx="11" cy="29" r="3" fill="#5AE6BE" stroke="none"/>
+                    <circle cx="29" cy="29" r="3" fill="#6EA0FF" stroke="none"/>
+                    <path d="M20 15.5 24.5 20 20 24.5 15.5 20z" fill="rgba(255,255,255,.85)" stroke="none"/>
+                  </svg>
+                </div>
+                <span class="gw-pill">٢-٤ لاعبين</span>
+                <b class="gw-name">لودو</b>
+                <span class="gw-tag">سباق الطاسة والحجّات</span>
+                <div class="gw-stats">
+                  <span><b lang="en">8</b>فوز</span><i></i>
+                  <span><b lang="en">22</b>لعبات</span><i></i>
+                  <span><b lang="en">3</b>أطول سلسلة</span>
+                </div>
+                <div class="gw-cta">
+                  <span class="gw-play"><svg viewBox="0 0 24 24"><path d="M7 4.5v15L20 12z"/></svg></span>
+                  <span class="gw-opt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1"/></svg></span>
+                </div>
+                <div class="gw-peek">↑ بلوت</div>
+              </div>
+
+              <!-- بلوت «عنابي» — locked, honestly (LOCKED_GAMES) -->
+              <div class="gw gw-b dk">
+                <i class="dots"><label for="w-xo"></label><label for="w-ludo"></label><b class="a"></b><b></b><b></b><b></b><label for="w-majlis"></label></i>
+                <div class="gw-status">
+                  <span class="gw-live">ما فيه طاولات مفتوحة</span>
+                  <span class="gw-gold"><b lang="en">G</b><span lang="en">0</span></span>
+                </div>
+                <div class="gw-hero">
+                  <svg viewBox="0 0 40 40" fill="none">
+                    <rect x="4" y="10" width="13" height="20" rx="2" fill="#FAF6F0" transform="rotate(-17 10.5 20)"/>
+                    <rect x="13.5" y="8" width="13" height="20" rx="2" fill="#FAF6F0" transform="rotate(0 20 18)"/>
+                    <rect x="23" y="10" width="13" height="20" rx="2" fill="#FAF6F0" transform="rotate(17 29.5 20)"/>
+                    <text x="9" y="23" font-size="7" fill="#C1123C" transform="rotate(-17 10.5 20)">♥</text>
+                    <text x="17.5" y="21" font-size="8" fill="#2A1018">♠</text>
+                    <text x="27.5" y="23" font-size="7" fill="#C1123C" transform="rotate(17 29.5 20)">♦</text>
+                  </svg>
+                </div>
+                <span class="gw-pill">٤ لاعبين</span>
+                <b class="gw-name">بلوت</b>
+                <span class="gw-tag">الورق الخليجي — فريقين</span>
+                <div class="gw-stats">
+                  <span><b>—</b>ما لعبتها بعد</span><i></i>
+                  <span><b lang="en">0/3</b>تحدي اليوم</span>
+                </div>
+                <div class="gw-cta">
+                  <span class="gw-play"><svg viewBox="0 0 24 24"><rect x="6" y="10.5" width="12" height="9" rx="2"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg></span>
+                  <span class="gw-opt"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.8v3M12 18.2v3M2.8 12h3M18.2 12h3M5.5 5.5l2.1 2.1M16.4 16.4l2.1 2.1M18.5 5.5l-2.1 2.1M7.6 16.4l-2.1 2.1"/></svg></span>
+                </div>
+                <div class="gw-peek">↑ حرب السفن</div>
+              </div>
+
+              <!-- المجلس — page 7: medallion, beta, دلة اليوم, live rooms -->
+              <div class="gw gw-m">
+                <i class="dots"><label for="w-xo"></label><label for="w-ludo"></label><label for="w-baloot"></label><b></b><b></b><b></b><b class="a"></b></i>
+                <div class="backpeek">↓ برازيلية</div>
+                <div class="mrow">
+                  <span class="mc"><svg viewBox="0 0 24 24"><path d="M12 4a5 5 0 0 1 5 5v3.5l1.5 2.7H5.5L7 12.5V9a5 5 0 0 1 5-5z"/><path d="M10 18.5a2 2 0 0 0 4 0"/></svg></span>
+                  <span class="pair">
+                    <span class="mc tr"><svg viewBox="0 0 24 24"><path d="M7 5h10v4a5 5 0 0 1-10 0zM7 6H4.5v1.5A3 3 0 0 0 7 10.4M17 6h2.5v1.5A3 3 0 0 1 17 10.4M12 14v3M9 20h6"/></svg></span>
+                    <span class="mc"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M5 20c1.3-3.4 4-5 7-5s5.7 1.6 7 5"/></svg></span>
+                  </span>
+                </div>
+                <div class="medal"><i>
+                  <svg viewBox="0 0 60 60"><rect x="3" y="3" width="13" height="13" rx="2" fill="#8A1538" opacity=".85"/><rect x="18" y="3" width="9" height="13" rx="2" fill="#C9962F" opacity=".40"/><rect x="29" y="3" width="13" height="13" rx="2" fill="#E8B547" opacity=".95"/><rect x="3" y="18" width="9" height="9" rx="2" fill="#C9962F" opacity=".60"/><rect x="14" y="18" width="13" height="9" rx="2" fill="#E8B547"/><rect x="29" y="18" width="9" height="13" rx="2" fill="#8A1538" opacity=".45"/><rect x="3" y="29" width="13" height="13" rx="2" fill="#8A1538" opacity=".50"/><rect x="18" y="29" width="9" height="9" rx="2" fill="#E8B547" opacity=".90"/><rect x="29" y="33" width="9" height="13" rx="2" fill="#E8B547"/></svg>
+                </i></div>
+                <b class="mt">ألعاب فرجان</b>
+                <span class="ms">المجلس مفتوح — العب ضد البوت أو عزم ربعك</span>
+                <span class="beta"><svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#8A6A1A" stroke-width="2"><path d="M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3M8.5 3h7"/></svg>الألعاب قيد التجربة — نطوّرها، وملاحظاتك تهمّنا</span>
+                <div class="dalla">
+                  <span class="ic"><svg viewBox="0 0 24 24"><path d="M5 9h11v6a5 5 0 0 1-10 0zM16 10h2.5a2.5 2.5 0 0 1 0 5H16M7 20h8"/></svg></span>
+                  <span><b>دلة اليوم: العب ٣ ألعاب</b>
+                    <span class="pips"><i class="on"></i><i></i><i></i></span>
+                  </span>
+                  <em lang="en">1/3</em>
+                </div>
+                <div class="room">
+                  <span><b><i></i>إكس أو</b>
+                    <span class="seats"><i class="on"></i><i></i><span>ناقص <span lang="en">1</span> من <span lang="en">2</span></span></span>
+                  </span>
+                  <span class="go"><svg viewBox="0 0 24 24"><path d="M14 5l-7 7 7 7M7 12h13"/></svg></span>
+                </div>
+                <div class="room">
+                  <span><b><i></i>لودو</b>
+                    <span class="seats"><i class="on"></i><i class="on"></i><i></i><i></i><span>ناقص <span lang="en">2</span> من <span lang="en">4</span></span></span>
+                  </span>
+                  <span class="go"><svg viewBox="0 0 24 24"><path d="M14 5l-7 7 7 7M7 12h13"/></svg></span>
+                </div>
+              </div>
+              <div class="tabbar">
+                <label class="tb" for="scr-feed"><svg viewBox="0 0 24 24"><path d="M8.5 10.5h7V20h-7z"/><path d="M8.5 10.5l7 5.5M15.5 10.5l-7 5.5M10 10.5V7.5h4v3M4 20h16"/></svg><b>الفيد</b></label>
+                <span class="tb on"><svg viewBox="0 0 24 24"><rect x="6.2" y="5.5" width="8" height="12" rx="1.5" transform="rotate(-12 10.2 11.5)"/><rect x="10" y="6.5" width="8" height="12" rx="1.5" transform="rotate(9 14 12.5)"/><circle cx="14.3" cy="12.6" r="1.5"/></svg><b>ألعاب</b></span>
+                <label class="tb lz" for="scr-compose"><i class="loz"><svg viewBox="0 0 24 24"><path d="M6 18l2.4-6.8L18 4.5l1.7 1.7L13 15.8 6 18z"/><path d="M9.5 11.5l3.2 3.2"/></svg></i><b>نشر</b></label>
+                <label class="tb" for="scr-nearby"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.6"/><path d="M12 6.8 13.8 12 12 17.2 10.2 12z"/></svg><b>حولك</b></label>
+                <span class="tb"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.3"/><rect x="8.7" y="8.7" width="6.6" height="6.6" rx="1.5"/><rect x="8.7" y="8.7" width="6.6" height="6.6" rx="1.5" transform="rotate(45 12 12)"/></svg><b>حسابي</b></span>
+              </div>
+            </div><!-- /scr-games-v -->
+
+            <!-- شاشة حولك — «الشمسة»: الأماكن على بوصلة، منقولة من nearby.tsx -->
+            <div class="scr-nearby-v">
+              <div class="nb">
+                <div class="nb-corners">
+                  <span class="nb-title"><b>حولك</b><i>قيد التجربة</i></span>
+                  <span class="nb-count"><b lang="en">6</b><span>أماكن</span>
+                    <svg viewBox="0 0 60 60"><rect x="3" y="3" width="13" height="13" rx="2" fill="#8A1538" opacity=".85"/><rect x="18" y="3" width="9" height="13" rx="2" fill="#C9962F" opacity=".40"/><rect x="29" y="3" width="13" height="13" rx="2" fill="#E8B547" opacity=".95"/><rect x="3" y="18" width="9" height="9" rx="2" fill="#C9962F" opacity=".60"/><rect x="14" y="18" width="13" height="9" rx="2" fill="#E8B547"/><rect x="29" y="18" width="9" height="13" rx="2" fill="#8A1538" opacity=".45"/><rect x="3" y="29" width="13" height="13" rx="2" fill="#8A1538" opacity=".50"/><rect x="18" y="29" width="9" height="9" rx="2" fill="#E8B547" opacity=".90"/><rect x="29" y="33" width="9" height="13" rx="2" fill="#E8B547"/></svg>
+                  </span>
+                </div>
+                <div class="nb-disc">
+                  <svg viewBox="0 0 216 138">
+                    <defs>
+                      <radialGradient id="nbglow"><stop offset="0" stop-color="#C9962F" stop-opacity=".09"/><stop offset=".6" stop-color="#C9962F" stop-opacity=".04"/><stop offset="1" stop-color="#C9962F" stop-opacity="0"/></radialGradient>
+                    </defs>
+                    <circle cx="108" cy="70" r="54" fill="url(#nbglow)"/>
+                    <g stroke="#1A0A12" stroke-opacity=".06" stroke-width=".75">
+                      <path d="M108 6v128M44 70h128M62 24l92 92M154 24l-92 92"/>
+                    </g>
+                    <circle cx="108" cy="70" r="20" fill="none" stroke="rgba(26,10,18,.14)" stroke-width=".75" stroke-dasharray="1 3"/>
+                    <circle cx="108" cy="70" r="34" fill="none" stroke="rgba(26,10,18,.22)" stroke-width=".9"/>
+                    <circle cx="108" cy="70" r="54" fill="none" stroke="rgba(26,10,18,.55)" stroke-width="1.4"/>
+                    <circle cx="108" cy="70" r="64" fill="none" stroke="rgba(26,10,18,.18)" stroke-width="1" stroke-dasharray="2 5"/>
+                    <g fill="#8A6A1A" fill-opacity=".55" font-size="6.5" font-weight="700" text-anchor="middle">
+                      <text x="108" y="10">ش</text><text x="108" y="134">ج</text><text x="177" y="73">ق</text><text x="39" y="73">غ</text>
+                    </g>
+                    <g fill="rgba(26,10,18,.38)" font-size="6" text-anchor="middle">
+                      <text x="80" y="90">١٥٠م</text><text x="64" y="106">٥٠٠م</text>
+                    </g>
+                    <g fill="none" stroke="#C9962F" stroke-opacity=".5" stroke-width="1.1">
+                      <circle cx="136" cy="38" r="2.8"/><circle cx="70" cy="46" r="2.8"/><circle cx="150" cy="96" r="2.8"/><circle cx="96" cy="55" r="2.4"/><circle cx="124" cy="84" r="2.4"/>
+                    </g>
+                    <circle cx="85" cy="98" r="5.5" fill="#3FA796" fill-opacity=".2"/>
+                    <circle cx="85" cy="98" r="3" fill="#3FA796"/>
+                    <circle cx="108" cy="70" r="14" fill="rgba(201,150,47,.10)" stroke="#C9962F" stroke-width="1.3"/>
+                    <g transform="translate(101.5, 63.5) scale(0.22)">
+                      <rect x="3" y="3" width="13" height="13" rx="2" fill="#8A1538" opacity=".85"/><rect x="18" y="3" width="9" height="13" rx="2" fill="#C9962F" opacity=".4"/><rect x="29" y="3" width="13" height="13" rx="2" fill="#E8B547" opacity=".95"/><rect x="3" y="18" width="9" height="9" rx="2" fill="#C9962F" opacity=".6"/><rect x="14" y="18" width="13" height="9" rx="2" fill="#E8B547"/><rect x="29" y="18" width="9" height="13" rx="2" fill="#8A1538" opacity=".45"/><rect x="3" y="29" width="13" height="13" rx="2" fill="#8A1538" opacity=".5"/><rect x="18" y="29" width="9" height="9" rx="2" fill="#E8B547" opacity=".9"/><rect x="29" y="33" width="9" height="13" rx="2" fill="#E8B547"/>
+                    </g>
+                    <text x="108" y="95" fill="rgba(26,10,18,.78)" font-size="6.5" font-weight="700" text-anchor="middle">أنت</text>
+                  </svg>
+                  <span class="nb-fuzz">تقريبي ±٢٠٠م</span>
+                </div>
+                <div class="nb-gauge">
+                  <span class="r"><b lang="en">6</b> أماكن داخل ١٫٢ كم</span>
+                  <span class="f">كل الأنواع ⌄</span>
+                </div>
+                <div class="nb-band"><b>في الفريج</b><i></i><span>≤ ٥٠٠م</span></div>
+                <div class="nb-hero">
+                  <div class="hd"><span class="pip"></span><span class="nm">مقهى الياسمين</span>
+                    <span class="dist"><b lang="en">450</b><span>م</span></span>
+                  </div>
+                  <div class="live">فيه قاعدين الحين · مقهى</div>
+                  <div class="q"><b>جرّبوا الكرك عندهم 👌</b><span>آخر سالفة · قبل ٥ د</span></div>
+                  <span class="nb-sit">سجّل وصولك ◈</span>
+                </div>
+                <div class="nb-tiles">
+                  <div class="nb-tile">
+                    <div class="hd"><span class="tess" style="background:#B7791F"></span><span class="nm">مخبز النور</span></div>
+                    <span class="kind">مخبز</span>
+                    <div class="ft"><span class="sit">سجّل ◈</span><span class="d"><b lang="en">320</b><span>م</span><svg viewBox="0 0 24 24" style="transform:rotate(40deg)"><path d="M12 5l6 12H6z"/></svg></span></div>
+                  </div>
+                  <div class="nb-tile">
+                    <div class="hd"><span class="tess" style="background:#2F7D5C"></span><span class="nm">حديقة السلام</span></div>
+                    <span class="kind">حديقة</span>
+                    <div class="ft"><span></span><span class="d"><b lang="en">720</b><span>م</span><svg viewBox="0 0 24 24" style="transform:rotate(-70deg)"><path d="M12 5l6 12H6z"/></svg></span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="tabbar">
+                <label class="tb" for="scr-feed"><svg viewBox="0 0 24 24"><path d="M8.5 10.5h7V20h-7z"/><path d="M8.5 10.5l7 5.5M15.5 10.5l-7 5.5M10 10.5V7.5h4v3M4 20h16"/></svg><b>الفيد</b></label>
+                <label class="tb" for="scr-games"><svg viewBox="0 0 24 24"><rect x="6.2" y="5.5" width="8" height="12" rx="1.5" transform="rotate(-12 10.2 11.5)"/><rect x="10" y="6.5" width="8" height="12" rx="1.5" transform="rotate(9 14 12.5)"/><circle cx="14.3" cy="12.6" r="1.5"/></svg><b>ألعاب</b></label>
+                <label class="tb lz" for="scr-compose"><i class="loz"><svg viewBox="0 0 24 24"><path d="M6 18l2.4-6.8L18 4.5l1.7 1.7L13 15.8 6 18z"/><path d="M9.5 11.5l3.2 3.2"/></svg></i><b>نشر</b></label>
+                <span class="tb on"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.6"/><path d="M12 6.8 13.8 12 12 17.2 10.2 12z"/></svg><b>حولك</b></span>
+                <span class="tb"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.3"/><rect x="8.7" y="8.7" width="6.6" height="6.6" rx="1.5"/><rect x="8.7" y="8.7" width="6.6" height="6.6" rx="1.5" transform="rotate(45 12 12)"/></svg><b>حسابي</b></span>
+              </div>
+            </div><!-- /scr-nearby-v -->
+          </div>
+        </div>
+      </div>
+
+      <p class="cap-label">«كلاسيكي تلقائي» — كريم بالنهار · لؤلؤة بالليل</p>
+    </div>
+    <div class="seg">
+      <label class="seg-f" for="scr-feed">الفيد</label>
+      <label class="seg-c" for="scr-compose">نشر</label>
+      <label class="seg-g" for="scr-games">ألعاب</label>
+      <label class="seg-n" for="scr-nearby">حولك</label>
+    </div>
+    <label class="face-ui" for="face"><span aria-hidden="true">☀</span><span aria-hidden="true">☾</span><i class="knob" aria-hidden="true"></i></label>
+  </section>
 
 </div>
+
+<!-- ═══ شريط السوالف ═══ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-row">
+    <span class="tchip">أذكار المساء 🌙</span>
+    <span class="tchip">طاولة لودو مفتوحة — ناقصهم اثنين 🎲</span>
+    <span class="tchip">وين أحلى فطور يوم الجمعة؟ 🗳</span>
+    <span class="tchip">أذكار الصباح 🌄</span>
+    <span class="tchip">سالفة اليوم في الفريج…</span>
+    <span class="tchip">محد يعرف منهو أنت 🎭</span>
+    <span class="tchip">أذكار المساء 🌙</span>
+    <span class="tchip">طاولة لودو مفتوحة — ناقصهم اثنين 🎲</span>
+    <span class="tchip">وين أحلى فطور يوم الجمعة؟ 🗳</span>
+    <span class="tchip">أذكار الصباح 🌄</span>
+    <span class="tchip">سالفة اليوم في الفريج…</span>
+    <span class="tchip">محد يعرف منهو أنت 🎭</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <div class="sadu" role="presentation"></div>
+
+  <!-- ═══ ثلاث خطوات ═══ -->
+  <section>
+    <div class="sec-head">
+      <h2 data-n="٠١">كيف تبدأ؟</h2>
+      <p>ثلاث خطوات — ولا وحدة منها فيها تسجيل</p>
+    </div>
+    <div class="steps">
+      <div class="step pane">
+        <span class="stepnum">١</span>
+        <h3>افتح التطبيق</h3>
+        <p>ما فيه إيميل ولا رقم ولا كلمة مرور — بدون أي تسجيل.</p>
+      </div>
+      <div class="step pane">
+        <span class="stepnum">٢</span>
+        <h3>خذ هويتك العشوائية</h3>
+        <p>جهازك ياخذ هوية عشوائية تلقائيًا — بلا اسم ولا صورة.</p>
+      </div>
+      <div class="step pane">
+        <span class="stepnum">٣</span>
+        <h3>اكتب لفريجك والعب</h3>
+        <p>تنشر وتصوّت مع أهل فريجك.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ الركائز ═══ -->
+  <section>
+    <div class="sec-head">
+      <h2 data-n="٠٢">ليش فرجان؟</h2>
+      <p>أربع أشياء ما نتنازل عنها</p>
+    </div>
+    <div class="pillars">
+      <div class="pillar pane">
+        <i class="warp" aria-hidden="true"></i>
+        <div class="drop" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4.2"/><path d="M4.5 20c1.4-3.6 4.2-5.4 7.5-5.4s6.1 1.8 7.5 5.4"/><path class="g" d="M9 8h6"/></svg>
+        </div>
+        <h3>بلا حساب أصلاً</h3>
+        <p>أول ما تفتح فرجان، جهازك ياخذ هوية عشوائية تلقائيًا. ما فيه إيميل ولا رقم ولا كلمة مرور — ولا اسم ولا صورة.</p>
+      </div>
+      <div class="pillar pane">
+        <i class="warp" aria-hidden="true"></i>
+        <div class="drop" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.4-6.5-10a6.5 6.5 0 0 1 13 0c0 4.6-6.5 10-6.5 10z"/><circle class="g" cx="12" cy="10.6" r="2.4"/></svg>
+        </div>
+        <h3>الفريج الأقرب لك</h3>
+        <p>المنشورات تجيك بقربها منك: في الفريج، حول الفريج، برع الفريج. وموقعك الدقيق ما يبين لأحد — التمويه يصير على الخادم نفسه.</p>
+      </div>
+      <div class="pillar pane">
+        <i class="warp" aria-hidden="true"></i>
+        <div class="drop" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="11" height="15" rx="2"/><rect class="g" x="10" y="3.5" width="11" height="15" rx="2"/><path d="M14 9l2.2 2.2L14 13.4"/></svg>
+        </div>
+        <h3>مجلس وألعاب</h3>
+        <p>ست ألعاب جماعية لحظية تلمّك بربعك — من إكس أو السريعة إلى بلوت والبرازيلية. والمجلس يجمع الطاولات المفتوحة.</p>
+      </div>
+      <div class="pillar pane">
+        <i class="warp" aria-hidden="true"></i>
+        <div class="drop" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.6-3 8-7 10-4-2-7-5.4-7-10V6z"/><path class="g" d="M9 12l2 2 4-4.5"/></svg>
+        </div>
+        <h3>بياناتك بيدك</h3>
+        <p>تحذف حسابك من داخل التطبيق متى ما تبي — بمهلة استرجاع ٣٠ يوم. والإبلاغ والحظر بضغطة، على أي منشور أو رسالة.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ المظاهر ═══ -->
+  <section>
+    <div class="sec-head">
+      <h2 data-n="٠٣">المظهر على كيفك</h2>
+      <p>التطبيق يجي بمظاهر تبدّل جوه كامل — هذي عيّنة، والمظاهر المتاحة تلقاها في «حسابي»</p>
+    </div>
+    <div class="tray glass">
+      <div class="rail-scroll">
+        <label class="vial sw-classic v-classic" for="t-classic"><span class="lbl"><b>كلاسيكي</b><span>الكريم الأصلي</span></span></label>
+        <div class="vial sw-pearl"><span class="lbl"><b>لؤلؤة</b><span>الكلاسيكي بالليل — لؤلؤة مقمرة</span></span></div>
+        <label class="vial sw-diwani v-diwani" for="t-diwani"><span class="lbl"><b>الدفتر</b><span>رَق وحبر ديوان وعلامة المعلّم</span></span></label>
+        <label class="vial sw-moltengold ring hallmark v-molten" for="t-molten"><span class="lbl"><b>الذهب المذاب</b><span>أسود مطلق وذهب مصبوب</span></span></label>
+        <label class="vial sw-doha v-doha" for="t-doha"><span class="lbl"><b>ليل الدوحة</b><span>ليل الدوحة — أضواء المدينة</span></span></label>
+        <label class="vial sw-galaxy v-galaxy" for="t-galaxy"><span class="lbl"><b>مجرّة</b><span>ليل الخليج الأول</span></span></label>
+        <div class="vial sw-rosegold"><span class="lbl"><b>ذهب وردي</b><span>مرآة وردية مصقولة</span></span></div>
+        <div class="vial sw-neona"><span class="lbl"><b>نيونا</b><span>أنابيب ماجنتا على ليل حالك — نيون الأولى</span></span></div>
+      </div>
+    </div>
+    <p class="try-hint">اضغط مظهر منها — وشوفه على الجوال فوق ✨</p>
+  </section>
+
+  <!-- ═══ الألعاب ═══ -->
+  <section id="games">
+    <div class="sec-head">
+      <h2 data-n="٠٤">الألعاب</h2>
+      <p>ست ألعاب جماعية لحظية تلمّك بربعك</p>
+    </div>
+    <div class="games">
+      <div class="game pane g-xo">
+        <span class="porthole" aria-hidden="true"><svg viewBox="0 0 40 40">
+          <path d="M14 4v32M26 4v32M4 14h32M4 26h32"/>
+          <path class="p1" d="M6.5 6.5l5 5M11.5 6.5l-5 5"/><circle class="p2" cx="20" cy="8.5" r="3"/><path class="p3" d="M28.5 28.5l5 5M33.5 28.5l-5 5"/><path class="p4" d="M17.5 17.5l5 5M22.5 17.5l-5 5"/>
+          <path class="win" d="M7 7 L33 33" stroke-width="2.2" opacity="0"/>
+        </svg></span>
+        <b>إكس أو</b>
+        <span class="sub">ثلاثة في صف — سريعة</span>
+        <span class="n">لاعبان</span>
+      </div>
+      <div class="game pane g-ludo">
+        <span class="porthole" aria-hidden="true"><svg viewBox="0 0 40 40">
+          <rect x="4" y="4" width="14" height="14" rx="3"/><rect x="22" y="22" width="14" height="14" rx="3"/>
+          <circle class="f" cx="11" cy="11" r="3"/><circle class="f" cx="29" cy="29" r="3"/>
+          <circle cx="26" cy="8" r="1.4"/><circle cx="31" cy="8" r="1.4"/><circle cx="8" cy="26" r="1.4"/><circle cx="8" cy="31" r="1.4"/>
+        </svg></span>
+        <b>لودو</b>
+        <span class="sub">سباق الطاسة والحجّات</span>
+        <span class="n">٢-٤ لاعبين</span>
+      </div>
+      <div class="game pane g-baloot">
+        <span class="porthole" aria-hidden="true"><svg viewBox="0 0 40 40">
+          <rect x="5" y="9" width="14" height="21" rx="2.5" transform="rotate(-14 12 19.5)"/>
+          <rect x="15" y="7" width="14" height="21" rx="2.5" transform="rotate(2 22 17.5)"/>
+          <rect x="24" y="9" width="14" height="21" rx="2.5" transform="rotate(16 31 19.5)"/>
+          <path class="f" d="M22 14.5c1.6-2.6 5-1 4.3 1.6-.5 1.9-2.9 3.4-4.3 4.4-1.4-1-3.8-2.5-4.3-4.4-.7-2.6 2.7-4.2 4.3-1.6z"/>
+        </svg></span>
+        <b>بلوت</b>
+        <span class="sub">الورق الخليجي — فريقين</span>
+        <span class="n">٤ لاعبين</span>
+      </div>
+      <div class="game pane g-ships">
+        <span class="porthole" aria-hidden="true"><svg viewBox="0 0 40 40">
+          <path d="M10 4v32M18 4v32M26 4v32M4 12h32M4 20h32M4 28h32" opacity=".45"/>
+          <rect class="f" x="11.5" y="13.5" width="5" height="13" rx="2.5"/>
+          <path class="hit" d="M28 14l4 4M32 14l-4 4"/><circle class="sonar" cx="30" cy="30" r="2.6"/>
+        </svg></span>
+        <b>حرب السفن</b>
+        <span class="sub">دوّر على سفن خصمك واغرقها</span>
+        <span class="n">لاعبان</span>
+      </div>
+      <div class="game pane g-xo9">
+        <span class="porthole" aria-hidden="true"><svg viewBox="0 0 40 40">
+          <path d="M14.5 4v32M25.5 4v32M4 14.5h32M4 25.5h32"/>
+          <path class="p1" d="M7 7l4 4M11 7l-4 4" opacity=".9"/><circle class="p2" cx="20" cy="20" r="2.6"/><path class="p3" d="M29 29l4 4M33 29l-4 4" opacity=".9"/>
+          <path d="M17 6.5v5M6.5 17h5" opacity=".35"/>
+        </svg></span>
+        <b>إكس أو الكبير</b>
+        <span class="sub">تسع ألواح — تفكير أعمق</span>
+        <span class="n">لاعبان</span>
+      </div>
+      <div class="game pane g-braz">
+        <span class="porthole" aria-hidden="true"><svg viewBox="0 0 40 40">
+          <rect x="5" y="6" width="12" height="17" rx="2.5"/><rect x="9" y="10" width="12" height="17" rx="2.5"/>
+          <rect x="23" y="17" width="12" height="17" rx="2.5"/>
+          <path class="f" d="M29 21.5l3 4-3 4-3-4z"/>
+        </svg></span>
+        <b>برازيلية</b>
+        <span class="sub">كوتشينة تركيب ٢×٢ — فريقين</span>
+        <span class="n">٤ لاعبين</span>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ═══ الليل الذي يبقى — the night that stays, in BOTH schemes ═══ -->
+<div class="sadu q" role="presentation" style="margin-bottom:0"></div>
+<section class="night-band">
+  <div class="inner">
+    <span class="crescent" aria-hidden="true"></span>
+    <h2>محد يعرف منهو أنت</h2>
+    <p>تكون من أهل الفريج… بدون ما تكون معروف.</p>
+    <div class="creed">
+      <div><b>بلا اسم ولا صورة</b><span>هويتك داخل التطبيق عشوائية — ومحد يعرف منهو أنت.</span></div>
+      <div><b>الإبلاغ والحظر بضغطة</b><span>على أي منشور أو رسالة.</span></div>
+      <div><b>بياناتك تنحذف بأمرك</b><span>حذف الحساب من داخل التطبيق، بمهلة استرجاع ٣٠ يوم.</span></div>
+    </div>
+  </div>
+</section>
+<div class="sadu q" role="presentation" style="margin-top:0"></div>
+
+<div class="wrap">
+  <section class="contact glass">
+    <h2>نسمعك</h2>
+    <a class="jewel" href="mailto:team@firjan.app" style="margin-inline-start:0">team@firjan.app</a>
+    <p class="note">بريد الدعم الرسمي — والأسئلة المتكررة على <a href="support.html">صفحة الدعم</a></p>
+  </section>
+</div>
+</main>
+
+<!-- الكورنيش — the city the فريج belongs to, drawn as a selvage -->
+<div class="corniche" aria-hidden="true">
+  <svg viewBox="0 0 1200 150" xmlns="http://www.w3.org/2000/svg">
+    <!-- back skyline, hushed -->
+    <path fill="#8A1538" opacity=".14" d="M0 118 L40 118 40 84 52 84 52 118 90 118 90 96 96 74 102 96 102 118 150 118 150 90 174 90 174 118 205 118 214 60 223 118 260 118 260 88 292 88 292 118 340 118 348 70 352 62 356 70 364 118 420 118 420 92 452 92 452 118 505 118 505 78 517 78 517 118 560 118 560 100 600 100 600 118 1200 118 1200 150 0 150 Z"/>
+    <!-- front skyline: towers, wind-tower houses, the spiral -->
+    <path fill="#8A1538" opacity=".32" d="M620 118 L648 118 648 76 654 76 654 68 660 76 666 76 666 118 700 118 700 58 705 50 710 58 710 118 745 118 745 92 741 92 754 60 767 92 763 92 763 118 800 118 800 86 806 86 806 80 824 80 824 86 830 86 830 118 870 118 872 44 876 36 880 44 882 118 918 118 918 94 914 94 926 72 938 94 934 94 934 118 975 118 975 84 981 84 981 76 999 76 999 84 1005 84 1005 118 1046 118 1050 66 1046 62 1054 54 1062 62 1058 66 1062 118 1105 118 1105 96 1130 96 1130 118 1160 118 1160 104 1200 104 1200 150 620 150 Z"/>
+    <!-- dhow on the bay -->
+    <path fill="#8A1538" opacity=".45" d="M300 132 q30 10 60 0 l-8 8 q-22 6 -44 0 Z"/>
+    <path fill="#C9962F" opacity=".55" d="M330 96 q16 14 14 34 l-14 0 Z M326 104 q-12 12 -10 26 l10 0 Z"/>
+    <!-- gold windows -->
+    <g fill="#C9962F" opacity=".7">
+      <rect x="701.5" y="70" width="3" height="3" rx=".8"/><rect x="705.5" y="80" width="3" height="3" rx=".8"/>
+      <rect x="871" y="56" width="3" height="3" rx=".8"/><rect x="875" y="72" width="3" height="3" rx=".8"/><rect x="873" y="90" width="3" height="3" rx=".8"/>
+      <rect x="649.5" y="86" width="3" height="3" rx=".8"/><rect x="758" y="72" width="3" height="3" rx=".8"/>
+      <rect x="1051" y="74" width="3" height="3" rx=".8"/><rect x="1055" y="90" width="3" height="3" rx=".8"/>
+      <rect x="921" y="100" width="3" height="3" rx=".8"/><rect x="988" y="88" width="3" height="3" rx=".8"/>
+    </g>
+    <!-- the crescent over the bay -->
+    <circle cx="180" cy="42" r="13" fill="none" stroke="#C9962F" stroke-width="2.4" opacity=".6" stroke-dasharray="52 40" stroke-dashoffset="8" transform="rotate(-125 180 42)"/>
+    <!-- the water line -->
+    <path stroke="#C9962F" stroke-width="1.4" opacity=".35" d="M0 132 q20 -4 40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0 t40 0" fill="none"/>
+  </svg>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p><a href="index.html">الرئيسة</a> · <a href="support.html">الدعم</a> · <a href="privacy.html">الخصوصية</a> · <a href="terms.html">الشروط</a> · <a href="community.html">المجتمع</a></p>
+    <p class="made">فرجان · صُنع في قطر
+      <svg width="15" height="10" viewBox="0 0 30 20" aria-hidden="true" style="border-radius:2px; vertical-align:-1px">
+        <rect width="30" height="20" fill="#8A1538"/>
+        <path d="M0 0h9l4.5 1.1L9 2.2l4.5 1.1L9 4.4l4.5 1.1L9 5.6l4.5 1.1L9 7.8l4.5 1.1L9 8.9l4.5 1.1L9 11.1l4.5 1.1L9 12.2l4.5 1.1L9 14.4l4.5 1.1L9 15.6l4.5 1.1L9 17.8l4.5 1.1L9 20H0z" fill="#FFF6EE"/>
+      </svg>
+    </p>
+  </div>
+</footer>
 </body>
 </html>
