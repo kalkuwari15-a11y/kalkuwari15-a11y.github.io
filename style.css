@@ -1,84 +1,123 @@
 /* ═══════════════════════════════════════════════════════════════════════════
-   فرجان — the public pages (support · privacy · terms).
-   Built in the app's own «كلاسيكي» language: cream ground, maroon brand,
-   gold accent, naskh for the headings.
+   فرجان — the content pages (الدعم · الخصوصية · الشروط · المجتمع · ٤٠٤ · الرفقة).
+   v12 «سدو سائل» — the same liquid-glass language the homepage speaks: one
+   fixed loom of maroon/gold thread behind frosted panels, a floating glass
+   capsule for the tabs, woven sadu rules, and folio numerals in antique gold.
 
-   THE CONTRAST LAW (register): #C9962F is ~2.7:1 on cream — it may FILL a
-   shape or draw a rule, but it must never be gold TEXT on a light ground.
-   Readable gold is the deep antique #8A6A1A (~5:1). Every gold word obeys it.
-   (The previous revision of this file used #C9962F for .brand-sub and the
-   band numbers; that was the violation, fixed here.)
+   index.html is self-contained and does NOT use this file; everything else does,
+   so every class below is shared by hand-written AND generated pages. The
+   generated three (privacy/terms/community) come from tools/build-site.mjs —
+   restyle here, never in their HTML.
 
-   Self-contained on purpose: no CDN, no webfont, no JS — it must render on
-   any static host, offline, and inside App Review's browser.
+   LAWS (carried over from the homepage):
+   · no CDN, no webfonts, NO JavaScript — must render offline and in App
+     Review's browser; -webkit- prefixes written BEFORE the unprefixed property;
+     every blur has an @supports porcelain fallback.
+   · white-pinned: one daylight face, no dark scheme (matches the app's launch
+     look and the homepage).
+   · #C9962F may FILL a shape but is never text on cream — readable gold is
+     --gold-text #7E6018 (≈5.2:1). Every gold word obeys it.
+   · never letter-space Arabic (it tears the joins); Latin only.
+   · every interactive target ≥44px; prefers-reduced-motion kills all motion.
+   · no color-mix, no CSS nesting, no :has() — precomputed rgba literals only.
    ═══════════════════════════════════════════════════════════════════════════ */
 
 :root {
-  --cream:      #FAF6F0;
-  --cream-deep: #F3ECE0;
-  --paper:      #FFFEFB;
-  --ink:        #1A0A12;
-  --body:       #3A2A24;
-  --muted:      #7A5B68;
-  --maroon:     #8A1538;
-  --on-maroon:  #FFF6EE;   /* the only ink ever painted ON --maroon */
-  --gold:       #C9962F;   /* fills · rules · edges — never text on cream */
-  --gold-ink:   #8A6A1A;   /* the readable gold */
-  --rule:       rgba(26, 10, 18, 0.10);
-  --shadow:     rgba(58, 42, 16, 0.14);
-  --radius:     18px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --cream:      #171310;
-    --cream-deep: #120F0C;
-    --paper:      #201A16;
-    --ink:        #F7F0E4;
-    --body:       #E2D6C6;
-    --muted:      #A2917F;
-    --maroon:     #E8759A;   /* the brand lifts on a dark ground */
-    --on-maroon:  #1A0A12;   /* …so the ink on it has to darken with it. Cream
-                                on the lifted brand is 2.6:1 — the active tab
-                                would be the least readable text on the page. */
-    --gold-ink:   #E8B547;   /* …and bright gold becomes the readable one */
-    --rule:       rgba(255, 255, 255, 0.12);
-    --shadow:     rgba(0, 0, 0, 0.5);
-  }
+  --bg:        #FAF6F0;
+  --ink:       #1A0A12;
+  --ink-soft:  rgba(26, 10, 18, .75);
+  --ink-dim:   rgba(26, 10, 18, .64);
+  --maroon:    #8A1538;
+  --on-maroon: #FFF6EE;
+  --gold:      #C9962F;
+  --gold-hi:   #E8B547;
+  --gold-text: #7E6018;
+  --hairline:  rgba(138, 21, 56, .10);
+  --paper:     #FFFEFB;
+  --shadow:    rgba(58, 42, 16, .14);
+  --shadow-lo: rgba(58, 42, 16, .08);
+  --r-lg: 24px;
+  --ease-out: cubic-bezier(.22, .61, .21, 1);
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  overflow-x: clip;          /* clip keeps position:sticky reliable on iOS */
+  scrollbar-color: #A87C1E rgba(138, 21, 56, .06);   /* solid enough to see against its own track */
+  scrollbar-width: thin;
+}
 
 body {
   margin: 0;
-  background: var(--cream);
-  background-image:
-    radial-gradient(120% 55% at 50% 0%, rgba(201, 150, 47, 0.10), transparent 70%),
-    linear-gradient(180deg, var(--cream), var(--cream-deep));
-  background-attachment: fixed;
-  color: var(--body);
+  background: var(--bg);
+  color: var(--ink-soft);
   font-family: -apple-system, BlinkMacSystemFont, "SF Arabic", "Segoe UI",
-               Tahoma, "Noto Sans Arabic", "Geeza Pro", Arial, sans-serif;
+               Tahoma, "Noto Sans Arabic", "Geeza Pro", "Helvetica Neue", Arial, sans-serif;
   font-size: 17px;
   line-height: 1.85;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
-.wrap { max-width: 720px; margin: 0 auto; padding: 0 20px 72px; }
+/* ── النول — the loom: one fixed layer, no markup needed ───────────────────
+   Warp threads + four aurora pools + the two sadu ribbons, all as gradients on
+   a single fixed pseudo-element. Softness comes from gradient falloff, never
+   filter:blur — free on old WebKit, and nothing repaints while scrolling. */
+body::before {
+  content: "";
+  position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background:
+    repeating-linear-gradient(90deg, rgba(138,21,56,.025) 0 1px, transparent 1px 8px),
+    radial-gradient(52% 38% at 14% 6%,  rgba(138,21,56,.09), transparent 70%),
+    radial-gradient(44% 30% at 86% 14%, rgba(201,150,47,.13), transparent 70%),
+    radial-gradient(60% 42% at 78% 64%, rgba(138,21,56,.07), transparent 72%),
+    radial-gradient(46% 34% at 10% 82%, rgba(232,181,71,.10), transparent 70%),
+    var(--bg);
+}
+/* the liquid sadu — a single wide ribbon bending across the page */
+body::after {
+  content: "";
+  position: fixed; z-index: -1; pointer-events: none;
+  inset-inline-start: -30vmax; top: 22vh;
+  width: 160vmax; height: 26vmax;
+  transform: rotate(-7deg);
+  border-radius: 50%;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 10px, rgba(255,255,255,.05) 10px 11px),
+    linear-gradient(90deg, transparent, rgba(138,21,56,.10) 22%, rgba(201,150,47,.12) 55%, rgba(232,181,71,.07) 78%, transparent);
+}
+
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 22px calc(24px + env(safe-area-inset-bottom, 0px));
+}
+@supports (padding: max(0px)) {
+  /* split sides: one logical value fed the LEFT inset to both edges */
+  .wrap {
+    padding-left:  max(22px, env(safe-area-inset-left, 0px));
+    padding-right: max(22px, env(safe-area-inset-right, 0px));
+  }
+}
 
 /* ── الترويسة ─────────────────────────────────────────────────────────── */
-
-header.masthead { text-align: center; padding: 40px 0 4px; }
+header.masthead { text-align: center; padding: clamp(30px, 6vw, 52px) 0 4px; }
 
 .mark { display: block; width: 56px; height: 56px; margin: 0 auto 14px; }
 
 .brand {
   margin: 0;
-  font-size: clamp(32px, 8.5vw, 42px);
-  font-weight: 900;
-  line-height: 1.2;
+  font-family: "Noto Naskh Arabic", "Geeza Pro", "Sakkal Majalla", "Traditional Arabic", serif;
+  font-size: clamp(30px, 8vw, 40px);
+  font-weight: 700;
+  line-height: 1.35;
   color: var(--maroon);
 }
 
@@ -87,78 +126,127 @@ header.masthead { text-align: center; padding: 40px 0 4px; }
   font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 6px;          /* Latin only — letter-spacing tears Arabic joins */
-  color: var(--gold-ink);
+  color: var(--gold-text);
 }
 
-.tagline { margin: 12px auto 0; max-width: 32ch; font-size: 16px; color: var(--muted); }
+.tagline { margin: 12px auto 0; max-width: 34ch; font-size: 15px; color: var(--ink-dim); }
 
-/* ── التبويبات ───────────────────────────────────────────────────────── */
-
+/* ── التبويبات — the floating glass capsule ───────────────────────────── */
 nav.tabs {
-  display: flex; flex-wrap: wrap; gap: 8px;
-  justify-content: center; margin: 26px 0 34px; padding: 0;
+  position: sticky;
+  top: calc(10px + env(safe-area-inset-top, 0px));
+  z-index: 50;
+  display: flex; flex-wrap: wrap; gap: 2px;
+  justify-content: center; align-items: center;
+  margin: 26px auto 34px;
+  padding: 4px 6px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,252,247,.72), rgba(250,244,235,.60));
+  -webkit-backdrop-filter: blur(15px) saturate(150%);
+          backdrop-filter: blur(15px) saturate(150%);
+  border: 1px solid var(--hairline);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 10px 30px -14px rgba(138,21,56,.22);
+}
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  nav.tabs { background: rgba(253,249,243,.95); }   /* porcelain, not glass */
 }
 
 nav.tabs a {
-  display: inline-flex; align-items: center;
-  padding: 0 20px; min-height: 44px;      /* the app's 44pt target law */
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0 15px; min-height: 44px;      /* the app's 44pt target law */
   border-radius: 999px;
-  border: 1px solid var(--rule);
-  background: var(--paper);
-  color: var(--body);
+  color: var(--ink-soft);
   text-decoration: none;
   font-size: 15px; font-weight: 700;
-  transition: border-color .16s ease, transform .16s ease;
+  background-image: linear-gradient(90deg, var(--gold), var(--gold-hi));
+  background-repeat: no-repeat;
+  background-size: 0% 2px;
+  background-position: center bottom 8px;
+  transition: background-size .3s var(--ease-out), color .2s ease;
 }
+nav.tabs a:hover, nav.tabs a:focus-visible { background-size: 55% 2px; color: var(--maroon); }
 
-nav.tabs a:hover { border-color: var(--gold); }
-nav.tabs a:active { transform: scale(.97); }
 nav.tabs a[aria-current="page"] {
-  background: var(--maroon); border-color: var(--maroon); color: var(--on-maroon);
+  background-image: linear-gradient(180deg, #F2C766, #C9962F);
+  background-size: 100% 100%;
+  background-position: center;
+  color: #1A0A12;
+  /* a maroon ring carries the state at 7.5:1 — gold-vs-glass alone is a hue cue */
+  box-shadow: inset 0 0 0 2px var(--maroon), inset 0 1px 0 rgba(255,255,255,.6), inset 0 -2px 3px rgba(94,50,10,.28);
+}
+@media (forced-colors: active) {
+  nav.tabs a[aria-current="page"] { outline: 2px solid CanvasText; outline-offset: -2px; forced-color-adjust: none; }
 }
 
 /* ── العناوين ────────────────────────────────────────────────────────── */
-
 h1, h2, h3 {
-  font-family: "Noto Naskh Arabic", "SF Arabic", "Geeza Pro", serif;
-  color: var(--ink); line-height: 1.55; font-weight: 700;
+  font-family: "Noto Naskh Arabic", "Geeza Pro", "Sakkal Majalla", "Traditional Arabic", serif;
+  color: var(--ink); line-height: 1.45; font-weight: 700;
 }
 
-h1 { font-size: clamp(25px, 6vw, 31px); margin: 0 0 6px; text-align: center; }
+h1 { font-size: clamp(27px, 6vw, 35px); margin: 0 0 8px; text-align: center; }
+/* the friends page has no nav between masthead and title — without this the
+   headline lands 4px under the tagline */
+header.masthead + h1 { margin-top: 22px; }
 h2 { font-size: 20px; margin: 0 0 8px; }
 h3 { font-size: 17px; margin: 0 0 4px; }
 
-.updated { margin: 0 0 30px; text-align: center; font-size: 14px; color: var(--muted); }
+.updated { margin: 0 0 30px; text-align: center; font-size: 14px; color: var(--ink-dim); }
 
+/* ── فاصل السدو — the woven rule ─────────────────────────────────────── */
 hr.rule {
-  height: 1px; border: 0; margin: 34px 0; opacity: .55;
-  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  position: relative;
+  height: 16px; border: 0; margin: clamp(22px, 5vw, 38px) 0; overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(201,150,47,.55) 0 2px, transparent 2px calc(100% - 2px), rgba(201,150,47,.55) calc(100% - 2px)),
+    conic-gradient(from 135deg at 50% 100%, rgba(138,21,56,.8) 0 90deg, transparent 0) 0 2px / 12px 7px repeat-x,
+    conic-gradient(from -45deg at 50% 0%,  rgba(138,21,56,.8) 0 90deg, transparent 0) 6px 9px / 12px 7px repeat-x;
 }
+hr.rule::after {   /* the weft glint — the weave being woven, almost subliminal */
+  content: ""; position: absolute; inset: 0 auto 0 0; width: 30%;
+  background: linear-gradient(90deg, transparent, rgba(232,181,71,.5), transparent);
+  animation: weft 60s linear infinite;
+}
+@keyframes weft { from { transform: translateX(430%); } to { transform: translateX(-160%); } }
 
-/* ── الأقسام ─────────────────────────────────────────────────────────── */
-
+/* ── الأقسام — frosted plates on the weave ───────────────────────────── */
 section.sec {
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-bottom: 2.5px solid var(--gold);   /* the app's plate edge */
-  border-radius: var(--radius);
-  padding: 20px 22px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255,252,247,.82), rgba(250,244,235,.72));
+  border: 1px solid var(--hairline);
+  border-radius: var(--r-lg);
+  padding: 22px 24px;
   margin: 0 0 14px;
-  box-shadow: 0 10px 22px var(--shadow);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.70), 0 10px 30px -14px rgba(138,21,56,.16);
+  transition: transform .22s var(--ease-out), box-shadow .22s var(--ease-out);
+}
+section.sec:hover { transform: translateY(-2px); box-shadow: inset 0 1px 0 rgba(255,255,255,.70), 0 16px 34px -16px rgba(138,21,56,.22); }
+
+/* the mini sadu warp running down the reading edge of every plate */
+section.sec::before {
+  content: "";
+  position: absolute; inset-block: 0; inset-inline-start: 0; width: 5px;
+  background: repeating-linear-gradient(180deg,
+    #8A1538 0 10px, #C9962F 10px 14px, #8A1538 14px 24px, #FAF6F0 24px 26px);
+  opacity: .55;
 }
 
 section.sec h2 {
-  margin: 0 0 8px; color: var(--maroon);
+  margin: 0 0 10px; color: var(--maroon);
   display: flex; align-items: baseline; gap: 10px;
 }
 
 /* the numbered بند — antique ink, never bright gold */
 section.sec h2 .n {
-  flex: none; font-size: 12.5px; font-weight: 700;
-  color: var(--gold-ink);
-  border: 1px solid var(--rule); border-radius: 8px;
-  padding: 1px 8px;
-  font-family: -apple-system, "SF Arabic", sans-serif;
+  flex: none;
+  font-family: -apple-system, "SF Arabic", "Segoe UI", sans-serif;
+  font-size: 12.5px; font-weight: 700;
+  color: var(--gold-text);
+  background: rgba(201, 150, 47, .13);
+  border: 1px solid rgba(201, 150, 47, .40);
+  border-radius: 9px;
+  padding: 1px 9px;
 }
 
 section.sec p { margin: 0; white-space: pre-line; }
@@ -167,101 +255,117 @@ section.sec ul { margin: 10px 0 0; padding-inline-start: 22px; }
 section.sec li { margin: 6px 0; }
 
 a { color: var(--maroon); }
-@media (prefers-color-scheme: dark) { a { color: var(--gold-ink); } }
+/* no border-radius here: outline already follows each element's own radius, and
+   forcing 6px reshaped the jewel's corners while it was focused */
+a:focus-visible { outline: 2px solid var(--gold-text); outline-offset: 3px; }
+section.sec a:focus-visible { border-radius: 6px; }   /* bare inline links only */
 
 /* ── نداء التواصل ────────────────────────────────────────────────────── */
-
+/* the plate: used inert on the friends page to show an invite code, so the
+   BASE class must never dress like a control — only the mailto link does */
 .contact-big {
   display: block; margin: 0 0 10px; padding: 20px 16px;
-  border-radius: var(--radius);
-  border: 1px solid var(--gold);
-  background: var(--paper);
-  color: var(--gold-ink);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--hairline);
+  background: linear-gradient(180deg, rgba(255,252,247,.86), rgba(250,244,235,.74));
+  color: var(--gold-text);
   text-align: center; text-decoration: none;
-  font-size: clamp(16px, 4.6vw, 21px); font-weight: 700;
+  font-size: clamp(17px, 4.6vw, 22px); font-weight: 700;
   word-break: break-word;
-  box-shadow: 0 10px 22px var(--shadow);
-  transition: transform .16s ease;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7), 0 10px 26px -14px var(--shadow);
 }
 
-/* only the mailto plates move. friends/index.html reuses this class on an inert
-   <p> to show the invite code, and a plate that lifts and presses under the
-   thumb while doing nothing is a false affordance — same reasoning as the
-   «قريبًا» plate below, which is deliberately not dressed as a link. */
+/* the jewel — the page's only raised species, and only when it really acts */
+a.contact-big {
+  border: 0;
+  min-height: 56px;
+  background: linear-gradient(180deg, #F2C766, #C9962F);
+  color: #1A0A12;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.65),
+    inset 0 -2px 3px rgba(94,50,10,.35),
+    0 12px 26px -10px rgba(201,150,47,.55);
+  transition: transform .18s var(--ease-out);
+}
 a.contact-big:hover { transform: translateY(-2px); }
-a.contact-big:active { transform: scale(.98); }
+a.contact-big:active { transform: scale(.985); }
 
-.contact-note { text-align: center; color: var(--muted); font-size: 15px; margin: 0 0 30px; }
+.contact-note { text-align: center; color: var(--ink-dim); font-size: 14px; margin: 0 0 30px; }
 
-/* ── شبكة الألعاب ────────────────────────────────────────────────────── */
-
-.games {
-  display: grid; gap: 10px; margin: 0 0 14px;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-}
-
-.game {
-  background: var(--paper); border: 1px solid var(--rule);
-  border-radius: 14px; padding: 14px 12px; text-align: center;
-}
-
-.game .dot { display: block; width: 10px; height: 10px; border-radius: 5px; margin: 0 auto 8px; }
-.game b { display: block; color: var(--ink); font-size: 16px; }
-.game span { display: block; color: var(--muted); font-size: 13px; margin-top: 2px; }
-
-/* ── الرئيسة ─────────────────────────────────────────────────────────── */
-
-.mark-lg { width: 72px; height: 72px; }
-
-/* the «قريبًا» plate — paper with the app's gold bottom edge, NOT a button:
-   it links nowhere until the app ships, so it must not dress like a link */
-.store-plate {
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-bottom: 2.5px solid var(--gold);
-  border-radius: var(--radius);
-  box-shadow: 0 10px 22px var(--shadow);
-  padding: 20px 16px;
-  text-align: center;
-  margin: 0 0 26px;
-}
-
-.store-line { margin: 0; color: var(--maroon); font-weight: 900; font-size: clamp(18px, 5vw, 22px); }
-.store-sub  { margin: 6px 0 0; color: var(--muted); font-size: 14px; }
-
-.home-h { font-size: 22px; margin: 30px 0 14px; text-align: center; }
-
-.pillars {
-  display: grid; gap: 14px; margin: 0 0 14px;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-}
-
-.pillars section.sec { margin: 0; }
-
-/* six cards read as 3×2, never a ragged 4+2; phones get 2×3 */
-.games.balanced { grid-template-columns: repeat(3, 1fr); }
-@media (max-width: 560px) { .games.balanced { grid-template-columns: repeat(2, 1fr); } }
-
-/* ── الذيل ───────────────────────────────────────────────────────────── */
-
+/* ── الذيل — the selvage ─────────────────────────────────────────────── */
 footer {
-  margin-top: 40px; padding-top: 20px; border-top: 1px solid var(--rule);
-  text-align: center; color: var(--muted); font-size: 14px;
+  position: relative;
+  margin-top: clamp(34px, 6vw, 56px);
+  padding-top: 22px;
+  border-top: 1px solid var(--hairline);
+  text-align: center; color: var(--ink-dim); font-size: 13.5px;
 }
-
-footer a { margin: 0 8px; }
+footer::after {
+  content: ""; position: absolute; top: -1px; inset-inline: 18%; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,150,47,.6), transparent);
+}
+footer a { display: inline-block; padding: 10px 8px; margin: 0; min-width: 44px; }   /* padding, not margin — the target grows, not the gap */
 .made { margin-top: 6px; font-size: 13px; }
 
-/* ── الوصول ──────────────────────────────────────────────────────────── */
-
-a:focus-visible { outline: 2px solid var(--gold-ink); outline-offset: 3px; }
-
-@media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; animation: none !important; }
+/* ── التكيّف ─────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  nav.tabs { gap: 0; padding: 3px 4px; margin: 20px auto 26px; }
+  nav.tabs a { padding: 0 11px; font-size: 14px; }
 }
-
 @media (max-width: 420px) {
   body { font-size: 16px; }
-  section.sec { padding: 18px 16px; }
-  .wrap { padding: 0 14px 56px; }
+  section.sec { padding: 18px 18px; }
+  .wrap { padding-inline: 14px; }
+  nav.tabs a { padding: 0 9px; font-size: 13.5px; }
+}
+/* the smallest phones: one scrolling row instead of a two-row bar eating the fold */
+@media (max-width: 344px) {
+  nav.tabs {
+    flex-wrap: nowrap; overflow-x: auto; justify-content: flex-start;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  nav.tabs::-webkit-scrollbar { display: none; }
+  nav.tabs a { flex: none; padding: 0 7px; }
+}
+
+/* ── اللمس — no sticky hovers on a touch screen ──────────────────────── */
+@media (hover: none) {
+  section.sec:hover { transform: none; }
+  a.contact-big:hover { transform: none; }
+  section.sec:active { transform: translateY(-1px); }
+}
+
+/* ── حركة أقل — the static page must be complete, not broken ─────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .15s !important;
+  }
+  html { scroll-behavior: auto; }
+  hr.rule::after { display: none; }
+}
+
+/* ── الطباعة — the legal pages get printed and filed ─────────────────── */
+@media print {
+  body::before, body::after, hr.rule::after { display: none !important; }
+  nav.tabs { display: none; }                    /* navigation is meaningless on paper */
+  body { background: #fff; color: #000; font-size: 12pt; }
+  section.sec {
+    background: #fff !important; box-shadow: none !important;
+    border: 1px solid #ccc; break-inside: avoid; page-break-inside: avoid;
+  }
+  section.sec::before { display: none; }
+  /* every gold fill flattens — an ink-eating pill prints as a black slab */
+  a.contact-big, .n {
+    background: none !important; box-shadow: none !important;
+    color: #000 !important; border: 1px solid #ccc;
+  }
+  hr.rule { background: none !important; height: 0; border-top: 1px solid #ccc; }
+  a { color: #000; text-decoration: underline; }
+  /* a printed clause must still point somewhere */
+  section.sec a:not([href^="mailto"])::after { content: " (" attr(href) ")"; font-size: 9pt; }
+  footer { border-color: #ccc; }
+  footer::after { display: none; }
 }
