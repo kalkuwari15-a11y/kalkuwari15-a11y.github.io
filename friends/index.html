@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>كود الرفقة — فرجان</title>
+<title>كود الرفقة · فرجان</title>
 <meta name="description" content="افتح كود الرفقة في تطبيق فرجان.">
 <meta name="theme-color" content="#FAF6F0">
 <meta name="robots" content="noindex">
@@ -37,14 +37,14 @@
     </svg>
     <p class="brand">فرجان</p>
     <p class="brand-sub"><span lang="en">FIRJAN</span></p>
-    <p class="tagline">كود رفقة — يفتح داخل التطبيق</p>
+    <p class="tagline">كود رفقة، يفتح داخل التطبيق</p>
   </header>
 
   <h1>كود الرفقة</h1>
   <!-- الكود يُطبع من عنوان الصفحة نفسها ولا يُرسل لأي مكان: لا طلب شبكة، لا
        تحليلات، لا كوكيز. صفحة ساكنة على GitHub Pages، وهذا كل ما فيها. -->
-  <p class="updated" id="lead">هذا الكود يضيفك رفيقاً لصاحبه داخل فرجان</p>
-  <p class="contact-big" id="code" dir="ltr">—</p>
+  <p class="updated" id="lead">هذا الكود يخليكم ربع داخل فرجان</p>
+  <p class="contact-big" id="code" dir="ltr">…</p>
   <p class="contact-note" id="note">افتح الرابط من جوال فيه فرجان مثبّت، وبينفتح على «ربعي» والكود مكتوب.</p>
 
   <hr class="rule">
@@ -54,7 +54,7 @@
     <!-- «افتح نفس الرابط مرة ثانية» كان يوقّع المستخدم في دورة: iOS ما يسلّم
          الرابط للتطبيق إلا إذا انضغط من تطبيق ثاني — إعادة تحميل هذي الصفحة
          نفسها أو كتابة العنوان في سفاري ما تفتح فرجان أبدًا. لازم يرجع للرسالة. -->
-    <p>فرجان تطبيق مجتمع قطري مجهول تمامًا — بلا اسم ولا صورة ولا تسجيل دخول. نزّله، وبعدها ارجع للرسالة اللي وصلتك واضغط الرابط مرة ثانية — أو اكتب الكود يدويًا في: حسابي ← ربعي.</p>
+    <p>فرجان تطبيق مجتمع قطري مجهول تمامًا، بلا اسم ولا صورة ولا تسجيل دخول. نزّله، وبعدها ارجع للرسالة اللي وصلتك واضغط الرابط مرة ثانية، أو اكتب الكود يدويًا في: حسابي ← ربعي.</p>
     <p><a href="../support.html">صفحة الدعم</a> · <a href="../privacy.html">الخصوصية</a> · <a href="../terms.html">الشروط</a></p>
   </section>
 
@@ -77,12 +77,12 @@
     if (code) { el.textContent = code.toUpperCase(); return; }
 
     // ما فيه كود صالح — لازم نشيل الوعد اللي فوق بعد، لا تبقى الصفحة تقول
-    // «هذا الكود يضيفك رفيقاً» و«ما وصلنا كود» في نفس اللحظة.
+    // «هذا الكود يخليكم ربع» و«ما وصلنا كود» في نفس اللحظة.
     // ولا نطبع الكود المرفوض على الصفحة: نص من الرابط يُعرض كما هو يحوّل
     // firjan.app إلى سطح يكتب فيه غيرنا، حتى لو انكتب بـ textContent.
-    el.textContent = '—';
-    document.getElementById('lead').textContent = 'الرابط ناقص أو غير مكتمل';
-    document.getElementById('note').textContent = 'افتح الرابط الأصلي من الرسالة اللي وصلتك — أو اكتب الكود يدويًا في: حسابي ← ربعي.';
+    el.textContent = '…';
+    document.getElementById('lead').textContent = 'ما وصلنا كود';
+    document.getElementById('note').textContent = 'افتح الرابط الأصلي من الرسالة اللي وصلتك، أو اكتب الكود يدويًا في: حسابي ← ربعي.';
   })();
 </script>
 </body>
