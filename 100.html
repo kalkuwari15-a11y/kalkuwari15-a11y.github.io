@@ -229,6 +229,7 @@ function danceStep(){
 function setHint(s){const h=document.getElementById('hint');if(h)h.textContent=s}
 function stopParty(farewell){party=false;starting=false;danceOff();
  const _v=document.getElementById('veil');if(_v)_v.style.opacity=0;
+ const _c=document.getElementById('cd');if(_c)_c.style.opacity=0;
  try{mus.pause();mus.currentTime=0}catch(e){}
  ink.forEach(q=>spark({x:q.x,y:q.y,vx:rnd(-.4,.4),vy:rnd(0,.6),c:'#FFD36B',l:.9,d:.012,r:1.3,g:.02}));ink=[];wi=-1;
  if(farewell)volley(4);
@@ -239,8 +240,24 @@ function startParty(){if(starting||party)return;starting=true;
  const veil=document.getElementById('veil');
  if(veil){veil.style.transition='opacity .45s ease';veil.style.opacity=1;
   setTimeout(()=>{veil.style.transition='opacity 1s ease';veil.style.opacity=0},1300)}
- setTimeout(()=>cdShow('98'),2450);setTimeout(()=>cdShow('99'),3250);
- setTimeout(()=>{if(!starting)return;wi=0;ink=[];glow('chip')},4050)}
+ const T0=2450,CMS=2800;
+ if(REDUCED){setTimeout(()=>cdShow('99'),T0)}
+ else{const cde=document.getElementById('cd');
+  for(let k=1;k<=99;k++){const t=T0+CMS*(1-Math.pow(1-k/99,1.9));
+   setTimeout(()=>{if(!starting||!cde)return;
+    cde.textContent=String(k);
+    cde.style.transition='opacity .2s, transform .18s ease-out';
+    cde.style.opacity=.95;
+    const big=k%10===0||k>=96;
+    cde.style.transform=big?'scale(1.18)':'scale(1)';
+    if(big)setTimeout(()=>{cde.style.transform='scale(1)'},90);
+    if(k===99)setTimeout(()=>{if(starting)cde.style.opacity=0},480);
+    if(AC&&(k%10===0||(k>=75&&k%5===0)||k>=96)){try{
+     const o=AC.createOscillator(),g=AC.createGain();o.type='triangle';
+     o.frequency.value=660+k*3;g.gain.value=.04+(k/99)*.09;
+     o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+.05)}catch(e){}}
+   },t)}}
+ setTimeout(()=>{if(!starting)return;wi=0;ink=[];glow('chip')},T0+CMS+150)}
 mus.addEventListener('ended',()=>{if(party||starting){level=1;setTimeout(()=>stopParty(true),380)}});
 function onLogo(){lg.style.transform='scale(.9)';setTimeout(()=>{lg.style.transform=''},130);
  if(party||starting)stopParty(false);else startParty()}
