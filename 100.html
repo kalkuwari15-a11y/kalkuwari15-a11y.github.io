@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ليلة المئة — فرجان</title>
+<meta name="description" content="فرجان يكمل 100 يوم — ليلة المئة: احتفال الفريج. اضغط وشوف السماء.">
+<meta property="og:title" content="ليلة المئة — فرجان يكمل 100 يوم">
+<meta property="og:description" content="احتفال الفريج — عدٌّ إلى المئة وألعاب نارية فوق سماء عنّابية.">
+<meta property="og:url" content="https://firjan.app/100.html">
+<meta name="theme-color" content="#12030C">
+<link rel="icon" href="mark.svg" type="image/svg+xml">
+<style>
+/* ليلة المئة تملك شكلها وحدها — صفحة ليلية مصمتة، لا تتبع ثيم النظام */
+html,body{margin:0;padding:0;min-height:100%}
+body{background:linear-gradient(180deg,#12030C,#3C0D24 30%,#601432 62%,#8A1538) fixed;color:#F5EBE0;
+  font-family:-apple-system,"Segoe UI",Tahoma,sans-serif;text-align:center;overflow-x:hidden}
+a{color:#FFD36B}
+.stage{position:relative;max-width:520px;margin:0 auto;padding:34px 18px 60px;min-height:100vh;box-sizing:border-box}
+canvas#fw{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:1}
+.veil{position:fixed;inset:0;background:#070109;opacity:0;transition:opacity .5s ease;z-index:3;pointer-events:none}
+.in{position:relative;z-index:2}
+.mark{display:block;margin:0 auto 10px}
+.brand{font-size:30px;font-weight:800;margin:0;color:#fff}
+.sub{color:rgba(245,235,224,.65);font-size:14.5px;line-height:2;margin:10px auto 0;max-width:400px}
+.hundred{transition:opacity .5s ease, text-shadow .6s ease;font-size:120px;font-weight:800;color:#FFD36B;margin:26px 0 0;line-height:1;
+  text-shadow:0 0 34px rgba(255,211,107,.45);font-variant-numeric:tabular-nums;letter-spacing:4px}
+.hline{color:#FFE694;font-size:22px;font-weight:700;margin:8px 0 0}
+.count{position:fixed;top:26vh;left:0;right:0;font-size:88px;font-weight:800;color:#FFE694;z-index:4;
+  text-shadow:0 0 26px rgba(255,211,107,.7);font-variant-numeric:tabular-nums;display:none;pointer-events:none}
+.btn{display:inline-block;margin:30px auto 8px;background:linear-gradient(180deg,#F0C560,#C9962F);color:#1A0A12;
+  border:none;border-radius:999px;padding:15px 34px;font-size:16px;font-weight:700;cursor:pointer;
+  box-shadow:0 10px 26px rgba(201,150,47,.4);font-family:inherit}
+.btn:active{transform:scale(.97)}
+.hint{color:rgba(255,230,148,.7);font-size:12.5px;margin-top:12px}
+.bunting{position:fixed;top:0;left:0;width:100vw;z-index:2;pointer-events:none}
+.foot{margin-top:56px;color:rgba(245,235,224,.5);font-size:12.5px}
+.foot a{margin:0 8px}
+@media (prefers-reduced-motion: reduce){canvas#fw{display:none}}
+</style>
+</head>
+<body>
+<canvas id="fw"></canvas>
+<svg class="bunting" viewBox="0 0 400 46" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0,5 Q200,26 400,8" stroke="#C9962F" stroke-width="1.2" fill="none" opacity=".75"/>
+  <g opacity=".9">
+    <path d="M28,8 l13,1.5 -5.5,14 z" fill="#E8B547"/><path d="M78,13 l13,1.5 -5.5,14 z" fill="#F2B8C6"/>
+    <path d="M128,16 l13,1 -5.5,14 z" fill="#FAF6F0"/><path d="M178,18 l13,.5 -5.5,14 z" fill="#2F7D5C"/>
+    <path d="M228,17 l13,0 -5.5,14 z" fill="#FFD36B"/><path d="M278,15 l13,-.5 -5.5,14 z" fill="#3E5FA8"/>
+    <path d="M328,12 l13,-1 -5.5,14 z" fill="#F2B8C6"/><path d="M368,9 l13,-1 -5.5,14 z" fill="#E8B547"/>
+  </g>
+</svg>
+<div class="veil" id="veil"></div>
+<div class="count" id="cd">1</div>
+<div class="stage">
+  <div class="in">
+    <a href="index.html" style="text-decoration:none">
+      <svg class="mark" width="56" height="56" viewBox="0 0 60 60" role="img" aria-label="شعار فرجان — الرئيسة">
+        <rect x="3" y="3" width="13" height="13" rx="2" fill="#8A1538" opacity=".85"/><rect x="18" y="3" width="9" height="13" rx="2" fill="#C9962F" opacity=".4"/><rect x="29" y="3" width="13" height="13" rx="2" fill="#E8B547" opacity=".95"/><rect x="44" y="3" width="13" height="9" rx="2" fill="#8A1538" opacity=".55"/>
+        <rect x="3" y="18" width="9" height="9" rx="2" fill="#C9962F" opacity=".6"/><rect x="14" y="18" width="13" height="9" rx="2" fill="#E8B547"/><rect x="29" y="18" width="9" height="13" rx="2" fill="#8A1538" opacity=".45"/><rect x="40" y="14" width="9" height="9" rx="2" fill="#C9962F" opacity=".75"/>
+        <rect x="3" y="29" width="13" height="13" rx="2" fill="#8A1538" opacity=".5"/><rect x="18" y="29" width="9" height="9" rx="2" fill="#E8B547" opacity=".9"/><rect x="40" y="25" width="13" height="13" rx="2" fill="#8A1538" opacity=".65"/>
+        <rect x="18" y="40" width="9" height="13" rx="2" fill="#C9962F" opacity=".55"/><rect x="29" y="33" width="9" height="13" rx="2" fill="#E8B547"/><rect x="40" y="40" width="9" height="13" rx="2" fill="#8A1538" opacity=".35"/>
+        <rect x="3" y="44" width="13" height="13" rx="2" fill="#8A1538" opacity=".7"/><rect x="29" y="48" width="9" height="9" rx="2" fill="#8A1538" opacity=".5"/><rect x="51" y="40" width="6" height="17" rx="2" fill="#C9962F" opacity=".55"/>
+      </svg>
+    </a>
+    <p class="brand">فرجان</p>
+    <p class="hundred" id="big">100</p>
+    <p class="hline">ليلة المئة</p>
+    <p class="sub">مئة يومٍ من السوالف بلا أسماء — من أول «شسالفهه» إلى فريجٍ كامل.
+      هذي سماءُ الاحتفال نفسُها اللي داخل التطبيق: اضغط الزر وشوف العدَّ إلى المئة،
+      واضغط أي مكانٍ في الصفحة تطلق سهمَك.</p>
+    <button class="btn" id="go">✦ شغّل الاحتفال</button>
+    <p class="hint" id="hint">واضغط بأي مكان — كل ضغطة صاروخ</p>
+    <p class="foot">
+      <a href="index.html">الرئيسة</a> ·
+      <a href="support.html">الدعم</a> ·
+      <a href="community.html">المجتمع</a>
+      <br><br>فرجان · صُنع في قطر
+    </p>
+  </div>
+</div>
+<script>
+const cv=document.getElementById('fw'),cx=cv.getContext('2d');
+let W=innerWidth,H=innerHeight;const DPR=Math.min(devicePixelRatio||1,2);
+function fit(){W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;cx.setTransform(DPR,0,0,DPR,0,0)}
+fit();addEventListener('resize',fit);
+const PAL=['#E8B547','#FFD36B','#FAF6F0','#F2B8C6','#2F7D5C','#3E5FA8','#C9962F','#FF8FB0'];
+const GOLD=['#E8B547','#FFD36B','#C9962F','#FFE694'];
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let P=[],R=[],CF=[],t=0,show=false;
+function spark(o){P.push(Object.assign({g:.022,tr:0,r:1.5},o))}
+function boom(x,y,kind){
+ const K=kind??(Math.random()*4|0);
+ if(K===0){const c=PAL[Math.random()*PAL.length|0],c2=GOLD[Math.random()*4|0];
+  for(let i=0;i<60;i++){const a=6.283*i/60+rnd(0,.1),v=rnd(1.2,3.4);spark({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,c:Math.random()<.7?c:c2,l:1,d:rnd(.010,.018),r:rnd(1,2.2)})}}
+ else if(K===1){const c=GOLD[Math.random()*4|0];
+  for(let i=0;i<70;i++){const a=6.283*i/70,v=rnd(.8,1.6);spark({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,c,l:1,d:rnd(.004,.007),g:.028,tr:1,r:rnd(1,1.8)})}}
+ else if(K===2){const c=PAL[Math.random()*PAL.length|0];
+  for(let i=0;i<36;i++){const a=6.283*i/36;spark({x,y,vx:Math.cos(a)*2.6,vy:Math.sin(a)*2.6,c,l:1,d:.016,g:.014,r:1.6})}}
+ else{for(let i=0;i<26;i++){const a=6.283*i/26,v=rnd(1.5,2.6);spark({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v,c:'#FFD36B',l:1,d:.02,tr:2})}}}
+function volley(n){for(let i=0;i<n;i++)setTimeout(()=>R.push({x:rnd(W*.1,W*.9),y:H*.75,vy:-rnd(6,8),tx:rnd(H*.12,H*.45)}),i*170)}
+addEventListener('pointerdown',e=>{if(RM)return;
+ if(e.target.closest('a,button'))return;
+ R.push({x:e.clientX+rnd(-6,6),y:H*.8,vy:-rnd(6.5,8),tx:Math.max(e.clientY,H*.08),user:1})});
+const cd=document.getElementById('cd'),veil=document.getElementById('veil'),big=document.getElementById('big');
+let running=false;
+document.getElementById('go').addEventListener('click',()=>{
+ if(running)return;running=true;
+ if(RM){volley(0);finale();running=false;return}
+ veil.style.transition='opacity .45s ease';veil.style.opacity=1;
+ big.style.opacity='0.05';
+ setTimeout(()=>{veil.style.transition='opacity 1.1s ease';veil.style.opacity=0},1250);
+ setTimeout(()=>volley(2),1900);
+ const T=2800,T0=2600;
+ for(let k=1;k<=99;k++){
+  const at=T0+T*(1-Math.pow(1-k/99,1.9));
+  setTimeout(()=>{cd.style.display='block';cd.textContent=k;
+   if(k%10===0||k>=96){cd.style.transform='scale(1.25)';setTimeout(()=>{cd.style.transform='scale(1)'},130)}},at)}
+ setTimeout(()=>{cd.style.display='none';
+  big.style.opacity='1';big.style.textShadow='0 0 60px rgba(255,211,107,.95)';
+  finale();
+  setTimeout(()=>{big.style.textShadow='0 0 34px rgba(255,211,107,.45)';running=false},4200)},T0+T+150)});
+function finale(){volley(8);
+ for(let i=0;i<70;i++)CF.push({x:rnd(0,W),y:rnd(-80,0),vy:rnd(1,2.2),vx:rnd(-.6,.6),a:rnd(0,6.28),va:rnd(-.09,.09),c:PAL[Math.random()*PAL.length|0],w:rnd(3.5,6)})}
+function tick(){t++;
+ cx.globalCompositeOperation='destination-out';cx.fillStyle='rgba(0,0,0,0.15)';cx.fillRect(0,0,W,H);
+ cx.globalCompositeOperation='source-over';
+ if(!RM&&(t%110===0||t===20))R.push({x:rnd(W*.1,W*.9),y:H*.75,vy:-rnd(6,7.5),tx:rnd(H*.1,H*.4)});
+ R=R.filter(r=>{r.y+=r.vy;r.vy+=.045;
+  cx.globalAlpha=.9;cx.fillStyle=r.user?'#9DF4FF':'#FFE694';cx.beginPath();cx.arc(r.x,r.y,1.8,0,7);cx.fill();
+  if(Math.random()<.5)spark({x:r.x+rnd(-1,1),y:r.y+rnd(0,4),vx:rnd(-.2,.2),vy:rnd(.2,.7),c:'#C9962F',l:.6,d:.05,r:.9,g:.01});
+  if(r.y<=r.tx||r.vy>-1.2){boom(r.x,r.y,r.user?0:undefined);if(!r.user&&Math.random()<.3)setTimeout(()=>boom(r.x+rnd(-70,70),r.y+rnd(-30,50)),120);return false}return true});
+ P=P.filter(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.vx*=.985;p.vy*=(p.tr===1?.992:.985);p.l-=p.d;
+  if(p.l<=0)return false;
+  let a=p.l;if(p.tr===2)a=Math.random()<.4?p.l:p.l*.15;
+  cx.globalAlpha=Math.max(a,0);cx.fillStyle=p.c;cx.beginPath();cx.arc(p.x,p.y,p.r*(.5+p.l*.7),0,7);cx.fill();
+  if(p.tr===1&&Math.random()<.35)spark({x:p.x,y:p.y,vx:0,vy:rnd(.1,.4),c:p.c,l:.5,d:.04,r:.7,g:.012});
+  return true});
+ CF=CF.filter(f=>{f.y+=f.vy;f.x+=f.vx+Math.sin((t+f.y)/30)*.3;f.a+=f.va;
+  if(f.y>H+10)return false;
+  cx.globalAlpha=.75;cx.save();cx.translate(f.x,f.y);cx.rotate(f.a);cx.fillStyle=f.c;cx.fillRect(-f.w/2,-f.w/4,f.w,f.w/2);cx.restore();return true});
+ cx.globalAlpha=1;
+ if(!RM)requestAnimationFrame(tick)}
+if(!RM)tick();
+</script>
+</body>
+</html>
