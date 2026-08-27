@@ -38,7 +38,7 @@ h1{font-size:30px;font-weight:700;color:#FFD36B;margin:0;letter-spacing:.5px}
 
 <div class="stage" dir="rtl">
   <h1>ليلة المئة</h1>
-  <p class="sub">فرجان يكمل <b>100 يوم</b> — هذي شاشةُ الاحتفال نفسُها اللي داخل التطبيق: <b>اضغط شعار فرجان</b> فوق يسار الشاشة، يظلم الفريج ثم يشتعل، ويبدأ العدّ… وعلى المئة تنطلق أغنيةُ المئة وترقص البوستات على ضربتها. واضغط أي مكانٍ في الشاشة تطلق سهمك.</p>
+  <p class="sub">فرجان يكمل <b>100 يوم</b> — هذي شاشةُ الاحتفال نفسُها اللي داخل التطبيق: <b>اضغط شعار فرجان</b> فوق يمين الشاشة، يظلم الفريج ثم يشتعل، ويبدأ العدّ… وعلى المئة تنطلق أغنيةُ المئة وترقص البوستات على ضربتها. واضغط أي مكانٍ في الشاشة تطلق سهمك.</p>
 <div id="ph" class="phone">
   <svg viewBox="0 0 402 90" class="abs pe" style="top:196px;left:0;width:100%;opacity:.55">
     <g fill="#160410">
@@ -235,6 +235,7 @@ function stopParty(farewell){party=false;starting=false;danceOff();
  setHint('✦ اضغط الشعار — الحفلة على أغنيتك')}
 function startParty(){if(starting||party)return;starting=true;
  audioEngine();try{if(AC)AC.resume()}catch(e){}
+ try{mus.muted=true;const pp=mus.play();if(pp&&pp.then)pp.then(()=>{mus.pause();mus.currentTime=0;mus.muted=false}).catch(()=>{mus.muted=false});else{mus.pause();mus.currentTime=0;mus.muted=false}}catch(e){try{mus.muted=false}catch(_){}}
  const veil=document.getElementById('veil');
  if(veil){veil.style.transition='opacity .45s ease';veil.style.opacity=1;
   setTimeout(()=>{veil.style.transition='opacity 1s ease';veil.style.opacity=0},1300)}
