@@ -241,7 +241,7 @@ function startParty(){if(starting||party)return;starting=true;
  if(veil){veil.style.transition='opacity .45s ease';veil.style.opacity=1;
   setTimeout(()=>{veil.style.transition='opacity 1s ease';veil.style.opacity=0},1300)}
  const T0=2450,CMS=2800;
- if(REDUCED){setTimeout(()=>cdShow('99'),T0)}
+ if(REDUCED){setTimeout(()=>{if(starting)cdShow('99')},T0)}
  else{const cde=document.getElementById('cd');
   for(let k=1;k<=99;k++){const t=T0+CMS*(1-Math.pow(1-k/99,1.9));
    setTimeout(()=>{if(!starting||!cde)return;
@@ -257,7 +257,7 @@ function startParty(){if(starting||party)return;starting=true;
      o.frequency.value=660+k*3;g.gain.value=.04+(k/99)*.09;
      o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+.05)}catch(e){}}
    },t)}}
- setTimeout(()=>{if(!starting)return;wi=0;ink=[];glow('chip')},T0+CMS+150)}
+ setTimeout(()=>{if(!starting)return;wi=0;ink=[];glow('chip')},REDUCED?T0+750:T0+CMS+150)}
 mus.addEventListener('ended',()=>{if(party||starting){level=1;setTimeout(()=>stopParty(true),380)}});
 function onLogo(){lg.style.transform='scale(.9)';setTimeout(()=>{lg.style.transform=''},130);
  if(party||starting)stopParty(false);else startParty()}
