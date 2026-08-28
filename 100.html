@@ -30,7 +30,7 @@ h1{font-size:30px;font-weight:700;color:#FFD36B;margin:0;letter-spacing:.5px}
 @keyframes drumLoop{0%,100%{transform:scale(1)}28%{transform:scale(1.15)}52%{transform:scale(.95)}76%{transform:scale(1.06)}}
 .phone{width:402px;height:874px;border-radius:44px;overflow:hidden;position:relative;background:linear-gradient(180deg,#1E0616,#3C0D24 30%,#601432 62%,#8A1538);border:1px solid rgba(255,211,107,.25);flex-shrink:0;cursor:pointer;box-shadow:0 30px 80px rgba(0,0,0,.6)}
 @media(max-width:430px){.phone{transform:scale(.88);transform-origin:top center;margin-bottom:-100px}}
-.abs{position:absolute}.pe{pointer-events:none}
+.abs{position:absolute}.pe{pointer-events:none}body{cursor:pointer}
 .card{transition:box-shadow .4s;transform-origin:50% 100%}
 </style>
 </head>
@@ -263,10 +263,12 @@ function onLogo(){lg.style.transform='scale(.9)';setTimeout(()=>{lg.style.transf
  if(party||starting)stopParty(false);else startParty()}
 lg.addEventListener('click',ev=>{ev.stopPropagation();onLogo()});
 lg.addEventListener('keydown',ev=>{if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();onLogo()}});
-ph.addEventListener('click',ev=>{const r=ph.getBoundingClientRect();
- const x=(ev.clientX-r.left)*(W/r.width),y=(ev.clientY-r.top)*(H/r.height);
- if(y>H-90)return;
- R.push({x:x+rnd(-6,6),y:H*.6,vy:-rnd(5.6,6.6),tx:Math.max(y,70),user:1});
+document.addEventListener('click',ev=>{
+ if(ev.target&&ev.target.closest&&ev.target.closest('a,#logo'))return;
+ const r=ph.getBoundingClientRect();
+ let x=(ev.clientX-r.left)*(W/r.width),y=(ev.clientY-r.top)*(H/r.height);
+ if(ev.clientY<r.top||ev.clientY>r.bottom||ev.clientX<r.left||ev.clientX>r.right){x=rnd(40,W-40);y=rnd(90,H*.55)}
+ R.push({x:x+rnd(-6,6),y:H*.6,vy:-rnd(5.6,6.6),tx:Math.max(Math.min(y,H-120),70),user:1});
  shots++;const c=document.getElementById('cnt');if(c)c.textContent='أسهمك '+shots;
  if(shots%10===0)volley(5)});
 function drawFalcon(f){const flap=Math.abs(Math.sin(t/6))*6;
