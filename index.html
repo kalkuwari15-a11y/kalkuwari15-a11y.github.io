@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>فرجان · فريجك القريب</title>
-<meta name="description" content="فرجان، مجتمع قطري مجهول: بلا اسم ولا صورة ولا تسجيل دخول. تنشر وتصوّت مع أهل فريجك، وتلعب ألعاب جماعية لحظية مع ربعك. قريبًا في App Store.">
+<meta name="description" content="فرجان، مجلس الفريج على جوالك: تنشر وتصوّت مع أهل فريجك، وتلعب مع ربعك.">
 <meta property="og:title" content="فرجان · فريجك القريب">
-<meta property="og:description" content="مجتمع قطري مجهول، بلا اسم ولا صورة ولا تسجيل دخول.">
+<meta property="og:description" content="مجلس الفريج على جوالك.">
 <meta property="og:url" content="https://firjan.app/">
 <meta name="theme-color" content="#FAF6F0">
 <link rel="icon" href="mark.svg" type="image/svg+xml">
@@ -20,7 +20,7 @@
   "operatingSystem": "iOS",
   "applicationCategory": "SocialNetworkingApplication",
   "inLanguage": "ar",
-  "description": "فرجان — مجتمع قطري مجهول: بلا اسم ولا صورة ولا تسجيل دخول. تنشر وتصوّت مع أهل فريجك، وتلعب ألعاب جماعية لحظية مع ربعك. قريبًا في App Store.",
+  "description": "فرجان، مجلس الفريج على جوالك: تنشر وتصوّت مع أهل فريجك، وتلعب مع ربعك.",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "QAR" }
 }
 </script>
@@ -338,7 +338,7 @@ main section { scroll-margin-top: calc(88px + env(safe-area-inset-top, 0px)); } 
   background-position: center bottom 10px;
 }
 .quiet:hover { color: var(--maroon); }
-.beta-note { margin: 10px 0 0; font-size: 13.5px; color: var(--ink-dim); }
+.store-note { margin: 10px 0 0; font-size: 13.5px; color: var(--ink-dim); }
 
 .hero-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
 .hero-chips span {
@@ -641,7 +641,7 @@ label.vial { cursor: pointer; }
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
           mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
 }
-.ticker-row { display: flex; width: max-content; padding: 8px 0; animation: drift 46s linear infinite; }  /* spacing via chip margin so -50% is an exact period */
+.ticker-row { display: flex; width: max-content; padding: 8px 0; animation: drift 78s linear infinite; }  /* spacing via chip margin so -50% is an exact period */
 .ticker:hover .ticker-row { animation-play-state: paused; }
 .tchip {
   flex: none; display: inline-flex; align-items: center; gap: 7px;
@@ -998,14 +998,6 @@ footer a { margin: 0 8px; display: inline-block; padding-block: 10px; }
   font-size: 6.8px; font-weight: 700; color: #8A6A1A;
 }
 .nudge svg { width: 8px; height: 8px; stroke: #8A6A1A; fill: none; stroke-width: 1.8; }
-.lockc {
-  display: flex; align-items: center; gap: 4px; width: fit-content;
-  margin-inline-start: auto; margin-bottom: 7px;
-  padding: 3px 9px; border-radius: 999px;
-  border: 1px solid rgba(26,10,18,.14); background: rgba(255,255,255,.55);
-  font-size: 6.8px; color: rgba(26,10,18,.78);
-}
-.lockc svg { width: 8px; height: 8px; stroke: #C9962F; fill: none; stroke-width: 1.8; }
 .cdock {
   display: flex; align-items: center; gap: 2px;
   border-top: 1px solid rgba(26,10,18,.14); padding-top: 6px;
@@ -1037,12 +1029,6 @@ footer a { margin: 0 8px; display: inline-block; padding-block: 10px; }
 .nb { background: linear-gradient(160deg, #FAF6F0 0%, #FAF6F0 45%, #F3ECE0 100%); padding: 6px 10px 0; color: #1A0A12; }
 .nb-corners { display: flex; justify-content: space-between; align-items: flex-start; }
 .nb-title b { display: block; font-size: 11px; font-weight: 700; color: #1A0A12; line-height: 1.4; }
-.nb-title i {
-  display: inline-block; font-style: normal; margin-top: 2px;
-  padding: 1px 5px; border-radius: 3px;
-  background: rgba(201,150,47,.18); border: 1px solid rgba(201,150,47,.55);
-  font-size: 5.6px; font-weight: 700; color: #8A6A1A;
-}
 .nb-count { text-align: left; }
 .nb-count b { font-size: 9.5px; font-weight: 600; color: #1A0A12; }
 .nb-count span { font-size: 6px; color: rgba(26,10,18,.62); margin-inline-start: 2px; }
@@ -1250,7 +1236,7 @@ footer a { margin: 0 8px; display: inline-block; padding-block: 10px; }
 .gw-m .mt { display: block; font-size: 12px; font-weight: 700; color: #1A0A12; margin-top: 5px;
   font-family: "Noto Naskh Arabic", "Geeza Pro", serif; line-height: 1.5; }
 .gw-m .ms { display: block; font-size: 6.5px; color: rgba(26,10,18,.78); line-height: 1.6; }
-.gw-m .beta {
+.gw-m .fb {
   display: inline-flex; align-items: center; gap: 3px;
   margin-top: 5px; padding: 2.5px 8px; border-radius: 999px;
   border: 1px solid rgba(201,150,47,.5); background: rgba(201,150,47,.14);
@@ -1423,7 +1409,7 @@ html { scrollbar-color: rgba(201,150,47,.5) transparent; scrollbar-width: thin; 
   }
   html { scroll-behavior: auto; }
   .ticker-row { animation: none; width: auto; flex-wrap: wrap; justify-content: center; }
-  .ticker-row .tchip:nth-child(n+7) { display: none; }   /* hide the loop duplicates in the static cloud */
+  .ticker-row .tchip:nth-child(n+6) { display: none; }   /* hide the loop duplicates in the static cloud */
   .ticker { -webkit-mask-image: none; mask-image: none; }
   .sadu::after { display: none; }
 }
@@ -1484,18 +1470,26 @@ html { scrollbar-color: rgba(201,150,47,.5) transparent; scrollbar-width: thin; 
           <rect width="30" height="20" fill="#8A1538"/>
           <path d="M0 0h9l4.5 1.1L9 2.2l4.5 1.1L9 4.4l4.5 1.1L9 5.6l4.5 1.1L9 7.8l4.5 1.1L9 8.9l4.5 1.1L9 11.1l4.5 1.1L9 12.2l4.5 1.1L9 14.4l4.5 1.1L9 15.6l4.5 1.1L9 17.8l4.5 1.1L9 20H0z" fill="#FFF6EE"/>
         </svg>
-        مجتمع قطري مجهول <span lang="en" style="letter-spacing:3px">FIRJAN</span></p>
-      <h1>فريجك القريب <br><span class="accent">ومحد يعرف منهو أنت</span></h1>
-      <p class="lede">تنشر وتصوّت وتلعب مع أهل فريجك. بلا اسم ولا صورة ولا تسجيل دخول، جهازك ياخذ هوية عشوائية وخلاص.</p>
+        مجلس الفريج على جوالك <span lang="en" style="letter-spacing:3px">FIRJAN</span></p>
+      <h1>فريجك القريب <br><span class="accent">على جوالك</span></h1>
+      <p class="lede">تنشر وتصوّت وتلعب مع أهل فريجك، وأذكارك ومواقيت صلاتك في نفس التطبيق.</p>
 
-      <!-- stitched tag (not a control) + the jewel anchor (the raised species) -->
+      <!-- stitched tag (not a control) + the jewel anchor (the raised species).
+           قبل النزول: لا رابط بيتا ولا رابط متجر — صفحة المتجر ما تفتح
+           قبل النزول — فالجوهرة بريدٌ يطلب خبر النزول، نفس وعد web/support.html.
+           «App Store» في الوسم داخل bdi بـlang="en" لا span: قاعدة .store-tag span
+           تصغّر أي span داخله.
+           يوم النزول: الجوهرة ← https://apps.apple.com/app/id6779431772 (ASC_APP_ID
+           في src/app/update-gate.tsx) ونصُّها ← «نزّله من App Store»، ويصير «قريبًا في»
+           ← «متوفر على» في الوسم،
+           ويسقط السطر اللي تحت. -->
       <p style="margin:0; display:flex; align-items:center; flex-wrap:wrap; gap:10px">
-        <span class="store-tag"><b>النسخة التجريبية مفتوحة</b><span>مجاني · للآيفون · بدون أي تسجيل</span></span>
-        <a class="jewel" href="https://testflight.apple.com/join/yKFeJxW3" rel="noopener">انضم للتجربة</a>
+        <span class="store-tag"><b>قريبًا في <bdi lang="en">App&nbsp;Store</bdi></b><span>مجاني · للآيفون</span></span>
+        <a class="jewel" href="mailto:team@firjan.app">خبّرني أول ما ينزل</a>
         <a class="quiet" href="#games">شوف الألعاب</a>
       </p>
 
-      <p class="beta-note">عبر <span lang="en">TestFlight</span> · وقريبًا في <span lang="en">App Store</span></p>
+      <p class="store-note">تنزّله من <span lang="en">App&nbsp;Store</span> بالبحث عن «فرجان»، ولو ما لقيته بعد فهو قيد المراجعة.</p>
 
       <div class="hero-chips">
         <span><b>ست</b> ألعاب جماعية لحظية</span>
@@ -1677,7 +1671,6 @@ html { scrollbar-color: rgba(201,150,47,.5) transparent; scrollbar-width: thin; 
                   <div class="ck"><span class="ckr"><i></i>في الفريج</span><span class="ckl">الحين</span></div>
                   <p class="ph">وش في بالك؟</p>
                   <span class="nudge"><svg viewBox="0 0 24 24"><path d="M12 21s-6.5-5.4-6.5-10a6.5 6.5 0 0 1 13 0c0 4.6-6.5 10-6.5 10z"/><circle cx="12" cy="10.6" r="2.4"/></svg>فعّل الموقع، منشورك يوصل فريجك</span>
-                  <span class="lockc"><svg viewBox="0 0 24 24"><path d="M4 7h4l8 10h4M4 17h4l2.2-2.7M13.8 9.8 16 7h4M17 4.5 20 7l-3 2.5M17 14.5 20 17l-3 2.5"/></svg>لونك عشوائي، اختياره بلس<svg viewBox="0 0 24 24"><rect x="6" y="10.5" width="12" height="9" rx="2"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></svg></span>
                   <div class="cdock">
                     <span class="dk"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><circle cx="9" cy="10" r="1.2"/><circle cx="14" cy="8.5" r="1.2"/><circle cx="15.5" cy="13" r="1.2"/><path d="M12 20.5c-1.5-1.5-.5-3 1-3h2a3 3 0 0 0 0-6"/></svg></span>
                     <span class="dk"><svg viewBox="0 0 24 24"><path d="M12 21s-6.5-5.4-6.5-10a6.5 6.5 0 0 1 13 0c0 4.6-6.5 10-6.5 10z"/><circle cx="12" cy="10.6" r="2.4"/></svg></span>
@@ -1787,7 +1780,7 @@ html { scrollbar-color: rgba(201,150,47,.5) transparent; scrollbar-width: thin; 
                 <div class="gw-peek">↑ حرب السفن</div>
               </div>
 
-              <!-- المجلس — page 7: medallion, beta, دلة اليوم, live rooms -->
+              <!-- المجلس — page 7: medallion, feedback line, دلة اليوم, live rooms -->
               <div class="gw gw-m">
                 <i class="dots"><label for="w-xo"></label><label for="w-ludo"></label><label for="w-baloot"></label><b></b><b></b><b></b><b class="a"></b></i>
                 <div class="backpeek">↓ برازيلية</div>
@@ -1803,7 +1796,7 @@ html { scrollbar-color: rgba(201,150,47,.5) transparent; scrollbar-width: thin; 
                 </i></div>
                 <b class="mt">ألعاب فرجان</b>
                 <span class="ms">المجلس مفتوح، العب ضد البوت أو عزم ربعك</span>
-                <span class="beta"><svg width="7" height="7" viewBox="0 0 24 24" fill="none" stroke="#8A6A1A" stroke-width="2"><path d="M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3M8.5 3h7"/></svg>الألعاب قيد التجربة، نطوّرها، وملاحظاتك تهمّنا</span>
+                <span class="fb">الألعاب نطوّرها، وملاحظاتك تهمّنا</span>
                 <div class="dalla">
                   <span class="ic"><svg viewBox="0 0 24 24"><path d="M5 9h11v6a5 5 0 0 1-10 0zM16 10h2.5a2.5 2.5 0 0 1 0 5H16M7 20h8"/></svg></span>
                   <span><b>دلة اليوم: العب ٣ ألعاب</b>
@@ -1837,7 +1830,7 @@ html { scrollbar-color: rgba(201,150,47,.5) transparent; scrollbar-width: thin; 
             <div class="scr-nearby-v">
               <div class="nb">
                 <div class="nb-corners">
-                  <span class="nb-title"><b>حولك</b><i>قيد التجربة</i></span>
+                  <span class="nb-title"><b>حولك</b></span>
                   <span class="nb-count"><b lang="en">6</b><span>أماكن</span>
                     <svg viewBox="0 0 60 60"><rect x="3" y="3" width="13" height="13" rx="2" fill="#8A1538" opacity=".85"/><rect x="18" y="3" width="9" height="13" rx="2" fill="#C9962F" opacity=".40"/><rect x="29" y="3" width="13" height="13" rx="2" fill="#E8B547" opacity=".95"/><rect x="3" y="18" width="9" height="9" rx="2" fill="#C9962F" opacity=".60"/><rect x="14" y="18" width="13" height="9" rx="2" fill="#E8B547"/><rect x="29" y="18" width="9" height="13" rx="2" fill="#8A1538" opacity=".45"/><rect x="3" y="29" width="13" height="13" rx="2" fill="#8A1538" opacity=".50"/><rect x="18" y="29" width="9" height="9" rx="2" fill="#E8B547" opacity=".90"/><rect x="29" y="33" width="9" height="13" rx="2" fill="#E8B547"/></svg>
                   </span>
@@ -1933,13 +1926,21 @@ html { scrollbar-color: rgba(201,150,47,.5) transparent; scrollbar-width: thin; 
     <span class="tchip">وين أحلى فطور يوم الجمعة؟ 🗳</span>
     <span class="tchip">أذكار الصباح 🌄</span>
     <span class="tchip">سالفة اليوم في الفريج…</span>
-    <span class="tchip">محد يعرف منهو أنت 🎭</span>
     <span class="tchip">أذكار المساء 🌙</span>
     <span class="tchip">طاولة لودو مفتوحة، ناقصهم اثنين 🎲</span>
     <span class="tchip">وين أحلى فطور يوم الجمعة؟ 🗳</span>
     <span class="tchip">أذكار الصباح 🌄</span>
     <span class="tchip">سالفة اليوم في الفريج…</span>
-    <span class="tchip">محد يعرف منهو أنت 🎭</span>
+    <span class="tchip">أذكار المساء 🌙</span>
+    <span class="tchip">طاولة لودو مفتوحة، ناقصهم اثنين 🎲</span>
+    <span class="tchip">وين أحلى فطور يوم الجمعة؟ 🗳</span>
+    <span class="tchip">أذكار الصباح 🌄</span>
+    <span class="tchip">سالفة اليوم في الفريج…</span>
+    <span class="tchip">أذكار المساء 🌙</span>
+    <span class="tchip">طاولة لودو مفتوحة، ناقصهم اثنين 🎲</span>
+    <span class="tchip">وين أحلى فطور يوم الجمعة؟ 🗳</span>
+    <span class="tchip">أذكار الصباح 🌄</span>
+    <span class="tchip">سالفة اليوم في الفريج…</span>
   </div>
 </div>
 
@@ -1951,18 +1952,18 @@ html { scrollbar-color: rgba(201,150,47,.5) transparent; scrollbar-width: thin; 
   <section>
     <div class="sec-head">
       <h2 data-n="٠١">كيف تبدأ؟</h2>
-      <p>ثلاث خطوات، ولا وحدة منها فيها تسجيل</p>
+      <p>ثلاث خطوات وتكون في مجلس فريجك</p>
     </div>
     <div class="steps">
       <div class="step pane">
         <span class="stepnum">١</span>
         <h3>افتح التطبيق</h3>
-        <p>ما فيه إيميل ولا رقم ولا كلمة مرور، بدون أي تسجيل.</p>
+        <p>تفتح التطبيق وتوافق على عقد الاستخدام.</p>
       </div>
       <div class="step pane">
         <span class="stepnum">٢</span>
-        <h3>خذ هويتك العشوائية</h3>
-        <p>جهازك ياخذ هوية عشوائية تلقائيًا، بلا اسم ولا صورة.</p>
+        <h3>شوف اللي حولك</h3>
+        <p>منشورات فريجك والأماكن القريبة منك.</p>
       </div>
       <div class="step pane">
         <span class="stepnum">٣</span>
@@ -1984,8 +1985,8 @@ html { scrollbar-color: rgba(201,150,47,.5) transparent; scrollbar-width: thin; 
         <div class="drop" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4.2"/><path d="M4.5 20c1.4-3.6 4.2-5.4 7.5-5.4s6.1 1.8 7.5 5.4"/><path class="g" d="M9 8h6"/></svg>
         </div>
-        <h3>بلا حساب أصلاً</h3>
-        <p>أول ما تفتح فرجان، جهازك ياخذ هوية عشوائية تلقائيًا. ما فيه إيميل ولا رقم ولا كلمة مرور، ولا اسم ولا صورة.</p>
+        <h3>تبدأ على طول</h3>
+        <p>ما فيه شاشة تسجيل دخول: حسابك مربوط بجهازك من أول ما تفتح التطبيق، وتحذفه متى ما تبي من حسابي.</p>
       </div>
       <div class="pillar pane">
         <i class="warp" aria-hidden="true"></i>
@@ -2113,10 +2114,10 @@ html { scrollbar-color: rgba(201,150,47,.5) transparent; scrollbar-width: thin; 
 <section class="night-band">
   <div class="inner">
     <span class="crescent" aria-hidden="true"></span>
-    <h2>محد يعرف منهو أنت</h2>
-    <p>تكون من أهل الفريج… بدون ما تكون معروف.</p>
+    <h2>مجتمع محترم</h2>
+    <p>فريجك مثل مجلسك: كلمة طيبة واحترام للجار.</p>
     <div class="creed">
-      <div><b>بلا اسم ولا صورة</b><span>هويتك داخل التطبيق عشوائية، ومحد يعرف منهو أنت.</span></div>
+      <div><b>فلترة وإشراف</b><span>الكلمات المسيئة تنفلتر، وفريق إشراف يراجع البلاغات.</span></div>
       <div><b>الإبلاغ والحظر بضغطة</b><span>على أي منشور أو رسالة.</span></div>
       <div><b>بياناتك تنحذف بأمرك</b><span>حذف الحساب من داخل التطبيق، بمهلة استرجاع ٣٠ يوم.</span></div>
     </div>
