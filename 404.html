@@ -14,6 +14,17 @@
      فتوصل للمستخدم بلا تنسيق ولا شعار. لا تخليها نسبية. -->
 <link rel="icon" href="/mark.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/style.css">
+<!-- «رابط العزيمة» firjan.app/g/CODE (src/lib/gameEngine.ts inviteLink): no
+     file exists per code, so the path lands here, and this hands the code —
+     the allow-listed code alone, never anything else from the URL — to /g/,
+     which shows it and says «افتح فرجان». Before the page paints, so the
+     «ما لقينا هذي الصفحة» body never flashes. -->
+<script>
+  (function () {
+    var m = location.pathname.match(/^\/g\/([A-Za-z0-9]{4,8})\/?$/);
+    if (m) location.replace('/g/?c=' + m[1].toUpperCase());
+  })();
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -67,7 +78,7 @@
     <!-- قبل النزول ما فيه رابط تنزيل: صفحة المتجر ما تفتح قبل النزول. يوم
          النزول تصير «App Store» رابطًا إلى https://apps.apple.com/app/id6779431772
          ويسقط القوس. -->
-    <p>فرجان تطبيق مجتمع لأهل الفريج في قطر. نزّله من <span lang="en">App&nbsp;Store</span> بالبحث عن «فرجان» (ولو ما لقيته بعد فهو قيد المراجعة).</p>
+    <p>فرجان تطبيق مجتمع <!--storefronts:phrase-->لأهل الفريج في قطر<!--/storefronts:phrase-->. نزّله من <span lang="en">App&nbsp;Store</span> بالبحث عن «فرجان» (ولو ما لقيته بعد فهو قيد المراجعة).</p>
     <p>وبعد ما تنزّله، ارجع للرسالة اللي وصلتك واضغط الرابط مرة ثانية، الرابط ما يفتح التطبيق إلا إذا انضغط من مكانه الأصلي.</p>
   </section>
 
@@ -78,7 +89,7 @@
 
   <footer>
     <p><a href="/">الرئيسة</a> · <a href="/support">الدعم</a> · <a href="/privacy">الخصوصية</a> · <a href="/terms">الشروط</a> · <a href="/community">المجتمع</a></p>
-    <p class="made">فرجان · صُنع في الخليج</p>
+    <p class="made">فرجان · صُنع في قطر</p>
   </footer>
 
 </div>
